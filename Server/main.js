@@ -28,3 +28,4 @@ app.get("/home",Auth.requireAuth,(req,res)=>{
 //     res.cookie('newuser', false, {maxAge: 1000* 60 * 60 * 24, secure:true})  //new way to set cookie with cookie parser
 //  })
 app.listen(PORT, ()=>{console.log("http://localhost:"+PORT)});
+//this is a test commit
