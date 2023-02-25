@@ -4,6 +4,7 @@ const UserValidator = require("../Utils/userValidator");
 const  jwt = require('jsonwebtoken');
 const path = require("path")
 //require('dotenv').config();
+const loginValidator = require("../Utils/loginValidator")
 
 const maxAge = 3*24*60*60 //expiration data for cookies
 
@@ -31,7 +32,7 @@ try{
      res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
      res.header("x-auth-token", accessToken)
         // res.status(201).send("Created Successfully");
-        res.redirect('/home')
+        // res.redirect('/home')
         res.status(201).json({user: newU._id})
     }
 
@@ -47,11 +48,12 @@ else{
 }
 var LoginUser = async (req,res)=>{
 var LoginUser=req.body;
-userValidator = UserValidator(req.body)
-if(userValidator){
+LoginValidator = loginValidator(LoginUser)
+// console.log(loginValidator)
+if(LoginValidator){
     //check if user exists
     var foundUser = await userAuth.find({email:LoginUser.email}).exec();
-    console.log(foundUser)
+    // console.log(foundUser)
     if(!foundUser){
        res.status(404).send("Email or password is invalid")
     }
@@ -64,9 +66,16 @@ if(userValidator){
    res.header("x-auth-token", accessToken)
    res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
 //    res.status(200).send(`welcome ${foundUser[0].firstname}`)
-res.redirect('/home')
+
+
+// res.redirect('/home')
 res.status(201).json({user: foundUser[0]._id})
+
 }
+else{
+     res.status(404).send("enter valid Email or password")
+}
+
 }
 var DisplayLogin = (req,res)=>{
       res.sendFile(path.join(__dirname,"../../Client/index.html"));

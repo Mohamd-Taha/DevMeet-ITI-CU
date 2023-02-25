@@ -14,6 +14,8 @@ var usersRoutes = require("./Routes/userRoutes");
 var Auth = require('./MiddleWares/authMW')
 app.use(usersRoutes);
 
+app.get('*', Auth.checkUser);
+
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname,"../Client/index.html"));
 

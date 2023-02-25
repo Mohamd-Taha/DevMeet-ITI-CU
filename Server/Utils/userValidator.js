@@ -2,6 +2,7 @@ const Ajv = require("ajv");
 var ajv = new Ajv();
 
 const UserValidator={
+type:"object",
 properties:{
         firstname:{type:"string",pattern:"^[a-zA-Z]+$"},
         lastname: {type:"string", pattern:"[a-zA-Z]+$"},

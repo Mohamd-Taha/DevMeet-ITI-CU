@@ -8,10 +8,11 @@ const requireAuth = (req,res, next)=>{
  }
 jwt.verify(Token, "secrettoken", (err, decodedToken) =>{
 if(err){
- console.log(err.message)
+ console.log(err.message, "hi")
  res.redirect('/login')
 }
 else{
+  console.log(decodedToken)
  next()
 }
  })
@@ -27,10 +28,15 @@ if(err){
  next()
 }
 else{
-  let User = await userAuth.findById(decodedToken._id).exec();
+  let User = await userAuth.findById(decodedToken.UserId).exec();
+  res.locals.user=User
  next()
 }
  })
+ }
+ else{
+  res.locals.user=null
+  next();
  }
  }
 
