@@ -2,14 +2,18 @@ var express = require("express")
 var router = express.Router();
 
 
-var UserController= require('../Controllers/userController')
-var userPermissions = require('../MiddleWares/userMWPermissions')
+var userController= require('../Controllers/userController')
+var authMW = require('../MiddleWares/authMW')
 
 
-router.post("/register", UserController.RegisterNewUser),
-router.post("/login", UserController.LoginUser)
-router.get("/login", UserController.DisplayLogin)
-router.get("/register", UserController.DisplayRegister)
-router.get("/logout", UserController.LogoutUser)
 
+
+//get follows and followers
+router.get("user/:id/following", userController.getUserFollowing)
+router.get("user/:id/followers", authMW.requireAuth, userController.getUserFollowers)
+
+//remove or add follow
+router.get("user/:id/:followid", userController.getUserFollowers)
+//follow a user
+//unfollow a user
 module.exports=router;

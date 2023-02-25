@@ -11,6 +11,7 @@ const DB_URL = "mongodb://127.0.0.1:27017/DevMeet"
 mongoose.set('strictQuery', false);
 mongoose.connect(DB_URL, {useNewUrlParser:true});
 const maxAge = 3*24*60*60
+
 var usersSchema=new mongoose.Schema({
  firstname:{type:String, pattern:"/[0-9a-zA-Z]{3,}/", required:true},
  lastname:{type:String, pattern:"/[0-9a-zA-Z]{3,}/",  required:true},
@@ -19,8 +20,35 @@ var usersSchema=new mongoose.Schema({
             message:"Email Not Valid"}, required:[true,"Please enter an email"], unique:true, lowercase:true
 },
  password:{type:String,minlength:[5,"Please enter a minimum password of 5 characters"], required:[true, "Please enter a password"]},
- isAdmin:{type:Boolean, default:false}
-})
+ isAdmin:{type:Boolean, default:false},
+ profilePicture:{
+  type:String,
+  default:""
+ },
+ coverPicture:{
+  type:String,
+  default:""
+ },
+ followers:{
+  type:Array,
+  default:[]
+ },
+  followings:{
+  type:Array,
+  default:[]
+ },
+ desc:{
+  type:String,
+  max:100
+ },
+ city:{
+  type:String,
+  max:20
+ }
+
+},
+{timestamps:true}
+)
 
 // usersSchema.post('save', function(doc, next){
 // const accessToken = jwt.sign({UserId:doc._id, adminRole:doc.isAdmin}, "thisissecret", {expiresIn: maxAge});

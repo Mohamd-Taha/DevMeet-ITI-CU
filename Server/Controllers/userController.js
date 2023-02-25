@@ -1,136 +1,85 @@
-const bcrypt = require("bcrypt");
 const userAuth= require("../Models/userAuthModel");
-const UserValidator = require("../Utils/userValidator");
-const  jwt = require('jsonwebtoken');
-const path = require("path")
-//require('dotenv').config();
-const loginValidator = require("../Utils/loginValidator")
 
-const maxAge = 3*24*60*60 //expiration data for cookies
+const getUser = async (req, res)=>{
+ try {
+    const { id } = req.params;
+    const user = await userAuth.findById(id);
+    delete user.password
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+}
 
-
-
-var RegisterNewUser = async (req, res)=>{
- var newUser= req.body;
- userValidator= UserValidator(req.body);
- if(userValidator){
- let foundUser = await userAuth.find({email:newUser.email}).exec();
-console.log(foundUser)
+const getUserFollowing = async (req, res) => {
+ const {id} = req.params;
+ const user = await userAuth.findById(id)
 try{
- if(foundUser.length!=0){
-        //Please Login
-        res.status(400).send("User Already Exist, Please Login Now")
-    }
-    else{
-        //Add
-         var HashedPassword = await bcrypt.hash(newUser.password,10);
-         newUser.password = HashedPassword;
-         var newU = new userAuth(newUser);
-        await newU.save();
-        console.log(newU)
-     const accessToken = jwt.sign({UserId:newU._id, adminRole:newU.isAdmin}, "thisissecret", {expiresIn: maxAge});
-     res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
-     res.header("x-auth-token", accessToken)
-        // res.status(201).send("Created Successfully");
-        // res.redirect('/home')
-        res.status(201).json({user: newU._id})
-    }
-
+ const formattedFollowing = user.following.map((follow)=>{
+  return follow
+ })
+ res.status(200).json(formattedFollowing);
 }
 catch(err){
-    console.log(err)
+res.status(404).json({message: err.message + "get following error"})
 }
 }
-else{
-    res.status(400).send("You entered invalid information")
+
+const getUserFollowers = async (req, res) => {
+ const {id} = req.params;
+ const user = await userAuth.findById(id)
+try{
+ const formattedFollowers = user.followers.map((follow)=>{
+  return follow
+ })
+ res.status(200).json(formattedFollowers);
+}
+catch(err){
+res.status(404).json({message: err.message + "get follower error"})
+}
 }
 
-}
-var LoginUser = async (req,res)=>{
-var LoginUser=req.body;
-LoginValidator = loginValidator(LoginUser)
-// console.log(loginValidator)
-if(LoginValidator){
-    //check if user exists
-    var foundUser = await userAuth.find({email:LoginUser.email}).exec();
-    // console.log(foundUser)
-    if(!foundUser){
-       res.status(404).send("Email or password is invalid")
-    }
-    // check correct password
-   let checkPass= await bcrypt.compare(LoginUser.password, foundUser[0].password)
-   if(!checkPass){
-      res.status(404).send("Email or password is invalid")
-   }
-   var accessToken = jwt.sign({UserId:foundUser[0]._id, adminRole:foundUser[0].isAdmin}, "thisissecret")
-   res.header("x-auth-token", accessToken)
-   res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
-//    res.status(200).send(`welcome ${foundUser[0].firstname}`)
-
-
-// res.redirect('/home')
-res.status(201).json({user: foundUser[0]._id})
-
-}
-else{
-     res.status(404).send("enter valid Email or password")
-}
-
-}
-var DisplayLogin = (req,res)=>{
-      res.sendFile(path.join(__dirname,"../../Client/index.html"));
-}
-
-var DisplayRegister = (req,res)=>{
-      res.sendFile(path.join(__dirname,"../../Client/index.html"));
-}
-
-
-var LogoutUser = (req, res)=>{
-res.cookie('jwt', '', {maxAge: 1})
-res.redirect('/login')
-}
-
-
-
-
-
-
-
-
-
-
-
-// var GetAllCourses = async function (req , res) {
+const addRemoveFollow = async (req,res)=>{
+ const {id, followId} = req.params
+ const user=await userAuth.findById(id)
+ const followuser=await userAuth.findById(followId)
+ delete user.password
+ delete followuser.password
+if(user){
+if(followuser){
+if(user.followings.includes(followId)){
+ user.following = user.following.filter((obj)=>{
+  return obj.id!==friendId;
   
-//    let allcourses =await coursesAuthModel.find({}).exec();
-//    res.status(200).send(allcourses)
-//    }
+ })
+  followuser.follower = followuser.follower.filter((id)=>{
+  return obj.id!==id;
+  })
+  
+}
+else{
+  user.following.push(followeuser);
+  followuser.followers.push(user);
+}
+ await user.save();
+ await followuser.save();
 
-// var GetCourseByName = async function (req , res) {
-//     let name=req.params.name;
-//     let foundcourse =await coursesAuthModel.find({name:name}).exec();
-//     res.status(200).send(foundcourse)
-//     }
+ const formattedFollowing = user.following.map((follow)=>{
+  return follow
+ })
  
-// var UpdateCourse= async function (req,res){
-//     try{
-//         let Course= await coursesAuthModel.updateOne(
-//             req.params,
-//             {$set: req.body}
-//         );
-//         res.status(201).send(Course);
-      
-//     }
-//     catch{
-//         res.status(404).send({error:"Course is not found"});
-//     }
-// }
+ res.status(200).json(formattedFollowing);
 
-// var DeleteCourse = async function(req,res){
-//     let Course= await coursesAuthModel.deleteOne(req.params);
-//     res.send(Course)
-// }
+}
+else{
+  res.status(404).json("invalid follow user")
+}
+}
+else{
+ res.status(404).json("invalid user")
+}
+}
 
 
-module.exports= {RegisterNewUser, LoginUser, DisplayLogin, DisplayRegister, LogoutUser};
+
+module.exports= {getUser, getUserFollowing, getUserFollowers};

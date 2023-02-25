@@ -5,16 +5,24 @@ const bodyParser = require("body-parser")
 const path = require("path")
 const Ajv = require("ajv");
 var ajv = new Ajv();
+const morgan = require('morgan')
+const helmet= require('helmet')
 const cookieParser = require('cookie-parser')
+const dotenv = require('dotenv')
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
 app.use(cookieParser())
+app.use(helmet());
+app.use(morgan('tiny'));
+dotenv.config()
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-var usersRoutes = require("./Routes/userRoutes");
+var authRoutes = require("./Routes/authRoutes");
 var Auth = require('./MiddleWares/authMW')
-app.use(usersRoutes);
+app.use(authRoutes);
 
-app.get('*', Auth.checkUser);
+// app.get('*', Auth.checkUser);
 
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname,"../Client/index.html"));

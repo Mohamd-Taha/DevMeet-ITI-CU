@@ -21,15 +21,15 @@ else{
  const checkUser = async (req, res, next)=>{
  var Token = req.cookies.jwt
 
- if(token){
+ if(Token){
   jwt.verify(Token, "secrettoken", async (err, decodedToken) =>{
 if(err){
  console.log(err.message)
  next()
 }
 else{
-  let User = await userAuth.findById(decodedToken.UserId).exec();
-  res.locals.user=User
+  let User = await userAuth.findById(decodedToken.UserId).exec(); //grab User from DB
+  res.locals.user=User //send it to client as user
  next()
 }
  })
