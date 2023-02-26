@@ -33,17 +33,19 @@ var usersSchema=new mongoose.Schema({
   type:Array,
   default:[]
  },
-  followings:{
+  following:{
   type:Array,
   default:[]
  },
  desc:{
   type:String,
-  max:100
+  max:100,
+  default: ""
  },
  city:{
   type:String,
-  max:20
+  max:20,
+  default: ""
  }
 
 },

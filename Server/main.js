@@ -20,7 +20,9 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 var authRoutes = require("./Routes/authRoutes");
 var Auth = require('./MiddleWares/authMW')
+const userRoutes = require('./Routes/userRoutes')
 app.use(authRoutes);
+app.use(userRoutes);
 
 // app.get('*', Auth.checkUser);
 

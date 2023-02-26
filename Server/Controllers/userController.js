@@ -1,19 +1,20 @@
 const userAuth= require("../Models/userAuthModel");
 
+//get user with id
 const getUser = async (req, res)=>{
  try {
     const { id } = req.params;
-    const user = await userAuth.findById(id);
-    delete user.password
+    const user = await userAuth.findById(id).select("-password");
     res.status(200).json(user);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
 }
+//get user follows
 
 const getUserFollowing = async (req, res) => {
  const {id} = req.params;
- const user = await userAuth.findById(id)
+ const user = await userAuth.findById(id).select("-password")
 try{
  const formattedFollowing = user.following
  
@@ -23,6 +24,7 @@ catch(err){
 res.status(404).json({message: err.message + "get following error"})
 }
 }
+//get user followers
 
 const getUserFollowers = async (req, res) => {
  const {id} = req.params;
@@ -35,42 +37,38 @@ catch(err){
 res.status(404).json({message: err.message + "get follower error"})
 }
 }
+// add and remove follows
 
 const addRemoveFollow = async (req,res)=>{
- const {id, followId} = req.params
- const user=await userAuth.findById(id)
- const followuser=await userAuth.findById(followId)
- delete user.password
- delete followuser.password
-if(user){
-if(followuser){
-if(user.followings.includes(followId)){
- user.following = user.following.filter((obj)=>{
-  return obj.id!==friendId;
+ const {id, followid} = req.params
+ const user=await userAuth.findById(id).select("-password")
+ const followuser=await userAuth.findById(followid).select("-password")
+if((user && followuser) && (id!==followid)){
+if(user.following.includes(followuser._id)){
+ user.following = user.following.filter((id)=>{
+  return id!==followid;
   
  })
-  followuser.follower = followuser.follower.filter((id)=>{
-  return obj.id!==id;
+  followuser.followers = followuser.followers.filter((id)=>{
+  return id!==id;
   })
   
 }
 else{
-  user.following.push(followeuser);
-  followuser.followers.push(user);
+ console.log("true")
+  user.following.push(followid);
+ followuser.followers.push(id)
+
 }
+console.log("true*****")
  await user.save();
  await followuser.save();
 
- const formattedFollowing = user.following.map((follow)=>{
-  return follow
- })
+ const formattedFollowing = user.following
+ 
 
  res.status(200).json(formattedFollowing);
 
-}
-else{
-  res.status(404).json("invalid follow user")
-}
 }
 else{
  res.status(404).json("invalid user")
@@ -79,4 +77,4 @@ else{
 
 
 
-module.exports= {getUser, getUserFollowing, getUserFollowers};
+module.exports= {getUser, getUserFollowing, getUserFollowers, addRemoveFollow};

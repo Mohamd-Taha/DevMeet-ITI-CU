@@ -9,11 +9,12 @@ var authMW = require('../MiddleWares/authMW')
 
 
 //get follows and followers
-router.get("user/:id/following", userController.getUserFollowing)
-router.get("user/:id/followers", authMW.requireAuth, userController.getUserFollowers)
+router.get("/user/:id", userController.getUser)
+router.get("/user/:id/following", userController.getUserFollowing)
+router.get("/user/:id/followers", userController.getUserFollowers)
 
 //remove or add follow
-router.get("user/:id/:followid", userController.getUserFollowers)
+router.patch("/user/:id/:followid", userController.addRemoveFollow)
 //follow a user
 //unfollow a user
 module.exports=router;
