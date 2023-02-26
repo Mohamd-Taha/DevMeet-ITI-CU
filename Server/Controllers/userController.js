@@ -15,9 +15,8 @@ const getUserFollowing = async (req, res) => {
  const {id} = req.params;
  const user = await userAuth.findById(id)
 try{
- const formattedFollowing = user.following.map((follow)=>{
-  return follow
- })
+ const formattedFollowing = user.following
+ 
  res.status(200).json(formattedFollowing);
 }
 catch(err){
@@ -29,9 +28,7 @@ const getUserFollowers = async (req, res) => {
  const {id} = req.params;
  const user = await userAuth.findById(id)
 try{
- const formattedFollowers = user.followers.map((follow)=>{
-  return follow
- })
+ const formattedFollowers = user.followers
  res.status(200).json(formattedFollowers);
 }
 catch(err){
@@ -67,7 +64,7 @@ else{
  const formattedFollowing = user.following.map((follow)=>{
   return follow
  })
- 
+
  res.status(200).json(formattedFollowing);
 
 }
