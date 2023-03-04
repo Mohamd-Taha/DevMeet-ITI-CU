@@ -5,16 +5,11 @@ const express = require("express");
 const app = express();
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
-
-const DB_URL = "mongodb://127.0.0.1:27017/DevMeet"
-
-mongoose.set('strictQuery', false);
-mongoose.connect(DB_URL, {useNewUrlParser:true});
 const maxAge = 3*24*60*60
 
 var usersSchema=new mongoose.Schema({
- firstname:{type:String, pattern:"/[0-9a-zA-Z]{3,}/", required:true},
- lastname:{type:String, pattern:"/[0-9a-zA-Z]{3,}/",  required:true},
+ firstName:{type:String, pattern:"/[0-9a-zA-Z]{3,}/", required:true},
+ lastName:{type:String, pattern:"/[0-9a-zA-Z]{3,}/",  required:true},
  email:{type:String,  validate:{
             validator:(val)=>{return validator.isEmail(val)},
             message:"Email Not Valid"}, required:[true,"Please enter an email"], unique:true, lowercase:true
@@ -30,11 +25,22 @@ var usersSchema=new mongoose.Schema({
   default:""
  },
  followers:{
-  type:Array,
+  type:[mongoose.Schema.Types.ObjectId],
+  default:[]
+ },
+ //add ref
+ communities:{
+  type:[mongoose.Schema.Types.ObjectId],
+  default:[]
+ },
+  //add ref
+
+ meetups:{
+  type:[mongoose.Schema.Types.ObjectId],
   default:[]
  },
   following:{
-  type:Array,
+  type:[mongoose.Schema.Types.ObjectId],
   default:[]
  },
  desc:{
@@ -46,7 +52,37 @@ var usersSchema=new mongoose.Schema({
   type:String,
   max:20,
   default: ""
- }
+ },
+  likes:{
+  type:Number,
+  default: 0
+ },
+  badge5Likes:{
+  type:Boolean,
+  default:false
+ },
+  badge10Likes:{
+  type:Boolean,
+  default:false
+ },
+mentoring:{
+ type:Array
+},
+mentoredBy:{
+ type:Array
+},
+////taha added
+groupsMessage: [
+    {
+       groupId: { type: mongoose.SchemaTypes.ObjectId, ref: "communities" },
+       groupName: { type: String }
+
+    }],
+
+    career: {
+       type: String
+       
+    }
 
 },
 {timestamps:true}
@@ -69,4 +105,4 @@ var usersSchema=new mongoose.Schema({
 
 // })
 
-module.exports=mongoose.model("DevMeetUsers", usersSchema);
+module.exports=mongoose.model("users", usersSchema);
