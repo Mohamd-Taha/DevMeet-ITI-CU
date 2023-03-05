@@ -13,6 +13,7 @@ const multer=require('multer');
 const cors=require('cors')
 
 
+
 //added to maintain omar code at models
 const mongoose=require('mongoose');
 const DB_URL = "mongodb://127.0.0.1:27017/DevMeet"
@@ -55,6 +56,8 @@ app.use(morgan('tiny'));
 app.use(cors({ origin: true, credentials: true }));
 dotenv.config()
 
+
+//Routes constants
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 var authRoutes = require("./Routes/authRoutes");
@@ -63,14 +66,24 @@ const userRoutes = require('./Routes/userRoutes')
 const commentRoutes = require('./Routes/commentRoutes')
 const postRoutes= require('./Routes/postRoutes')
 const communityRouter=require('./Routes/communityRoutes')
-const MessageRoutes=require('./Routes/messageRoutes')
+const messageRoute=require("./Routes/messageRoutes")
+const conversationRoute=require("./Routes/conversationRoutes")
+const notificationRoutes= require('./Routes/notificationRoutes')
+const zoomMeetingRoutes=require('./Routes/zoomMeetingRoutes')
 
+
+
+//routes middlewares
 app.use(commentRoutes)
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(postRoutes);
+app.use(notificationRoutes);
 app.use('/communities',communityRouter);
-app.use('/messages',MessageRoutes)
+app.use("api/conversations",conversationRoute)
+app.use("api/messages",messageRoute)
+app.use('/api/zoom-meetings', zoomMeetingRoutes);
+
 // app.get('*', Auth.checkUser);
 
 app.get("/",(req,res)=>{

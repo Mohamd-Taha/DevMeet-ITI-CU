@@ -4,6 +4,7 @@ const DB_URL = "mongodb://127.0.0.1:27017/DevMeet"
 mongoose.connect(DB_URL, { useNewUrlParser: true });
 mongoose.set('strictQuery', false);
 
+//conversation on emy
 var groupMessageSchema = mongoose.Schema(
     {
         groupName: { type: String, minLength: 5, MaxLength: 20,required:true },

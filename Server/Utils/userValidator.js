@@ -4,13 +4,13 @@ var ajv = new Ajv();
 const UserValidator={
 type:"object",
 properties:{
-        firstname:{type:"string",pattern:"^[a-zA-Z]+$"},
-        lastname: {type:"string", pattern:"[a-zA-Z]+$"},
+        firstName:{type:"string",pattern:"^[a-zA-Z]+$"},
+        lastName: {type:"string", pattern:"[a-zA-Z]+$"},
         email:{"type":"string","pattern":"^[a-zA-Z0-9]+\@{1}[a-zA-Z0-9]+(.com){1}$"},
         password:{"type":"string","minLength":5}
 
 },
-required:["firstname", "lastname", "email", "password"],
+required:["firstName", "lastName", "email", "password"],
 additionalProperties:false
 }
 

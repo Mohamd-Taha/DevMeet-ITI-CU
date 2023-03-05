@@ -38,7 +38,7 @@ console.log(foundUser)
 
 }
 else{
-    throw Error("You entered invalid information")
+    throw Error("You entered invalid information xxx")
 }
  }
 catch(error){

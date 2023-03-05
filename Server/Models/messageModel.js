@@ -7,10 +7,11 @@ var messageScehma=mongoose.Schema({
     conversationId:{
         type:mongoose.SchemaTypes.ObjectId,
         required:true,
-        //M.Taha Conversation or conversation
-        ref:"Conversation"
+
+        ref:"conversation"
     },
     text:{type:String,required:true,maxLength:200,minLength:1},
+    //need to add collection ref here
     sender:{type:mongoose.SchemaTypes.ObjectId,required:true},
     image:{type:String}
     
