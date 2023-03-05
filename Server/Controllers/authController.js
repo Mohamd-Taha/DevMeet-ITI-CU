@@ -15,8 +15,8 @@ var RegisterNewUser = async (req, res)=>{
  userValidator= UserValidator(req.body);
  try{
  if(userValidator){
+console.log("true")
  let foundUser = await userAuth.find({email:newUser.email}).exec();
-console.log(foundUser)
  if(foundUser.length!=0){
         //Please Login
         throw Error ("User Already Exist, Please Login Now")
@@ -52,8 +52,10 @@ var LoginUser=req.body;
 console.log(LoginUser)
 LoginValidator = loginValidator(LoginUser)
 // console.log(loginValidator)
+console.log("false")
 try{
 if(LoginValidator){
+    console.log("true")
     //check if user exists
     var foundUser = await userAuth.find({email:LoginUser.email}).exec();
     if(!foundUser){
@@ -64,6 +66,7 @@ if(LoginValidator){
    if(!checkPass){
       throw Error ("Email or password is invalid")
    }
+   console.log("this is the login method")
    var accessToken = jwt.sign({userId:foundUser[0]._id, adminRole:foundUser[0].isAdmin}, "thisissecret")
    res.header("x-auth-token", accessToken)
    res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
