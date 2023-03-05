@@ -74,7 +74,7 @@ if(LoginValidator){
 
 
 // res.redirect('/home')
-res.status(201).json({user: foundUser[0]._id})
+res.status(201).json({user: foundUser[0]})
 
 }
 else{

@@ -1,6 +1,90 @@
-.tagsDiv{
- background-color:pink;
- border-radius: 20px;
- width: 50%;
- text-align: center;
+
+.parentHomeDiv{
+ display: grid;
+ grid-template-columns: repeat(24, 1fr);
+ grid-template-rows: repeat(50, 20px);
+ 
 }
+
+
+
+.filterDiv{
+ grid-column-start: 8;
+ grid-column-end: 20;
+ grid-row-start: 6;
+ grid-row-end: 8;
+ background-color: #F0D7FF;
+ border-radius: 20px;
+ text-align: center;
+ display: flex;
+ position: sticky;
+ justify-content:space-evenly;
+ align-items: center;
+ overflow-x: auto;
+}
+
+.tagbuttons{
+font-size: 1rem;
+background-color: #D1ABD8;
+padding: 5px 20px;
+border-radius: 20px;
+ font-family: "Raleway", sans-serif;
+}
+
+.tagbuttons:hover{
+ background-color: #a388a8;
+}
+
+.leftHomeDiv{
+ background-color: #D1ABD8;
+ grid-column-start: 2;
+ grid-column-end: 5;
+ grid-row-start: 5;
+ grid-row-end: 45;
+ border-radius: 5px;
+}
+.leftHomeDiv a{
+ font-size: 1rem;
+ display: block;
+ text-align: left;
+ margin: 20px; 
+ padding: 10px;
+ text-decoration: none;
+ color: black;
+ margin-bottom: 10px;
+ font-weight: bolder;
+ font-family: "Raleway", sans-serif;
+}
+
+.leftHomeDiv a:hover{
+background-color: #a388a8;
+border-radius: 10px;
+height: 40px;
+
+}
+
+.PostsDiv{
+ grid-column-start: 8;
+ grid-column-end: 20;
+ grid-row-start: 8;
+ grid-row-end: 45;
+}
+
+.TopRightDiv{
+ grid-column-start: 21;
+ grid-column-end: 24;
+ grid-row-start: 5;
+ grid-row-end: 20;
+ background-color:  #D1ABD8;
+ font-family: "Raleway", sans-serif;
+ border-radius: 5px;
+ 
+}
+
+.TopRightDiv div{
+text-align: center;
+margin-top: 10px;
+}
+
+
+
