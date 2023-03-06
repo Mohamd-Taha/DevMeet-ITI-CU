@@ -12,7 +12,7 @@ router.get("/user/followers/:id", userController.getUserFollowers)
 //search users
 
 //remove or add follow
-router.patch("/user/:id/:followid", userController.addRemoveFollow)
+router.patch("/user/:id/:followId", userController.addRemoveFollow)
 
 router.put("/user/:id", userController.updateUser)
 //follow a user

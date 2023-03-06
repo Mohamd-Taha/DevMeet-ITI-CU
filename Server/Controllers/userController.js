@@ -58,9 +58,14 @@ res.status(200).json(User.Meetups)
 // add and remove follows
 
 const addRemoveFollow = async (req,res)=>{
+console.log(req.params)
  const {id, followId} = req.params
- const user=await userAuth.findById(id).select("-password")
+ console.log(id)
+ console.log(followId)
+ const user= await userAuth.findById(id).select("-password")
  const followuser=await userAuth.findById(followId).select("-password")
+ console.log(user)
+ console.log(followuser)
 if((user && followuser) && (id!==followId)){
 if(user.following.includes(followuser._id)){
 user.following = user.following.filter((id)=>{
@@ -105,8 +110,6 @@ const updateUser= async (req, res) => {
     return res.status(403).json("You can update only your account!");
   }
 }
-
-
 
 
 module.exports= {getUser, updateUser, getUserFollowing, getUserFollowers, addRemoveFollow, getUserCommunities};

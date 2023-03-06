@@ -15,7 +15,8 @@ const Authorize = ()=>{
 }
 const createPost = async (req, res) => {
 try{
-    const { userId, description, picturePath } = req.body;
+    const { userId, description, picturePath, tags } = req.body;
+    console.log(userId)
     const user = await User.findById(userId);
     
  PostObj={
@@ -25,7 +26,8 @@ try{
     description,
     picturePath,
     userPicturePath: user.profilePicture,
-    likes: {},
+    likes: 0,
+    tags
   }
     const newPost = new Post(PostObj);
     await newPost.save();
@@ -105,10 +107,10 @@ const likePost = async (req, res) => {
     const isLiked = post.likes.get(userId);
 //Check if liked
     if (isLiked) {
-      post.likes.delete(userId);
+      post.likes--
       Poster.likes--
     } else {
-      post.likes.set(userId, true);
+      post.likes++
       Poster.likes++
     }
 //Handout badges
@@ -183,15 +185,15 @@ const helpfulPost = async (req, res) => {
 };
 
 //READ
+//Tags removed need to be done
 const getFollowPosts = async (req, res)=>{
   try{
  const {userId}=req.params
- const {tags} = req.query
  console.log(userId)
     const currentUserPosts = await Post.find({ userId: userId });
    const user = await User.findById(userId);
    console.log(user.following)
-   const followingPosts = await Post.find({userId: { $in: user.following }, tags:{$in:[tags]} })
+   const followingPosts = await Post.find({userId: { $in: user.following }})
 
     res
       .status(200)
@@ -218,11 +220,32 @@ const getPostComments = async (req,res)=>{
 
 const searchPosts = async(req,res)=>{
 const {desc} = req.body
-const post = await Post.find({description: {$regex:desc}}).sort({description:1, createdAt:1})
+const post = await Post.find({description: {$regex:desc}}).sort({description:1, createdAt:-1})
 res.status(200).json(post)
 }
 
+const getFollowPostsByTop = async (req, res)=>{
+  try{
+ const {userId}=req.params
+ console.log(userId)
+    const currentUserPosts = await Post.find({ userId: userId });
+   const user = await User.findById(userId);
+   console.log(user.following)
+   const followingPosts = await Post.find({userId: { $in: user.following }}).sort({createdAt:-1, likes:-1})
+
+    res
+      .status(200)
+      .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
+      .sort((a,b)=>{
+          return b.createdAt - a.createdAt; //sort by date in descending
+      })
+      );
+    }
+  catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 
 
-module.exports= {createPost, getFeedPosts, getUserPosts, likePost, wowPost, helpfulPost, getFollowPosts, getPostComments, deletePost, updatePost,searchPosts};
+module.exports= {createPost, getFeedPosts, getUserPosts, likePost, wowPost, helpfulPost, getFollowPosts, getPostComments, deletePost, updatePost,searchPosts, getFollowPostsByTop};

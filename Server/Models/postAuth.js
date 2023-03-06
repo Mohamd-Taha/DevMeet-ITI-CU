@@ -33,8 +33,7 @@ var postsSchema = new mongoose.Schema({
   },
   
   likes: {
-    type: Map,
-    of: Boolean,
+    type: Number,
   },
 
   comments: {
@@ -61,4 +60,4 @@ var postsSchema = new mongoose.Schema({
 
 )
 
-module.exports = mongoose.model("DevMeetPosts", postsSchema);
+module.exports = mongoose.model("posts", postsSchema);
