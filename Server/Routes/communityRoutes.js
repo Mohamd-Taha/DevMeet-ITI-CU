@@ -1,5 +1,6 @@
 const express=require('express');
 const Router=express.Router();
+
 const communityController=require('../Controllers/communityController')
 
 Router.post("/create",communityController.createCommunity);

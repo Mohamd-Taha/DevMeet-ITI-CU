@@ -12,29 +12,27 @@ var communitySchema = new mongoose.Schema({
         maxLength: 20
     },
 
-
     communityAdmin:
 
     {
-        adminId: {type:mongoose.SchemaTypes.ObjectId , ref: "DevMeetUsers"},
+
+        adminId: {type:mongoose.SchemaTypes.ObjectId , ref: "users"},
         //in mongodb validation file i nelgect to store fName,lName,pic so i will igonre them here too
-        AdminName: String,
-        AdminPic: String
+        adminName: String,
+        adminPic: String
+
     }
 
-    // {
-    //             type:mongoose.SchemaTypes.ObjectId,
-    //             Required:true,       
-    //             ref:'DevMeetUsers'
-    //         }
+// communityAdmin:
+//     {
+//                 type:mongoose.SchemaTypes.ObjectId,
+//                 Required:true,       
+//                 ref:'users'
+//             }
     ,
 
 
 
-    createdAt: {
-        type: Date,
-        default: () => new Date()
-    },
 
     communityDescription: {
         type: String,
@@ -43,12 +41,12 @@ var communitySchema = new mongoose.Schema({
     },
 
     commiunityIcon: {
-        type: String,
-        default: () => ""
+        type: String
+        ,default: "GeneralCommunityIcon-DevMETT"
 
     },
 
-    registeredusers:
+    registeredUsers:
         { type: [mongoose.SchemaTypes.ObjectId], ref: "DevMeetUsers" }
     ,
     registeredNumber: { type: Number },
@@ -63,11 +61,6 @@ var communitySchema = new mongoose.Schema({
     joinRequests:
         { type: [mongoose.SchemaTypes.ObjectId], ref: "DevMeetUsers" }
 
-
-
-
-
-
-})
+},{timestamps:true})
 
 module.exports = mongoose.model("communities", communitySchema);

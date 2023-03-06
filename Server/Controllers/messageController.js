@@ -1,6 +1,43 @@
 const messageModel=require('../Models/messageModel');
-const groupMessageModel=require('../Models/groupMessageModel');
 
+//aad message
+var addMessage=async (req, res) => {
+   const newMessage = new messageModel(req.body);
+ 
+   try {
+     const savedMessage = await newMessage.save();
+     res.status(200).json(savedMessage);
+   } catch (err) {
+     res.status(500).json(err);
+   }
+ }
+
+//get message
+ var getMessages=async (req, res) => {
+   try {
+     const messages = await messageModel.find({
+       conversationId: req.params.conversationId,
+     });
+     res.status(200).json(messages);
+   } catch (err) {
+     res.status(500).json(err);
+   }
+ }
+
+
+ module.exports={addMessage,getMessages}
+
+
+
+
+
+
+
+
+
+
+
+/**
 //i want it to add id of this message to groupMessages list at the same time
 var addMessage=async (req,res)=>{
     var{content,senderID:usrid}=req.body;
@@ -21,6 +58,7 @@ var addMessage=async (req,res)=>{
    res.send("done")
    
 }
+ */
 
 
 
@@ -29,4 +67,3 @@ var addMessage=async (req,res)=>{
 
 
 
-module.exports={addMessage}

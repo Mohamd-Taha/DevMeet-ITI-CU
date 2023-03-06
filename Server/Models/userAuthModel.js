@@ -8,6 +8,7 @@ app.use(cookieParser())
 const maxAge = 3*24*60*60
 
 var usersSchema=new mongoose.Schema({
+   
  firstName:{type:String, pattern:"/[0-9a-zA-Z]{3,}/", required:true},
  lastName:{type:String, pattern:"/[0-9a-zA-Z]{3,}/",  required:true},
  email:{type:String,  validate:{
