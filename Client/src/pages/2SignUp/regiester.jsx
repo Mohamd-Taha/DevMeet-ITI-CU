@@ -1,4 +1,4 @@
-import classes from "../styles/login.module.css"
+import classes from "./login.module.css"
 import React from 'react';
 
 function Regester() {

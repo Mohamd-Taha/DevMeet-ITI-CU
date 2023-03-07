@@ -14,6 +14,7 @@
     padding-left: 2vw;
     padding-right: 2vw;
     margin-bottom: 2%;
+    transform: translateY(4px);
 }
 .sign{
     background-color: purple;
