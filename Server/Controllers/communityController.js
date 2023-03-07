@@ -7,7 +7,7 @@ var createCommunity = async (req, res) => {
     // var communityModel = req.body;
     //I'm not sure about the following line of code 
     console.log("start fun")
-    // var image=req.file.filename ;
+    var image=req.file.filename ;
     // var image=undefined;
     // var image= ()=>req.file.filename ? req.file.filename : "not found"
     var obk={adminId:admin,AdminName:aName,adminPic:"null"}

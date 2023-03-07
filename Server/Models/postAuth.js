@@ -33,7 +33,8 @@ var postsSchema = new mongoose.Schema({
   },
   
   likes: {
-    type: Number,
+    type: Map,
+    of: Boolean
   },
 
   comments: {

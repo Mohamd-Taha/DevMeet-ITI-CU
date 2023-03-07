@@ -8,15 +8,16 @@ import Logincomponents from "./components/logincomponents";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 
+
   function App() {
-    const {userId, dispatch} = useAuthContext()
+    const {user, dispatch} = useAuthContext()
     return (
  
     <BrowserRouter>
      <Routes>
-    <Route path="/" element={!userId?<Logincomponents></Logincomponents>:<Navigate to='/home'></Navigate>}></Route>
-    <Route path="/login" element={!userId?<Logincomponents></Logincomponents>:<Navigate to="/home"></Navigate>}></Route>
-    <Route path="/home" element={userId?<Home/>:<Navigate to="/login"></Navigate>}></Route>
+    <Route path="/" element={!user?<Logincomponents></Logincomponents>:<Navigate to='/home'></Navigate>}></Route>
+    <Route path="/login" element={!user?<Logincomponents></Logincomponents>:<Navigate to="/home"></Navigate>}></Route>
+    <Route path="/home" element={user?<Home/>:<Navigate to="/login"></Navigate>}></Route>
     </Routes>
     </BrowserRouter>
     );
