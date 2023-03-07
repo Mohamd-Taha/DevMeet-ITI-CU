@@ -20,13 +20,10 @@ let Header = () => {
               <a href="#about" className="page-scroll ancr  navancr navancrA">About Us</a>
             </li>
             <button className="btn btn-custom  " >
-              {/* <a href="#Login" className="page-scroll logsginin_btns ancr  navancr navancrA">Login</a> */}
               <Link to='/login' className="page-scroll logsginin_btns ancr  navancr navancrA" >Login</Link> 
             </button> 
-
             <button className="btn btn-custom  " >
-              {/* <a href="#SignUp" className="page-scroll logsginin_btns ancr navancr navancrA ">SignUp</a> */}
-              <Link to='/siginup' className="page-scroll logsginin_btns ancr navancr navancrA " >SignUp</Link>
+              <Link to='/register' className="page-scroll logsginin_btns ancr navancr navancrA " >SignUp</Link>
             </button>
           </ul> 
       </div>

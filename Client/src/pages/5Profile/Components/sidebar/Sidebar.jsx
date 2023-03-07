@@ -2,7 +2,7 @@ import React from 'react'
 import './sidebar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {RssFeed,Chat, PlayCircleFilledOutlined,Group,Bookmark, HelpOutline,WorkOutline,Event,School} from '@mui/icons-material'
-import {Users} from "../../dummyData"
+import {Users} from "../../../dummyData";
 import CloseFriend from '../closeFriend/CloseFriend'
 import CodeIcon from '@mui/icons-material/Code';
 import Button from '@mui/material/Button';

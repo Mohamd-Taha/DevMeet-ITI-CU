@@ -28,7 +28,6 @@ function Landing () {
 
     return (
     <>
-    <BrowserRouter>
         <Header/>
         <Intro />
         <Features data={landingPageData.Features} />
@@ -36,18 +35,6 @@ function Landing () {
         <Team data={landingPageData.Team} /> 
         <Contact data={landingPageData.Contact} />
         <Footer/>
-
-
-
-    <Routes>
-        {/* <Route path="/login" element={}></Route>*/}
-        {/* <Route path="/siginup" element={}></Route>*/}
-        {/* <Route path="*" element={<Error404></Error404>}></Route> */}
-    </Routes> 
-
-
-
-    </BrowserRouter>
     </>
     );
 }

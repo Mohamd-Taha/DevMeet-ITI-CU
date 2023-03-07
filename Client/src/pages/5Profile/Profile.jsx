@@ -1,13 +1,17 @@
 import React from 'react'
 import "./Profile.css" 
 import NavBar from '../../Components/NavBar';
-import Sidebar from "./Components/sidebar/Sidebar";
-import Feed from "./Components/feed/Feed";
-import Rightbar from "./Components/rightbar/Rightbar";
+import Sidebar from "./components/sidebar/Sidebar";
+import Feed from "./components/feed/Feed";
+import Rightbar from "./components/rightbar/Rightbar";
+
+
+
+
 export default function Profile() {
     return (
         <>
-            {/* <NavBar /> */}
+            <NavBar />
             <div className="profile">
                 <Sidebar />
                 <div className="profileRight">

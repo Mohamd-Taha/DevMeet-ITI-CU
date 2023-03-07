@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./post.css"
 import {MoreVert} from "@mui/icons-material"
-import {Users} from "./dummyData"
+import {Users} from "../../../Pages/dummyData"
 import { BrowserRouter, Route, Routes, Navigate, NavLink } from "react-router-dom";
 import axios from 'axios';
 

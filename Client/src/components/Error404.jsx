@@ -6,8 +6,7 @@ import NavBar from './NavBar';
 const Error404 = () => {
 
     return (
-        <div>
-            <NavBar/>
+        <div> 
             <Box
                 sx={{
                     display: 'flex',

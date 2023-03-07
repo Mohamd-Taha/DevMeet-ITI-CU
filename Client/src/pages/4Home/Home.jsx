@@ -1,36 +1,89 @@
-import React from 'react';
+import React from 'react'
+import { useEffect, useState } from 'react'
+import { useAuthContext } from "../../hooks/useAuthContext";
+import Post from './components/Post'
+import { Posts } from '../dummyData'
+import './Home.css'
+import Sidebar from './components/Sidebar';
+import axios from 'axios';
+import Share from './components/Share'
 import NavBar from '../../Components/NavBar';
-import { BrowserRouter,Routes,Route, Switch, Link ,NavLink} from 'react-router-dom';
-import Notifications from '../7Notifications/Notifications'
-import Messanger from '../6Messenger/Messenger'
-import Meetups from '../8Meetups/Meetups'
-import Profile from '../5Profile/Profile'
-import Error404 from '../../Components/Error404';
-import LoginPage from '../3Login/Login';
+import Footer from "../../Components/Footer";
+
+const Homecomponent = () => {
+
+  let { user } = useAuthContext()
+  user = user.user
+  const [currentPosts, setCurrentPosts] = useState()
+  const [flag, setFlag] = useState(false)
+  Object.freeze(user)
+  const getNewPosts = () => {
+    axios.get(`http://localhost:7400/posts/${user._id}`)
+      .then((response) => { return response })
+      .then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          let MapObject = new Map(Object.entries(data[i].likes));
+          data[i].likes = MapObject
+        }
+        setCurrentPosts(data)
+        console.log(data)
+
+      })
+      .catch((err) => { console.log(err) })
+  }
+  const getTrendingPosts = () => {
+    axios.get(`http://localhost:7400/posts/trending/${user._id}`)
+      .then((response) => { return response })
+      .then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          let MapObject = new Map(Object.entries(data[i].likes));
+          data[i].likes = MapObject
+        }
+        setCurrentPosts(data)
+      })
+      .catch((err) => { console.log(err) })
+  }
+  useEffect(() => {
+    getNewPosts()
+  }, [])
+  const getSharePost = (post) => {
+    setCurrentPosts(post)
+    console.log("enteredsharepost")
+  }
+  const getLikedPost = (post) => {
+    setCurrentPosts(currentPosts.map((element) => {
+    }))
+    console.log("enteredsharepost")
+  }
+  return (
+    <div className='parentHomeDiv'>
+      <NavBar />
+      <div className='filterDiv'>
+        <btn className="tagbuttons" style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New</btn>
+        <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
+      </div>
+      <div className='leftHomeDiv'>
+        <Sidebar></Sidebar>
+      </div>
+      <div className='shareDiv'>
+        <Share user={user} sendNewPost={getSharePost} ></Share>
+      </div>
+      <div className='PostsDiv'>
+        {currentPosts?.map((p) => (
+          <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} />
+        ))}
+      </div>
+      <div className='TopRightDiv'>
+        <div>Meeting Times</div>
+      </div>
+      <div className='BottomRightDiv'>
+        <div>Communities</div>
+      </div>
+      {/* <Footer /> */}
+    </div>
+
+  )
+}
 
 
-const Home = () => {
-    return (
-        <div>
-            <BrowserRouter> 
-                <NavBar/>
-
-
-                <Routes> 
-                    <Route path="/" element={""}></Route>
-                    <Route path="notifications" element={<Notifications/>}></Route>
-                    <Route path="messenger" element={<Messanger/>}></Route>
-                    <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}
-                    <Route path="profile" element={<Profile/>}></Route>  {/* "profile/:userID" */}
-                    <Route path="logout" element={<LoginPage/>}></Route>
-                    <Route path="*" element={<Error404></Error404>}></Route>
-                </Routes> 
-
-
-
-            </BrowserRouter>
-        </div>
-    );
-};
-
-export default Home;
+export default Homecomponent

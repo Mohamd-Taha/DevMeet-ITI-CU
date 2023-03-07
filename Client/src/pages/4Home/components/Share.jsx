@@ -3,6 +3,12 @@ import "./share.css"
 import {PermMedia, Label, Room, EmojiEmotions} from "@mui/icons-material"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Button from '@mui/material/Button';
+
+
+
+
+
 export default function Share({user, sendNewPost}) {
 const [description, setDescription]=useState()
 const makePost = () => {
@@ -35,20 +41,8 @@ const makePost = () => {
                     <Label htmlColor='blue' className='shareIcon'/>
                     <span className='shareOptionText'>Tag</span>
                 </div>
-            </div>
-            <div className="shareOptions">
-                <div className="shareOption">
-                    <Room htmlColor='green' className='shareIcon'/>
-                    <span className='shareOptionText'>Location</span>
-                </div>
-            </div>
-            <div className="shareOptions">
-                <div className="shareOption">
-                    <EmojiEmotions htmlColor='goldenrod' className='shareIcon'/>
-                    <span className='shareOptionText'>Feelings</span>
-                </div>
-            </div>
-            <button className='shareButton' onClick={makePost}>Share</button>
+            </div> 
+            <Button variant="contained" style={{ backgroundColor: 'purple' }} onClick={makePost} >Share</Button>
         </div>
       </div>
     </div>

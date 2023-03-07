@@ -35,10 +35,10 @@ const NavBar = () => {
                     <Link to='/logout' className=" logsginin_btns ancr  navancr navancrA" >Logout</Link>
                 </button>
             </ul> 
-            {/*   SEARCH BAR
-            <Box component="form" sx={{ '& .MuiTextField-root': {  marginLeft:'60px' ,width: '30ch' }, }} noValidate autoComplete="off" >   
+              {/* SEARCH BAR */}
+            <Box component="form" sx={{ '& .MuiTextField-root': {  marginLeft:'60px' ,width: '20ch' }, }} noValidate autoComplete="off" >   
                 <TextField id="standard-search" label="Search"  type="search" variant="standard" />          
-            </Box>  */}
+            </Box> 
     
         </div>  
 
