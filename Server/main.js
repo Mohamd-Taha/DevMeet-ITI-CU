@@ -87,15 +87,7 @@ app.use('/api/zoom-meetings', zoomMeetingRoutes);
 
 // app.get('*', Auth.checkUser);
 
-app.get("/",(req,res)=>{
-    res.sendFile(path.join(__dirname,"../Client/index.html"));
 
-})
-//should be in routes *************
-app.get("/home",Auth.requireAuth,(req,res)=>{
-    res.sendFile(path.join(__dirname,"../Client/index.html"));
-
-})
 //  app.get("/set-cookies", (req,res)=>{
 //     res.setHeader('Set-Cookie', "newuser=true") // old way to store cookie
 //     res.cookie('newuser', false, {maxAge: 1000* 60 * 60 * 24, secure:true})  //new way to set cookie with cookie parser
