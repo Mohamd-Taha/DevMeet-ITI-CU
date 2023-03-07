@@ -10,6 +10,7 @@ const helmet= require('helmet')
 const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 const multer=require('multer');
+const upload = multer({dest: './images' });
 const cors=require('cors')
 
 

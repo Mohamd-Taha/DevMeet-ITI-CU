@@ -2,6 +2,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/styled-engine": "^5.11.11",
     "cors": "^2.8.5",

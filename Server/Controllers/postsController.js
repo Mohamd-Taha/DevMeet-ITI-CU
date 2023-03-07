@@ -17,6 +17,7 @@ const createPost = async (req, res) => {
 try{
     const { userId, description, picturePath, tags } = req.body;
     console.log(userId)
+    console.log(description)
     const user = await User.findById(userId);
     
  PostObj={
@@ -26,14 +27,22 @@ try{
     description,
     picturePath,
     userPicturePath: user.profilePicture,
-    likes: 0,
+    likes: {},
     tags
   }
+
     const newPost = new Post(PostObj);
     await newPost.save();
-
-    const post = await Post.find();
-    res.status(201).json(post);
+    const currentUserPosts = await Post.find({ userId: userId });
+    const followingPosts = await Post.find({userId: { $in: user.following }})
+    res
+      .status(200)
+      .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
+      .sort((a,b)=>{
+          return b.createdAt - a.createdAt; //sort by date in descending
+      })
+      );
+    res.status(201).json(followingPosts);
 }
 catch(err){
     res.status(409).json({ message: err.message });
@@ -102,17 +111,21 @@ const likePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.body;
+    console.log(id)
     const post = await Post.findById(id);
     const Poster = await User.findById(post.userId)
     const isLiked = post.likes.get(userId);
+    console.log(isLiked)
 //Check if liked
     if (isLiked) {
-      post.likes--
+      post.likes.delete(userId);
       Poster.likes--
     } else {
-      post.likes++
+      post.likes.set(userId, true)
       Poster.likes++
     }
+    console.log(post.likes)
+    console.log(post.likes.size)
 //Handout badges
     if(Poster.likes==5){
       Poster.badge5Likes=true;
@@ -126,7 +139,7 @@ const likePost = async (req, res) => {
       { likes: post.likes },
       { new: true }
     );
-
+console.log(updatedPost.likes.size)
     await Poster.save();
 
     res.status(200).json(updatedPost);
@@ -226,13 +239,34 @@ res.status(200).json(post)
 
 const getFollowPostsByTop = async (req, res)=>{
   try{
+    console.log("intop")
  const {userId}=req.params
- console.log(userId)
     const currentUserPosts = await Post.find({ userId: userId });
    const user = await User.findById(userId);
    console.log(user.following)
-   const followingPosts = await Post.find({userId: { $in: user.following }}).sort({createdAt:-1, likes:-1})
+ const followingPosts = await Post.aggregate([
+  {
+    $match: { userId: { $in: user.following } }
+  },
+  {
+    $addFields: {
+      trueValues: {
+        $size: {
+          $filter: {
+            input: { $objectToArray: "$likes" },
+            as: "m",
+            cond: { $eq: ["$$m.v", true] }
+          }
+        }
+      }
+    }
+  },
+  {
+    $sort: { trueValues: -1, createdAt: -1 }
+  }
+]);
 
+   console.log(followingPosts, "******")
     res
       .status(200)
       .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts

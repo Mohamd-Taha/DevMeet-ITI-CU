@@ -13,11 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-    {/* <Provider store={store}> */}
-      {/* <PersistGate loading={null} persistor={persistStore(store)}> */}
     <App />
-    {/* </PersistGate>
-    </Provider> */}
     </AuthContextProvider>
   </React.StrictMode>
 );

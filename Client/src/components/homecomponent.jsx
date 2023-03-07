@@ -4,32 +4,81 @@ import {useAuthContext} from "../hooks/useAuthContext";
 import Post from './Post'
 import {Posts} from './dummyData'
 import './styles.css'
+import Sidebar from './Sidebar';
+import axios from 'axios';
+import Share from './Share'
+
 const Homecomponent=()=> {
- const {userId}=useAuthContext()
+let {user}=useAuthContext()
+user = user.user
+const [currentPosts, setCurrentPosts] = useState()
+const  [flag, setFlag] = useState(false)
+Object.freeze(user)
+const getNewPosts = () => {
+ axios.get(`http://localhost:7400/posts/${user._id}`)
+        .then((response)=>{return response})
+        .then(({data})=>{
+         for (let i = 0; i < data.length; i++) {
+          let MapObject = new Map(Object.entries(data[i].likes));
+          data[i].likes=MapObject 
+         }
+         setCurrentPosts(data)
+           console.log(data)
+           
+        })
+        .catch((err)=>{console.log(err)})
+ }
+ const getTrendingPosts = () => {
+ axios.get(`http://localhost:7400/posts/trending/${user._id}`)
+        .then((response)=>{return response})
+        .then(({data})=>{
+          for (let i = 0; i < data.length; i++) {
+          let MapObject = new Map(Object.entries(data[i].likes));
+          data[i].likes=MapObject 
+         }
+            setCurrentPosts(data)
+        })
+        .catch((err)=>{console.log(err)})
+ }
+ useEffect(() => {
+  getNewPosts()
+  }, [])
+ const getSharePost=(post)=>{
+  setCurrentPosts(post)
+  console.log("enteredsharepost")
+ }
+ const getLikedPost=(post)=>{
+  setCurrentPosts(currentPosts.map((element)=>{
+  }))
+  console.log("enteredsharepost")
+ }
   return (
    <div className='parentHomeDiv'>
     <div className='filterDiv'>
-    <btn className="tagbuttons">New</btn>
-    <btn className="tagbuttons">Top</btn>
-    <btn className="tagbuttons">Relevant</btn>
-    <btn className="tagbuttons">Old</btn>
+    <btn className="tagbuttons" style={{"borderRight": "0.5px solid rgb(174, 174, 175)"}} onClick={getNewPosts}>New</btn>
+    <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
    </div>
    <div className='leftHomeDiv'>
-    <a href="">Java</a>
-    <a href="">Python</a>
-    <a href="">C++</a>
-    <a href="">Javascript</a>
+<Sidebar></Sidebar>
    </div>
+    <div className='shareDiv'>
+    <Share user={user} sendNewPost={getSharePost} ></Share>
+    </div>
     <div className='PostsDiv'>
- {Posts.map((p) =>(
-          <Post key = {p.id} post ={p}/>
+{currentPosts?.map((p) =>(
+          <Post key = {p._id} post ={p} userId={user._id} sendNewPost={getLikedPost}/>
         ))}
   </div>
   <div className='TopRightDiv'>
     <div>Meeting Times</div>
    </div>
+  <div className='BottomRightDiv'>
+    <div>Communities</div>
+  </div>
    </div>
+  
   )
 }
+
 
 export default Homecomponent
