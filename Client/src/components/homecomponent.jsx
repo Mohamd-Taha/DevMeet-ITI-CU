@@ -48,9 +48,7 @@ const getNewPosts = () => {
   console.log("enteredsharepost")
  }
  const getLikedPost=(post)=>{
-  setCurrentPosts(currentPosts.map((element)=>{
-  }))
-  console.log("enteredsharepost")
+ setCurrentPosts(currentPosts.map(el => (el._id === post._id ? el.likes = post.likes : el)))
  }
   return (
    <div className='parentHomeDiv'>
@@ -81,4 +79,4 @@ const getNewPosts = () => {
 }
 
 
-export default Homecomponent
+export default Homecomponent;

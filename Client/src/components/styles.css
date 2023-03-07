@@ -71,7 +71,8 @@ height: 40px;
  grid-column-end: 24;
  grid-row-start: 5;
  grid-row-end: 20;
- background-color:  #D1ABD8;
+ background-color:  #ffffff;
+ border: 1px solid black;
  font-family: "Raleway", sans-serif;
  border-radius: 5px;
 }

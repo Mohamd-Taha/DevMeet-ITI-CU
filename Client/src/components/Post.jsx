@@ -6,8 +6,10 @@ import { BrowserRouter, Route, Routes, Navigate, NavLink } from "react-router-do
 import axios from 'axios';
 
 
-export default function Post({ post, userId}) {
+export default function Post({ post, userId, sendNewPost}) {
+  const date = new Date(post.createdAt)
   const [likes, setLikes] = useState()
+  const [] = useState()
   // const [isliked, setIsLiked] = useState(false)
   const likeHandler =()=> {
   axios.patch(`http://localhost:7400/likes/${post._id}`, {userId} )
@@ -15,11 +17,12 @@ export default function Post({ post, userId}) {
         .then(({data})=>{
           let MapObject = new Map(Object.entries(data.likes));
           data.likes=MapObject 
-          //  sendNewPost(data)
+          console.log(data)
+          sendNewPost(data)
         })
         .catch((err)=>{console.log(err)})
   }
-  console.log(post.likes.size)
+
   return (
     <div className='post'>
       <div className="postWrapper">
@@ -31,7 +34,7 @@ export default function Post({ post, userId}) {
                 <span className="postUsername">
                   {post.firstName}
                   </span>
-                <span className="postDate">{post.createdAt}</span>
+                <span className="postDate">{date.toLocaleString('en-GB', {timeZone:"UTC", day:'numeric', month: 'long', year:'numeric', hourCycle:"h23", hour:"2-digit", minute:"2-digit"})}</span>
             </div>
             <div className="postTopRight">
                 {/* <MoreVert /> */}
