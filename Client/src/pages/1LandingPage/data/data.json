@@ -1,0 +1,79 @@
+{
+  "About": {
+    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Why": [
+      "Lorem ipsum dolor",
+      "Tempor incididunt",
+      "Lorem ipsum dolor",
+      "Incididunt ut labore"
+    ],
+    "Why2": [
+      "Aliquip ex ea commodo",
+      "Lorem ipsum dolor",
+      "Exercitation ullamco",
+      "Lorem ipsum dolor"
+    ]
+  },  
+  "Team": [
+    {
+      "img": "img/LandingPageimgs/TM.png",
+      "name": "Omar Khaled",
+      "job": "MEARN stack Developer"
+    },
+    {
+      "img": "img/LandingPageimgs//TM.png",
+      "name": "Basmala Mamdouh",
+      "job": "MEARN stack Developer"
+    },
+    {
+      "img": "img/LandingPageimgs//TM.png",
+      "name": "Abdelrahman Mohamed",
+      "job": "MEARN stack Developer"
+    },
+    {
+      "img": "img/LandingPageimgs//TM.png",
+      "name": "Eman Mohamed",
+      "job": "MEARN stack Developer"
+    },
+    {
+      "img": "img/LandingPageimgs//TM.png",
+      "name": "Mohamed Taha",
+      "job": "MEARN stack Developer"
+    }
+  ],
+  "Contact": {
+    "address": "1234 Cairo Univ st. Giza, Egypt, Giza 12345 ",
+    "phone": "+20 1123 456 789",
+    "email": "Devmeet2023@gmail.com",
+    "facebook": "fb.com",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  },
+  "Features": [
+    {
+      "icon": "fa fa-comments",
+      "title": "Chatting",
+      "text": "Developers can be connected to each other in chat rooms"
+    },
+    {
+      "icon": "fa fa-bullhorn",
+      "title": "Ask Questions ",
+      "text": " Ask your question on the platform and you will gladly help you "
+    },
+    {
+      "icon": "fa fa-users",
+      "title": "Online Meetings",
+      "text": "Meet & Disscuss a lot of topics and negotiate with others using Zoom meetings"
+    },
+    {
+      "icon": "fa fa-laptop-code",
+      "title": "Get Your Mentor",
+      "text": "You can ask an experienced developer to be your Mentor"
+    },
+    {
+      "icon": "fa fa-diagram-project",
+      "title": "Communities",
+      "text": "Collaborate with your community members and get new ideas"
+    }
+  ]
+}
