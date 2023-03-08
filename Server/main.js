@@ -30,7 +30,8 @@ const storage=multer.diskStorage({
     },
 
     filename:(req,file,cb)=>{
-        cb(null,file.originalname)
+     const filename = `${Date.now()}_${file.originalname.replace(/\s+/g,'-')}`
+        cb(null,filename)
     }
 
 })
@@ -53,7 +54,9 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
 app.use(cookieParser())
-app.use(helmet());
+app.use(helmet({
+      crossOriginResourcePolicy: false,
+    }))
 app.use(morgan('tiny'));
 app.use(cors({ origin: true, credentials: true }));
 dotenv.config()

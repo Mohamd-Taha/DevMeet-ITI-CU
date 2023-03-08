@@ -9,7 +9,6 @@ import axios from 'axios';
 export default function Post({ post, userId, sendNewPost}) {
   const date = new Date(post.createdAt)
   const [likes, setLikes] = useState()
-  const [] = useState()
   // const [isliked, setIsLiked] = useState(false)
   const likeHandler =()=> {
   axios.patch(`http://localhost:7400/likes/${post._id}`, {userId} )
@@ -42,7 +41,7 @@ export default function Post({ post, userId, sendNewPost}) {
         </div>
         <div className="postCenter">
           <span className="postText">{post.description}</span>
-          <img className='postImg' src="/assets/newImage.png" alt="" />
+          {post.picturePath &&<img className='postImg' src={`http://localhost:7400/images/${post.picturePath}`} alt="" />}
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

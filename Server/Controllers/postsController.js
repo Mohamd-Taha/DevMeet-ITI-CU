@@ -14,27 +14,28 @@ const Authorize = ()=>{
   }
 }
 const createPost = async (req, res) => {
-try{
-    const { userId, description, picturePath, tags } = req.body;
+    const { userId, description,picturePath, tags} = req.body; 
+    const {file} = req
     console.log(userId)
     console.log(description)
     const user = await User.findById(userId);
-    //edit to add profilePicture
- img1=(req.files.image1)? req.files.image1[0].filename : null ;
-
- newUser={...newUser,profilePicture:img1,coverPicture:img2};
+    console.log(req.files.image1)
+     //edit to add profilePicture
+ const image1 =(req.files)? req.files.image1[0].filename: null ;
+//  console.log(img1)
+//  newUser={...newUser,profilePicture:img1,coverPicture:img2};
     
  PostObj={
     userId,
     firstName: user.firstName,
     lastName: user.lastName,
     description,
-    picturePath,
+    picturePath: image1,
     userPicturePath: user.profilePicture,
     likes: {},
     tags
   }
-
+  console.log(PostObj)
     const newPost = new Post(PostObj);
     await newPost.save();
     const currentUserPosts = await Post.find({ userId: userId });
@@ -46,11 +47,6 @@ try{
           return b.createdAt - a.createdAt; //sort by date in descending
       })
       );
-    res.status(201).json(followingPosts);
-}
-catch(err){
-    res.status(409).json({ message: err.message });
-}
 };
 const updatePost = async (req, res) => {
   const {id} = req.params

@@ -4,16 +4,20 @@ import {PermMedia, Label, Room, EmojiEmotions} from "@mui/icons-material"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from '@mui/material/Button';
-
-
-
-
-
 export default function Share({user, sendNewPost}) {
 const [description, setDescription]=useState()
+const [image, setImage] = useState()
 const makePost = () => {
- axios.post(`http://localhost:7400/posts/`, {userId:user._id, description:description})
-        .then((response)=>{return response})
+  const formData = new FormData()
+  formData.append("userId", user._id)
+  formData.append("description", description)
+  formData.append("image1", image)
+  //console.log(formData)
+ axios.post(`http://localhost:7400/posts/`, formData)
+        .then((response)=>{
+          console.log(response)
+          return response
+        })
         .then(({data})=>{
                sendNewPost(data)
 
@@ -33,7 +37,7 @@ const makePost = () => {
             <div className="shareOptions">
                 <div className="shareOption">
                     <PermMedia htmlColor='tomato' className='shareIcon'/>
-                    <input type="file" name="myImage" accept="image/png, image/jpeg" />
+                    <input type="file" name="image1" accept="image/png, image/jpeg" onChange={(e)=>{setImage(e.target.files[0])}} />
                     <span className='shareOptionText'>Photo or video</span>
                 </div>
             </div>
