@@ -19,9 +19,9 @@ const createPost = async (req, res) => {
     console.log(userId)
     console.log(description)
     const user = await User.findById(userId);
-    console.log(req.files.image1)
+    console.log(req.files)
      //edit to add profilePicture
- const image1 =(req.files)? req.files.image1[0].filename: null ;
+ const image1 =(req.files.image1)? req.files.image1[0].filename: null ;
 //  console.log(img1)
 //  newUser={...newUser,profilePicture:img1,coverPicture:img2};
     //const user = await User.findById(userId);
@@ -239,7 +239,7 @@ res.status(200).json(post)
 }
 
 const getFollowPostsByTop = async (req, res)=>{
-  try{
+
     console.log("intop")
  const {userId}=req.params
     const currentUserPosts = await Post.find({ userId: userId });
@@ -270,17 +270,43 @@ const getFollowPostsByTop = async (req, res)=>{
    console.log(followingPosts, "******")
     res
       .status(200)
-      .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
-      .sort((a,b)=>{
-          return b.createdAt - a.createdAt; //sort by date in descending
-      })
-      );
-    }
-  catch (error) {
-    res.status(500).json(error);
-  }
+      .json(followingPosts) //combine owner posts with following posts
+      // .sort((a,b)=>{
+      //     return b.createdAt - a.createdAt; //sort by date in descending
+      // }
 };
 
+const getTopPostsbyTags = async (req, res)=>{
+ const {inputTags} = req.body
+ 
+  const trendingPosts = await Post.aggregate([
+  {
+    $match: { tags: { $in: [inputTags] } }
+  },
+  {
+    $addFields: {
+      trueValues: {
+        $size: {
+          $filter: {
+            input: { $objectToArray: "$likes" },
+            as: "m",
+            cond: { $eq: ["$$m.v", true] }
+          }
+        }
+      }
+    }
+  },
+  {
+   
+  },
+  {
+    $sort: { trueValues: -1, createdAt: -1 }
+  },
+  { $limit: 20 }
+])
 
 
-module.exports= {createPost, getFeedPosts, getUserPosts, likePost, wowPost, helpfulPost, getFollowPosts, getPostComments, deletePost, updatePost,searchPosts, getFollowPostsByTop};
+}
+
+
+module.exports= {createPost, getFeedPosts, getUserPosts, likePost, wowPost, helpfulPost, getFollowPosts, getPostComments, deletePost, updatePost,searchPosts, getFollowPostsByTop, getTopPostsbyTags};
