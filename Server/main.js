@@ -36,6 +36,7 @@ const storage=multer.diskStorage({
 })
 
 
+
 //filteration to files by extension
 //only accept these files
 const fileFilter=(req,file,cb)=>{
@@ -47,7 +48,7 @@ const fileFilter=(req,file,cb)=>{
 
 //handle the incoming requests from the frontEnd
 app.use("/images",express.static( path.join(__dirname,"images")));
-app.use(multer({storage,fileFilter}).single("image"))
+app.use(multer({storage,fileFilter}).fields([{name:"image1",maxCount: 1},{name:"image2"}]))
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());

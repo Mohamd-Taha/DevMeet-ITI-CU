@@ -90,7 +90,7 @@ res.status(400).json({error: error.message})
 
 var LogoutUser = (req, res)=>{
 res.cookie('jwt', '', {maxAge: 1})
-res.redirect('/login')
+return res.send("log out succesful")
 }
 
 

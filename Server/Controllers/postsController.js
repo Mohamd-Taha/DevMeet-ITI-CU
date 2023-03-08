@@ -19,6 +19,10 @@ try{
     console.log(userId)
     console.log(description)
     const user = await User.findById(userId);
+    //edit to add profilePicture
+ img1=(req.files.image1)? req.files.image1[0].filename : null ;
+
+ newUser={...newUser,profilePicture:img1,coverPicture:img2};
     
  PostObj={
     userId,
