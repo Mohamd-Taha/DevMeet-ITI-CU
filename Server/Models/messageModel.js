@@ -1,8 +1,11 @@
 const mongoose=require('mongoose');
-const DB_URL = "mongodb://127.0.0.1:27017/DevMeet"
+
+// const DB_URL = "mongodb://127.0.0.1:27017/DevMeet"
+// mongoose.set('strictQuery', false);
+// mongoose.connect(DB_URL, {useNewUrlParser:true});
+
 var objId=mongoose.SchemaTypes.ObjectId
-mongoose.set('strictQuery', false);
-mongoose.connect(DB_URL, {useNewUrlParser:true});
+
 var messageScehma=mongoose.Schema({
     conversationId:{
         type:mongoose.SchemaTypes.ObjectId,

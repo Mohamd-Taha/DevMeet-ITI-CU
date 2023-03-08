@@ -7,6 +7,8 @@ Router.post("/create",communityController.createCommunity);
 Router.post('/register',communityController.registerToCommunity)
 Router.post('/getAcomm',communityController.getACommunitiesByuserId)
 Router.post('/tryimage',communityController.tryImage)
+Router.get('/getCommunityByid',communityController.getCommunityByid)
+// Router.post('/deleteUserFromCommunity',communityController.deleteUserFromCommunity)
 
 
 module.exports=Router;

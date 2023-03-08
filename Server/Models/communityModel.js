@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 // const DB_URL = "mongodb://localhost:27017/DevMeet"
-mongoose.connect('mongodb://127.0.0.1:27017/DevMeet');
+// mongoose.connect('mongodb://127.0.0.1:27017/DevMeet');
+
 var communitySchema = new mongoose.Schema({
 
     communityName:
@@ -13,7 +14,6 @@ var communitySchema = new mongoose.Schema({
     },
 
     communityAdmin:
-
     {
 
         adminId: {type:mongoose.SchemaTypes.ObjectId , ref: "users"},

@@ -21,6 +21,7 @@ var usersSchema=new mongoose.Schema({
   type:String,
   default:""
  },
+ 
  coverPicture:{
   type:String,
   default:""

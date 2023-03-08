@@ -3,17 +3,22 @@ const userAuthModel = require("../Models/userAuthModel");
 
 
 var createCommunity = async (req, res) => {
-    var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,image:image} = req.body;
-    // var communityModel = req.body;
+    var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,registeredNumber:registNo} = req.body;
+    console.log(req.files)
+    image = (req.files)? req.files.image1[0].filename : "CommunityCover.png" ;
+
     //I'm not sure about the following line of code 
     console.log("start fun")
-    var image=req.file.filename ;
+    
+    // var image=req.file.filename ;
+    // const image = req.files.image1[0].filename;
+
     // var image=undefined;
     // var image= ()=>req.file.filename ? req.file.filename : "not found"
     var obk={adminId:admin,AdminName:aName,adminPic:"null"}
     console.log(image);
     var commModel = new communityModel({ communityName: name, communityAdmin: obk,
-        communityDescription: desc,commiunityIcon:image });
+        communityDescription: desc,commiunityIcon:image,registeredNumber:registNo });
     
 
     await commModel.save();
@@ -63,6 +68,42 @@ var tryImage = (req, res) => {
 }
 
 
+var getCommunityByid=async (req,res)=>{
+    let communityiD=req.query.id;
+    console.log("the id is below")
+    console.log(communityiD)
+   if( communityiD.match(/^[0-9a-fA-F]{24}$/))
+   {newComm= await communityModel.findById(communityiD);
+    // res.send(newComm)
+    res.json(newComm)}
+    else{
+        res.json({st:"fail"})
+    }
+     
+}
+
+
+// var deleteUserFromCommunity =(req,res)=>{
+//     //delete the user from array list of the community
+//         let { userId, communityId } = req.body;
+//     let comm =communityModel.findById(communityId)
+
+//     let indexOfUser=comm.registeredUsers.findIndex(userId)
+//     comm.registeredUsers.splice(indexOfUser,1)
+//     comm.save();
+
+//     //delete the user from the array of the user communitits property
+
+    
+
+    
+
+//     //.registeredUsers.findIndex(userId)
+
+
+
+// }
+ 
 
 // var editCommunity=async (req,res)=>{
 
@@ -83,4 +124,6 @@ var getCommunityAdminbyId=async (req,res)=>{
 //from which controller >> responsible for adding request join ? from the user cont : from community 
 
 */
-module.exports = { createCommunity, registerToCommunity, getACommunitiesByuserId,tryImage };
+
+module.exports = { createCommunity, registerToCommunity, getACommunitiesByuserId,
+    tryImage,getCommunityByid }

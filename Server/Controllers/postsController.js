@@ -24,6 +24,10 @@ try{
 
  newUser={...newUser,profilePicture:img1,coverPicture:img2};
     
+    picturePath=img1;
+  
+    //const user = await User.findById(userId);
+    //   '/images/post.picturePath'
  PostObj={
     userId,
     firstName: user.firstName,
