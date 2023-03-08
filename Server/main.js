@@ -40,12 +40,14 @@ const storage=multer.diskStorage({
 
 //filteration to files by extension
 //only accept these files
+
 const fileFilter=(req,file,cb)=>{
     if(file.mimetype=="image/jpeg"||file.mimetype=="image/jpg"||file.mimetype=="image/png")
     cb(null,true)
     else
     cb(null,false)
 }
+
 
 //handle the incoming requests from the frontEnd
 app.use("/images",express.static( path.join(__dirname,"images")));

@@ -12,6 +12,14 @@ const maxAge = 3*24*60*60 //expiration data for cookies
 
 var RegisterNewUser = async (req, res)=>{
  var newUser= req.body;
+ 
+
+
+ //edit to add profilePicture
+ img1=(req.files.image)? req.files.image1[0].filename : "profilePic.png" ;
+ img2=(req.files.image)? req.files.image2[0].filename : "profileCover.png" ;
+
+ newUser={...newUser,profilePicture:img1,coverPicture:img2};
  userValidator= UserValidator(req.body);
  try{
  if(userValidator){
@@ -33,7 +41,7 @@ console.log("true")
      res.header("x-auth-token", accessToken)
         // res.status(201).send("Created Successfully");
         // res.redirect('/home')
-        res.status(201).json({user: newU._id})
+        res.status(201).json({user: newU})
     }
 
 }

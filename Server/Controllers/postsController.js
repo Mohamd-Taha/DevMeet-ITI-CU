@@ -24,7 +24,8 @@ const createPost = async (req, res) => {
  const image1 =(req.files)? req.files.image1[0].filename: null ;
 //  console.log(img1)
 //  newUser={...newUser,profilePicture:img1,coverPicture:img2};
-    
+    //const user = await User.findById(userId);
+    //   '/images/post.picturePath'
  PostObj={
     userId,
     firstName: user.firstName,
