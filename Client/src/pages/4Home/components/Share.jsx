@@ -33,6 +33,7 @@ const makePost = () => {
             <div className="shareOptions">
                 <div className="shareOption">
                     <PermMedia htmlColor='tomato' className='shareIcon'/>
+                    <input type="file" name="myImage" accept="image/png, image/jpeg" />
                     <span className='shareOptionText'>Photo or video</span>
                 </div>
             </div>

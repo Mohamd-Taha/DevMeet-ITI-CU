@@ -3,10 +3,26 @@ import SiteLogo from '../Pages/1LandingPage/SiteLogo.png';
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { BrowserRouter,Routes,Route, Switch, Link ,NavLink} from 'react-router-dom';
+import { BrowserRouter,Routes,Route, Switch, Link ,NavLink, useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 
 const NavBar = () => {
+const {dispatch} = useAuthContext()
+const navigate=useNavigate()
+const LogOut= ()=>{
+//need to use withCredentials to send cookies to server 
+axios.get('http://localhost:7400/logout',{
+    withCredentials:true
+})      .then((response)=>{return response})
+        .then(()=>{
+        localStorage.removeItem('user')
+        dispatch({type:'LOGOUT'})
+        })
+        .catch((err)=>{console.log(err)})
+
+    }
     return (  
     <nav id="menu" className=" navbar-default navbarFIXtop">
         <div className=" ">
@@ -31,8 +47,8 @@ const NavBar = () => {
                 <li className="navLnk" >
                     <NavLink  to="/profile" className="ancr navancr navancrA" style={({isActive })=>({color:isActive?"#7925c7 ":""})} > Profile </NavLink>
                 </li>
-                <button className="btn btn-custom  " > 
-                    <Link to='/logout' className=" logsginin_btns ancr  navancr navancrA" >Logout</Link>
+                <button className="btn btn-custom logsginin_btns ancr  navancr navancrA " onClick={LogOut} > 
+                    Logout
                 </button>
             </ul> 
               {/* SEARCH BAR */}

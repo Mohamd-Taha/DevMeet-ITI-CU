@@ -28,7 +28,7 @@ export default function Post({ post, userId, sendNewPost}) {
       <div className="postWrapper">
         <div className="postTop">
             <div className="postTopLeft">
-               <NavLink to={{pathname:`/profile/${post.userId}`, state:{userId: post.userId}}}> <img className='postProfileImg'
+               <NavLink to={{pathname:`/profile`, state:{userId: post.userId}}}> <img className='postProfileImg'
                 //  src={Users.filter((u) => u.id === post.userId)[0].profilePicture} 
                 alt="" /></NavLink>
                 <span className="postUsername">

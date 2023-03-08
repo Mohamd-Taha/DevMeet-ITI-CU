@@ -47,6 +47,10 @@ const Homecomponent = () => {
     getNewPosts()
   }, [])
   const getSharePost = (post) => {
+   for (let i = 0; i < post.length; i++) {
+          let MapObject = new Map(Object.entries(post[i].likes));
+          post[i].likes = MapObject
+        }
     setCurrentPosts(post)
     console.log("enteredsharepost")
   }

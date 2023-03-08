@@ -2,8 +2,8 @@ import React , { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate ,Redirect , NavLink } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
-import Landing  from "./Pages/1LandingPage/Landing";
-import Login from "./Pages/3Login/logincomponents";
+import Landing  from "./Pages/1LandingPage/Landing.jsx";
+import Login from "./Pages/3Login/logincomponents.jsx";
 import Register from './Pages/2SignUp/regestercomponent';
 import Home from "./Pages/4Home/Home";
 import Profile from './Pages/5Profile/Profile' 
