@@ -1,16 +1,14 @@
 import React from 'react'; 
 import NavBar from '../../Components/NavBar'; 
 
-
-
-const Notifications = () => { 
+const Payment = () => { 
 
     return (
         <div>
-            <NavBar/>
-            <h1>Notifications worksss</h1>
+            <NavBar/> 
+            Payment worksss
         </div>
     );
 };
 
-export default Notifications;
+export default Payment;

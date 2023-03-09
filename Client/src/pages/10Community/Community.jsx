@@ -1,16 +1,14 @@
 import React from 'react'; 
 import NavBar from '../../Components/NavBar'; 
 
-
-
-const Notifications = () => { 
+const Community = () => { 
 
     return (
         <div>
-            <NavBar/>
-            <h1>Notifications worksss</h1>
+            <NavBar/> 
+            Community worksss
         </div>
     );
 };
 
-export default Notifications;
+export default Community;

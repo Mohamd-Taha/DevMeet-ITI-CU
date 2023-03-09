@@ -239,7 +239,7 @@ body {
 .section-title p {
   font-size: 18px;
 }
-.btn-custom {
+.myBotton-custom {
   font-family: "Raleway", sans-serif;
   text-transform: uppercase;
   color: #fff;
@@ -254,29 +254,29 @@ body {
   transition: all 0.3s linear;
   border: 0;
 }
-.btn-custom:hover,
-.btn-custom:focus,
-.btn-custom.focus,
-.btn-custom:active,
-.btn-custom.active {
+.myBotton-custom:hover,
+.myBotton-custom:focus,
+.myBotton-custom.focus,
+.myBotton-custom:active,
+.myBotton-custom.active {
   color: #cdbbee;
   background-image: none;
   background-color: #5a1b6d;
 }
-.btn:active,
-.btn.active {
+.myBotton:active,
+.myBotton.active {
   background-image: none;
   outline: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 a:focus,
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus,
-.btn.focus,
-.btn:active.focus,
-.btn.active.focus {
+.myBotton:focus,
+.myBotton:active:focus,
+.myBotton.active:focus,
+.myBotton.focus,
+.myBotton:active.focus,
+.myBotton.active.focus {
   outline: none;
   outline-offset: none;
 }
@@ -461,12 +461,12 @@ header .intro-text {
 #contact form {
   padding-top: 20px;
 }
-#contact .btn-custom {
+#contact .myBotton-custom {
   margin: 30px 0;
   background: transparent;
   border: 2px solid #fff;
 }
-#contact .btn-custom:hover {
+#contact .myBotton-custom:hover {
   color: #9702bd;
   background: #fff;
 }

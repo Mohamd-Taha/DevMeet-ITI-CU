@@ -1,16 +1,17 @@
 import React from 'react'; 
 import NavBar from '../../Components/NavBar'; 
+import 'Search.css';
 
 
 
-const Notifications = () => { 
+const Search = () => { 
 
     return (
         <div>
-            <NavBar/>
-            <h1>Notifications worksss</h1>
+            <NavBar/> 
+            Search worksss
         </div>
     );
 };
 
-export default Notifications;
+export default Search;

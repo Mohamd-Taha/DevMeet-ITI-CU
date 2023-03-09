@@ -59,7 +59,7 @@ let Contact = (props) => {
                   <p className="help-block   parag "></p>
                 </div>
                 <div id="success"></div>
-                <button type="submit" className="btn btn-custom btn-lg">
+                <button type="submit" className="myBotton myBotton-custom myBotton-lg">
                   Send Message
                 </button>
               </form>

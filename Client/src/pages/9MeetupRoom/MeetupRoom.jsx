@@ -1,16 +1,14 @@
 import React from 'react'; 
 import NavBar from '../../Components/NavBar'; 
 
-
-
-const Notifications = () => { 
+const MeetupRoom = () => { 
 
     return (
         <div>
-            <NavBar/>
-            <h1>Notifications worksss</h1>
+            <NavBar/> 
+            MeetupRoom worksss
         </div>
     );
 };
 
-export default Notifications;
+export default MeetupRoom;
