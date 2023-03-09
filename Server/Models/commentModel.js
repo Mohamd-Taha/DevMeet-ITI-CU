@@ -23,7 +23,7 @@ var commentSchema= mongoose.Schema({
 
 
 var commentSchema = mongoose.Schema({
-    desc: {
+    description: {
         type: String,
         required: true
     },

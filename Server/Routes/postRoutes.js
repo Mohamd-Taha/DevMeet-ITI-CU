@@ -6,7 +6,7 @@ const Posts =require("../Controllers/postsController");
 router.get("/posts", Posts.getFeedPosts);
 router.get("/profile/posts/:userId", Posts.getUserPosts);
 router.get("/posts/:userId", Posts.getFollowPosts);
-router.get("/posts/comments", Posts.getPostComments);
+router.get("/posts/comments/:postId", Posts.getPostComments);
 router.get("/posts/trending/:userId", Posts.getFollowPostsByTop);
 //POST
 router.post("/posts", Posts.createPost);

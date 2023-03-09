@@ -6,8 +6,6 @@
  
 }
 
-
-
 .filterDiv{
  grid-column-start: 8;
  grid-column-end: 20;
@@ -35,7 +33,7 @@ border-bottom: 0.5px solid rgb(174, 174, 175);
 
 .leftHomeDiv{
  grid-column-start: 2;
- grid-column-end: 5;
+ grid-column-end: 7;
  grid-row-start: 5;
  grid-row-end: 50;
 }

@@ -225,9 +225,8 @@ const getFollowPosts = async (req, res)=>{
 
 //POST
 const getPostComments = async (req,res)=>{
-  const {postId} = req.body;
-  const post= await Post.findById(postId)
-  const comment = await Comment.find({postId:post._id}).sort({createdAt:1})
+  const {postId} = req.params;
+  const comment = await Comment.find({postId:postId}).sort({createdAt:-1})
   res.status(200).json(comment);
 }
 

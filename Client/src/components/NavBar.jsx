@@ -60,7 +60,7 @@ const NavBar = () => {
                     <div className="searchbar">
                         <Search className="searchIcon" />
                         <input placeholder="Search..." className="searchInput " />
-                        <span class="focus-bg"></span>
+                        <span className="focus-bg"></span>
                     </div>
                 </div>
 

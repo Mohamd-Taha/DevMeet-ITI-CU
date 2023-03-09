@@ -12,8 +12,9 @@ const makePost = () => {
   formData.append("userId", user._id)
   formData.append("description", description)
   formData.append("image1", image)
+  formData.append('picturePath', user.profilePicture)
   //console.log(formData)
- axios.post(`http://localhost:7400/posts/`, formData)
+ axios.post(`http://localhost:7400/posts/`, formData, {withCredentials: true,})
         .then((response)=>{
           console.log(response)
           return response
@@ -29,7 +30,7 @@ const makePost = () => {
     <div className='share'>
       <div className="shareWrapper">
         <div className="shareTop">
-            <img className='shareProfileImg' src="assets/persons/1.jpg" alt="" />
+            <img className='shareProfileImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
             <input placeholder={`What's on your mind ${user.firstName}?`} className='shareInput' onChange={(e)=>{setDescription(e.target.value)}}/>
         </div>
         <hr className='shareHr'/>

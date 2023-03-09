@@ -9,9 +9,12 @@ import axios from 'axios';
 export default function Post({ post, userId, sendNewPost}) {
   const date = new Date(post.createdAt)
   const [likes, setLikes] = useState()
+  const [comments, setComments] = useState([])
+  const [comment, setComment] = useState()
+  const [image, setImage] = useState()
   // const [isliked, setIsLiked] = useState(false)
   const likeHandler =()=> {
-  axios.patch(`http://localhost:7400/likes/${post._id}`, {userId} )
+  axios.patch(`http://localhost:7400/likes/${post._id}`, {userId}, {withCredentials: true} )
         .then((response)=>{return response})
         .then(({data})=>{
           let MapObject = new Map(Object.entries(data.likes));
@@ -21,14 +24,38 @@ export default function Post({ post, userId, sendNewPost}) {
         })
         .catch((err)=>{console.log(err)})
   }
-
+  const commentPost=()=>{
+  const formData = new FormData()
+  formData.append("description", comment)
+  formData.append("image1", image)
+  formData.append('postId', post._id)
+  axios.post(`http://localhost:7400/comments/${userId}`, formData, {withCredentials: true} )
+        .then((response)=>{return response})
+        .then(({data})=>{
+        console.log(data)
+         console.log(comments)
+         setComments([data,...comments])
+         console.log(comments)
+        })
+        .catch((err)=>{console.log(err)})
+  }
+  const commentGet=()=>{
+  const postId = post._id
+  axios.get(`http://localhost:7400/posts/comments/${postId}`, {withCredentials: true} )
+        .then((response)=>{return response})
+        .then(({data})=>{
+          setComments(data)
+          console.log(data)
+        })
+        .catch((err)=>{console.log(err)})
+  }
   return (
     <div className='post'>
       <div className="postWrapper">
         <div className="postTop">
             <div className="postTopLeft">
                <NavLink to={{pathname:`/profile`, state:{userId: post.userId}}}> <img className='postProfileImg'
-                //  src={Users.filter((u) => u.id === post.userId)[0].profilePicture} 
+                 src={`http://localhost:7400/images/${post.userPicturePath}`} 
                 alt="" /></NavLink>
                 <span className="postUsername">
                   {post.firstName}
@@ -48,9 +75,11 @@ export default function Post({ post, userId, sendNewPost}) {
             <img className='likeIcon' src="/assets/like.png" onClick={likeHandler} alt="" />
             <img className='likeIcon' src="/assets/heart.png" onClick={likeHandler} alt="" />
             <span className="postLikeCounter"> {post.likes.size}  people like it</span>
+            <div className='commentsDiv'><input type="text" onChange={(e)=>{setComment(e.target.value)}}/> <input type="button" value="submit" onClick={commentPost}/></div>
+            <div></div>
           </div>
           <div className="postBottomRight">
-            <span className="postCommenttext"> comments</span>
+            <span className="postCommenttext" onClick={commentGet}> comments</span>
           </div>
         </div>
       </div>

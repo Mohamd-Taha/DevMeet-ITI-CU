@@ -5,16 +5,17 @@ const Comment = require("../Models/commentModel")
 
 const postComments = async (req,res)=>{
  const {userId} = req.params
-  const {desc , postId, picturePath } = req.body;
+  const {description , postId} = req.body;
+const image1 =(req.files.image1)? req.files.image1[0].filename: null ;
   const foundUser= await User.findById(userId)
             const comment= new Comment({
                   userId,
                   postId,
                   firstName:foundUser.firstName,
                   lastName:foundUser.lastName,
-                  picturePath,
+                  picturePath:image1,
                   userPicturePath:foundUser.profilePicture, 
-                  desc,
+                  description,
             })
             await comment.save()
             const post = await Post.findById(postId);
