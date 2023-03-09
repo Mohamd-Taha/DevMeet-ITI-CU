@@ -20,7 +20,7 @@ const makePost = () => {
           return response
         })
         .then(({data})=>{
-               sendNewPost(data)
+        sendNewPost(data)
 
            
         })

@@ -8,6 +8,8 @@ router.get("/profile/posts/:userId", Posts.getUserPosts);
 router.get("/posts/:userId", Posts.getFollowPosts);
 router.get("/posts/comments/:postId", Posts.getPostComments);
 router.get("/posts/trending/:userId", Posts.getFollowPostsByTop);
+router.get("/posts/tags/:tag", Posts.getTopPostsbyTags);
+
 //POST
 router.post("/posts", Posts.createPost);
 router.post('/posts/search', Posts.searchPosts);

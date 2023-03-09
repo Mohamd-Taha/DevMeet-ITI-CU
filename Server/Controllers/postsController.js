@@ -39,15 +39,16 @@ const createPost = async (req, res) => {
   console.log(PostObj)
     const newPost = new Post(PostObj);
     await newPost.save();
-    const currentUserPosts = await Post.find({ userId: userId });
-    const followingPosts = await Post.find({userId: { $in: user.following }})
-    res
-      .status(200)
-      .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
-      .sort((a,b)=>{
-          return b.createdAt - a.createdAt; //sort by date in descending
-      })
-      );
+    res.status(200).json(newPost)
+    // const currentUserPosts = await Post.find({ userId: userId });
+    // const followingPosts = await Post.find({userId: { $in: user.following }})
+    // res
+    //   .status(200)
+    //   .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
+    //   .sort((a,b)=>{
+    //       return b.createdAt - a.createdAt; //sort by date in descending
+    //   })
+    //   );
 };
 const updatePost = async (req, res) => {
   const {id} = req.params
@@ -276,12 +277,12 @@ const getFollowPostsByTop = async (req, res)=>{
 };
 
 const getTopPostsbyTags = async (req, res)=>{
- const {inputTags} = req.body
- 
+ const {tag} = req.params
+ console.log('*****************tags')
   const trendingPosts = await Post.aggregate([
   {
-    $match: { tags: { $in: [inputTags] } }
-  },
+    $match: { tags: { $in: [tag] } }
+  }, 
   {
     $addFields: {
       trueValues: {
@@ -296,14 +297,12 @@ const getTopPostsbyTags = async (req, res)=>{
     }
   },
   {
-   
-  },
-  {
     $sort: { trueValues: -1, createdAt: -1 }
   },
   { $limit: 20 }
 ])
-
+console.log(trendingPosts)
+res.status(200).json(trendingPosts)
 
 }
 
