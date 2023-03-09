@@ -1,0 +1,10 @@
+.MainNotificationComponent{
+    display: grid;
+    grid-template-columns: auto ; 
+    grid-gap: 10px; 
+}
+
+.TheNotification{
+    margin-top: 85px;
+    justify-self: center;
+}

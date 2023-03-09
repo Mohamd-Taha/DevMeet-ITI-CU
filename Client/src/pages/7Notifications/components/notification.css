@@ -1,0 +1,44 @@
+.wrapper {
+    display: flex;
+    width: 700px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    align-items: center;
+    background-color: #c3a9e6;
+}
+
+
+.UserImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.NotificationContent {
+    flex: 1;
+}
+
+.Title {
+    margin: 0;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.Time {
+    font-size: 15px;
+    color: #6e4a86;
+}
+
+.Description {
+    margin: 0;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+.Icon {
+    font-size: 40px;
+    color: #5a0474;
+}
