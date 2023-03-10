@@ -1,9 +1,9 @@
 import React from 'react'
 import "./Profile.css" 
 import NavBar from '../../Components/NavBar';
-import Sidebar from "./components/sidebar/Sidebar";
-import Feed from "./components/feed/Feed";
-import Rightbar from "./components/rightbar/Rightbar";
+import Sidebar from "./Components/sidebar/Sidebar";
+import Feed from "./Components/feed/Feed";
+import Rightbar from "./Components/rightbar/Rightbar";
 
 
 

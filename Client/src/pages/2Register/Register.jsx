@@ -8,12 +8,37 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import './Register.css'
 import PlainNav from '../../Components/PlainNav'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
-    const handleSubmit = (event) => {
+const Register =  () => {
+    const [firstName, setFirstName]=useState()
+    const [lastName, setLastName]=useState()
+    const [email, setEmail]=useState()
+    const [password, setPassword]=useState()
+    const [password2, setPassword2]=useState()
+    const [error, setError]=useState()
+    const navigate = useNavigate()
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({ email: data.get('email'), password: data.get('password'),  });
+        setError(null)
+        if(password !== password2){
+            setError("Passwords don't match")
+        }
+        else{
+      const res = await fetch('http://localhost:7400/register', {
+      method: 'POST',
+      body: JSON.stringify({firstName, lastName, email, password }),
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true, credentials: 'include'
+    });
+    console.log(res)
+    const data = await res.json();
+    if (!res.ok) {setError(data.error)}
+    if (res.ok) { 
+      navigate('/login')
+    }
+        }
     };
 
     return (
@@ -29,27 +54,30 @@ const Register = () => {
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
-                            <TextField required fullWidth size="small" id="firstName" label="First Name" autoFocus name="firstName" autoComplete="given-name" />
+                            <TextField required fullWidth size="small" id="firstName" label="First Name" autoFocus name="firstName" autoComplete="given-name" onChange={(e)=>{setFirstName(e.target.value)}} />
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField required fullWidth size="small" id="lastName" label="Last Name" name="lastName" autoComplete="family-name" />
+                            <TextField required fullWidth size="small" id="lastName" label="Last Name" name="lastName" autoComplete="family-name" onChange={(e)=>{setLastName(e.target.value)}} />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="email" label="Email Address" name="email" autoComplete="email"  type="email" />
+                            <TextField required fullWidth size="small" id="email" label="Email Address" name="email" autoComplete="email"  type="email" onChange={(e)=>{setEmail(e.target.value)}} />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="password" label="Password" name="password" autoComplete="new-password" type="password" />
+                            <TextField required fullWidth size="small" id="password" label="Password" name="password"  type="password"  onChange={(e)=>{setPassword(e.target.value)}}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="ConfirmPassword" label="ConfirmPassword" name="ConfirmPassword" autoComplete="new-password" type="password"  />
+                            <TextField required fullWidth size="small" id="ConfirmPassword" label="ConfirmPassword" name="ConfirmPassword" type="password"  onChange={(e)=>{setPassword2(e.target.value)}} />
                         </Grid>
+                       {error && <div className='error'>
+                             {error}
+                        </div>}
                     </Grid>
                     <Box textAlign='center'>
-                      <Button type="submit"  variant="contained" style={{ backgroundColor: 'purple', width:'60%' , fontWeight:'bold', fontSize:'13pt'}} sx={{ mt: 3, mb: 2 }}> Register  </Button>
+                        <Button type="submit"  variant="contained" style={{ backgroundColor: 'purple', width:'60%' , fontWeight:'bold', fontSize:'13pt'}} sx={{ mt: 3, mb: 2 }}> Register  </Button>
                     </Box>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2"> Already have an account? Login </Link>
+                            <Link href="/login" variant="body2" style={{color:'purple'}}> Already have an account? Login </Link>
                         </Grid>
                     </Grid>
                 </Box>

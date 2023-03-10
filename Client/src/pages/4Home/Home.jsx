@@ -26,7 +26,7 @@ const Homecomponent = () => {
           data[i].likes = MapObject
         }
         setCurrentPosts(data)
-        console.log(data)
+        console.log(currentPosts)
 
       })
       .catch((err) => { console.log(err) })
@@ -56,6 +56,15 @@ const Homecomponent = () => {
         // }
    
   }
+
+   const getTagPosts = (post) => {
+   for (let i = 0; i < post.length; i++) {
+          let MapObject = new Map(Object.entries(post[i].likes));
+          post[i].likes = MapObject
+        }
+        setCurrentPosts(post)
+   
+  }
   const getLikedPost = (post) => {
     setCurrentPosts(currentPosts.map(el => (el._id === post._id ? el.likes = post.likes : el)))
     console.log("enteredsharepost")
@@ -68,7 +77,7 @@ const Homecomponent = () => {
         <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
       </div>
       <div className='leftHomeDiv'>
-        <Sidebar getTagPosts={getSharePost}></Sidebar>
+        <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
       <div className='shareDiv'>
         <Share user={user} sendNewPost={getSharePost} ></Share>

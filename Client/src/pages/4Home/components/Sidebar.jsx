@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './sidebar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RssFeed, Chat, PlayCircleFilledOutlined, Group, Bookmark, HelpOutline, WorkOutline, Event, School } from '@mui/icons-material'
@@ -9,14 +9,15 @@ import Button from '@mui/material/Button';
 import axios from 'axios'
 
 
-export default function Sidebar() {
+export default function Sidebar({getTagPosts}) {
+const [topUsers, setTopUsers] = useState()
 const filterTag=(event)=>{
 const tag = event.target.innerText.replace(/\s/g, '');
 console.log(tag)
  axios.get(`http://localhost:7400/posts/tags/${tag}`) 
  .then((response) => { return response })
  .then(({ data }) => {
-        
+        getTagPosts(data)
       })
       .catch((err) => { console.log(err) })
   
@@ -31,6 +32,15 @@ console.log(tag)
         element.removeEventListener('click', filterTag);
       });
     };
+    },[])
+
+    useEffect(()=>{
+ axios.get(`http://localhost:7400/user/top/likes`) 
+ .then((response) => { return response })
+ .then(({ data }) => {
+        setTopUsers(data)
+      })
+      .catch((err) => { console.log(err) })
     },[])
     return (
         <div className='sidebar'>
@@ -75,8 +85,8 @@ console.log(tag)
                     <li className="sidebarListItem">
                         <Group className='sidebarIcon' />  <span className="sidebarListItemText">Top Users</span>
                     </li>
-                    {Users.map(u => (
-                        <CloseFriend key={u.id} user={u} />
+                    {topUsers?.map(u => (
+                        <CloseFriend key={u._id} user={u} />
                     ))}
                 </ul>
             </div>

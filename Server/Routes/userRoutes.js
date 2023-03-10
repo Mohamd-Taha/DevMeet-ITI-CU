@@ -9,7 +9,8 @@ var authMW = require('../MiddleWares/authMW')
 router.get("/user/:id", userController.getUser)
 router.get("/user/following/:id", userController.getUserFollowing)
 router.get("/user/followers/:id", userController.getUserFollowers)
-//search users
+//get users by likes
+router.get("/user/top/likes", userController.getUserByLikes)
 
 //remove or add follow
 router.patch("/user/:id/:followId", userController.addRemoveFollow)

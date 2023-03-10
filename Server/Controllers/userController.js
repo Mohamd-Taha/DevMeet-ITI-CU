@@ -10,6 +10,14 @@ const getUser = async (req, res)=>{
     res.status(404).json({ message: err.message });
   }
 }
+const getUserByLikes = async (req, res)=>{
+ try {
+    const user = await userAuth.find({}).select("-password").sort({likes:-1}).limit(10);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+}
 //get user follows
 
 const getUserFollowing = async (req, res) => {
@@ -112,4 +120,4 @@ const updateUser= async (req, res) => {
 }
 
 
-module.exports= {getUser, updateUser, getUserFollowing, getUserFollowers, addRemoveFollow, getUserCommunities};
+module.exports= {getUser, updateUser, getUserFollowing, getUserFollowers, addRemoveFollow, getUserCommunities, getUserByLikes};

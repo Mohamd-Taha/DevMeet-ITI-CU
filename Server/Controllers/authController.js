@@ -16,8 +16,8 @@ var RegisterNewUser = async (req, res)=>{
 
 
  //edit to add profilePicture
- img1=(req.files.image)? req.files.image1[0].filename : "profilePic.png" ;
- img2=(req.files.image)? req.files.image2[0].filename : "profileCover.png" ;
+ img1="profilePic.png" ;
+ img2="profileCover.png" ;
 
  newUser={...newUser,profilePicture:img1,coverPicture:img2};
  userValidator= UserValidator(req.body);

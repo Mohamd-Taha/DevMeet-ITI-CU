@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import "./post.css"
 import {MoreVert} from "@mui/icons-material"
 import {Users} from "../../../Pages/dummyData"
@@ -12,6 +12,7 @@ export default function Post({ post, userId, sendNewPost}) {
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState()
   const [image, setImage] = useState()
+  const [otherUser, setOtherUser ] = useState()
   // const [isliked, setIsLiked] = useState(false)
   const likeHandler =()=> {
   axios.patch(`http://localhost:7400/likes/${post._id}`, {userId}, {withCredentials: true} )
@@ -49,12 +50,22 @@ export default function Post({ post, userId, sendNewPost}) {
         })
         .catch((err)=>{console.log(err)})
   }
+  useEffect(()=>{
+    const id = userId
+        axios.get(`http://localhost:7400/user/${id}`, {withCredentials: true} )
+        .then((response)=>{return response})
+        .then(({data})=>{
+          setOtherUser(data)
+        })
+        .catch((err)=>{console.log(err)})
+  },[])
+  if(otherUser){
   return (
     <div className='post'>
       <div className="postWrapper">
         <div className="postTop">
             <div className="postTopLeft">
-               <NavLink to={{pathname:`/profile`, state:{userId: post.userId}}}> <img className='postProfileImg'
+               <NavLink to={{pathname:`/profile`, state:{user: otherUser}}}> <img className='postProfileImg'
                  src={`http://localhost:7400/images/${post.userPicturePath}`} 
                 alt="" /></NavLink>
                 <span className="postUsername">
@@ -85,4 +96,5 @@ export default function Post({ post, userId, sendNewPost}) {
       </div>
     </div>
   )
+  }
 }
