@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate ,Redirect , NavLink } from "reac
 import { useAuthContext } from "./hooks/useAuthContext";
 
 import Landing  from "./Pages/1LandingPage/Landing.jsx";
-import Login from "./Pages/3Login/logincomponents.jsx";
+import Login from "./Pages/3Login/Login.jsx";
 import Register from './Pages/2Register/Register.jsx';
 import Home from "./Pages/4Home/Home";
 import Profile from './Pages/5Profile/Profile' 
