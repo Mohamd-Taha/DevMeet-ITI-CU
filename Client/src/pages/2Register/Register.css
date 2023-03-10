@@ -1,3 +1,9 @@
+/* .TheMainContainer{
+    background-image: url("../../../public/assets/backgroundPurple.jpg");
+    height: 100%;
+} */
+
+
 .FormContainer {
     display: flex;
     justify-self: center;

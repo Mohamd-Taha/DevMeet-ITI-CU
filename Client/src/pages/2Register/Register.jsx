@@ -38,18 +38,18 @@ const Register = () => {
                             <TextField required fullWidth size="small" id="email" label="Email Address" name="email" autoComplete="email"  type="email" />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="password" label="Password" name="password" autoComplete="new-password" type="password" />
+                            <TextField required fullWidth size="small" id="password" label="Password" name="password"  type="password" />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="ConfirmPassword" label="ConfirmPassword" name="ConfirmPassword" autoComplete="new-password" type="password"  />
+                            <TextField required fullWidth size="small" id="ConfirmPassword" label="ConfirmPassword" name="ConfirmPassword" type="password"  />
                         </Grid>
                     </Grid>
                     <Box textAlign='center'>
-                      <Button type="submit"  variant="contained" style={{ backgroundColor: 'purple', width:'60%' , fontWeight:'bold', fontSize:'13pt'}} sx={{ mt: 3, mb: 2 }}> Register  </Button>
+                        <Button type="submit"  variant="contained" style={{ backgroundColor: 'purple', width:'60%' , fontWeight:'bold', fontSize:'13pt'}} sx={{ mt: 3, mb: 2 }}> Register  </Button>
                     </Box>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2"> Already have an account? Login </Link>
+                            <Link href="/login" variant="body2" style={{color:'purple'}}> Already have an account? Login </Link>
                         </Grid>
                     </Grid>
                 </Box>
