@@ -1,5 +1,4 @@
-import React from "react";
-import SiteLogo from '../SiteLogo.png';
+import React from "react"; 
 import { BrowserRouter,Routes,Route, Switch, Link ,NavLink} from 'react-router-dom';
 
 // import { NavLink } from "react-router-dom"; 
@@ -10,7 +9,7 @@ let Header = () => {
       <div className="Maincontainer">
         <div className="navbarHHeader">
         <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a> 
-          <img  src={SiteLogo} height="50px" alt="pic"/> 
+          <img  src="/assets/SiteLogo.png" height="50px" alt="pic"/> 
         </div> 
           <ul className=" navbarNNNav navtoright unordlist">
             <li className="navLnk" >
@@ -23,7 +22,7 @@ let Header = () => {
               <Link to='/login' className="page-scroll logsginin_btns ancr  navancr navancrA" >Login</Link> 
             </button> 
             <button className="myBotton myBotton-custom  " >
-              <Link to='/register' className="page-scroll logsginin_btns ancr navancr navancrA " >SignUp</Link>
+              <Link to='/register' className="page-scroll logsginin_btns ancr navancr navancrA " >Register</Link>
             </button>
           </ul> 
       </div>

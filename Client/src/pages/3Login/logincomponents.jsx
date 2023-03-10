@@ -21,31 +21,20 @@ function Logincomponents(props) {
     });
     console.log(res)
     const data = await res.json();
-    if (!res.ok) {
-      setError(data.error)
-    }
-    if (res.ok) {
-      // save the user to local storage
+    if (!res.ok) {setError(data.error)}
+    if (res.ok) { // save the user to local storage
       localStorage.setItem('user', JSON.stringify(data))
       dispatch({ type: "LOGIN", payload: data })
-
     }
-
   }
   return (
-
-
     <>
-
       <div className={classes.parent}>
         <div className={classes.bodysize}>
-          <Maincomponents></Maincomponents></div>
+          <Maincomponents></Maincomponents>
+        </div>
         <div className={classes.bodysize}>
-          <div className={classes.style}>
-
-
-
-
+          <div className={classes.style}> 
             <img src="images/logo.jpeg" alt="logo" width="200" height="200" />
             <br />
             <h2 className={classes.myfont}>sign in</h2>
@@ -63,13 +52,9 @@ function Logincomponents(props) {
             <div className={classes.sign}><img src="images/facebookimg.png" alt="facebook" width="30" height="30" />
               <a href="">containue wth facebook</a> </div>
             <button className={classes.btn}>regesiter</button></div>
-
         </div>
       </div>
-
     </>
-
-
   );
 }
 

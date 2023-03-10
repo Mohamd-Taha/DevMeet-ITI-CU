@@ -1,0 +1,16 @@
+.FormContainer {
+    display: flex;
+    justify-self: center;
+    background-color: #f0e8ff;
+    width: 50%;
+    margin: auto;
+    margin-top: 75px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+}
+
+.theNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

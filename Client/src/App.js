@@ -4,7 +4,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 import Landing  from "./Pages/1LandingPage/Landing.jsx";
 import Login from "./Pages/3Login/logincomponents.jsx";
-import Register from './Pages/2SignUp/regestercomponent';
+import Register from './Pages/2Register/Register.jsx';
 import Home from "./Pages/4Home/Home";
 import Profile from './Pages/5Profile/Profile' 
 import Messanger from './Pages/6Messenger/Messenger'

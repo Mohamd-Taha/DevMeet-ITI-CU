@@ -1,8 +1,7 @@
 import React from 'react';
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
 import { BrowserRouter, Routes, Route, Switch, Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useAuthContext';
-import SiteLogo from '../Pages/1LandingPage/SiteLogo.png';
+import { useAuthContext } from '../hooks/useAuthContext'; 
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import './MainComponentsSTYLES.css'
@@ -30,8 +29,8 @@ const NavBar = () => {
         <nav id="menu" className=" navbar-default navbarFIXtop">
             <div className=" ">
                 <div className="navbarHHeader">
-                    <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a>
-                    <img src={SiteLogo} height="50px" alt="pic" />
+                    <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a>                 
+                    <img src="/assets/SiteLogo.png" height="50px" alt="pic" />
                 </div>
 
                 <ul className=" navbarNNNav navtoright unordlist">

@@ -16,27 +16,27 @@
   },  
   "Team": [
     {
-      "img": "img/LandingPageimgs/TM.png",
+      "img": "images/LandingPageimgs/TM.png",
       "name": "Omar Khaled",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "img/LandingPageimgs//TM.png",
+      "img": "images/LandingPageimgs//TM.png",
       "name": "Basmala Mamdouh",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "img/LandingPageimgs//TM.png",
+      "img": "images/LandingPageimgs//TM.png",
       "name": "Abdelrahman Mohamed",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "img/LandingPageimgs//TM.png",
+      "img": "images/LandingPageimgs//TM.png",
       "name": "Eman Mohamed",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "img/LandingPageimgs//TM.png",
+      "img": "images/LandingPageimgs//TM.png",
       "name": "Mohamed Taha",
       "job": "MEARN stack Developer"
     }

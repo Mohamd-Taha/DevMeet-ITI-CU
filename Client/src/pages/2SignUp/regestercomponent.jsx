@@ -1,12 +1,16 @@
 import classes from "../3Login/login.module.css"
 // import { registerRoute } from "../utils/APIRoutes";
-import axios from "axios";
+import styled from "styled-components";
 
 import React, { useState, useEffect } from "react";
-// import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Footer from '../../Components/Footer';
+import axios from "axios";
+
+
+
+
 function Regestercomponents(props) {
     const navigate = useNavigate();
     const toastOptions = {
@@ -84,71 +88,48 @@ function Regestercomponents(props) {
     //   }
     // };
     return (
-        // <div className={classes.style}>
-        //     <form action="">
-        //     <h2 className={classes.myfont} >sign up</h2>
-        //     <br />
-        //     <input className={classes.input} type="text" placeholder="FristName"/>
-        //     <input className={classes.input} type="text" placeholder="LastName"/>
-        //     <br />
-        //     <input className={classes.input}type="text" placeholder="Email"/>
-        //     <input className={classes.input}type="text" placeholder="Tittle"/>
-        //     <br />
-        //     <input className={classes.input}type="text" placeholder="Password"/>
-        //     <br />
-        //     <input className={classes.input}type="text" placeholder="Confirm Password"/>
-        //     <br />
-        //     <input type="submit" value="Sign up" className={classes.btn}/>
+        <div className={classes.style}>
+            <form action="">
+            <h2 className={classes.myfont} >sign up</h2>
+            <br />
+            <input className={classes.input} type="text" placeholder="FristName"/>
+            <input className={classes.input} type="text" placeholder="LastName"/>
+            <br />
+            <input className={classes.input}type="text" placeholder="Email"/>
+            <input className={classes.input}type="text" placeholder="Tittle"/>
+            <br />
+            <input className={classes.input}type="text" placeholder="Password"/>
+            <br />
+            <input className={classes.input}type="text" placeholder="Confirm Password"/>
+            <br />
+            <input type="submit" value="Sign up" className={classes.btn}/>
         
-        //     <div className={classes.sign }><img src="images/googleimg.png" alt="google" width="30" height="30"/>
-        //     <a href="">sign up with google</a></div>
-        //     <div className={classes.sign}><img src="images/facebookimg.png" alt="facebook"width="30" height="30" />
-        //     <a href="">sign up wth facebook</a> </div>
-        //     </form>
-        // </div>
-        <>
+            <div className={classes.sign }><img src="images/googleimg.png" alt="google" width="30" height="30"/>
+            <a href="">sign up with google</a></div>
+            <div className={classes.sign}><img src="images/facebookimg.png" alt="facebook"width="30" height="30" />
+            <a href="">sign up wth facebook</a> </div>
+            </form>
+        </div>
+        // <>
+    );
       
         {/* <form action="" onSubmit={(event) => handleSubmit(event)}> */}
-        <form action="" >
-          <div className="brand">
-            <img src="images/logo.jpeg" alt="logo" />
-            <h1>snappy</h1>
-          </div>
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            onChange={(e) => handleChange(e)}
-          />
-          <button type="submit">Create User</button>
-          <span>
-            Already have an account ? <Link to="/login">Login.</Link>
-          </span>
-        </form>
-      
-      <ToastContainer />
-      <Footer/>
-      </>
+        {/* <form action="" > */}
+          {/* <div className="brand"> */}
+            {/* <img src="images/logo.jpeg" alt="logo" /> */}
+            {/* <h1>snappy</h1> */}
+          {/* </div> */}
+          {/* <input type="text" placeholder="Username" name="username" onChange={(e) => handleChange(e)}/> */}
+          {/* <input type="email" placeholder="Email" name="email" onChange={(e) => handleChange(e)}/> */}
+          {/* <input type="password" placeholder="Password" name="password" onChange={(e) => handleChange(e)}/> */}
+          {/* <input type="password" placeholder="Confirm Password" name="confirmPassword" onChange={(e) => handleChange(e)}/> */}
+          {/* <button type="submit">Create User</button> */}
+          {/* <span> Already have an account ? <Link to="/login">Login.</Link> </span> */}
+        {/* </form> */}
+        {/* <ToastContainer /> */}
+        {/* <Footer/> */}
+      {/* </> */}
         
-    );
 }
 // const FormContainer = styled.div`
 //   height: 100vh;

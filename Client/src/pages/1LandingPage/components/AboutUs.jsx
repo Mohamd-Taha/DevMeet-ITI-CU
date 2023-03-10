@@ -8,9 +8,8 @@ let AboutUs = (props) => {
     <div id="about">
       <div className="Maincontainer">
         <div className="myrow">
-          <div className="colXS12 colmd6">
-            {" "}
-            <img src="img/LandingPageimgs/About2.png " className="img-responsive" alt="" />{" "}
+          <div className="colXS12 colmd6"> 
+            <img src="images/LandingPageimgs/About2.png " className="img-responsive" alt="" style={{height:'360px', width:'600px'}}/> 
           </div>
           <div className="colXS12 colmd6">
             <div className="about-text">
