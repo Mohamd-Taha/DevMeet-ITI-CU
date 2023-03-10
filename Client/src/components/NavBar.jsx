@@ -6,8 +6,8 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import './MainComponentsSTYLES.css'
 import axios from 'axios';
-
-
+import IconButton from '@mui/material/IconButton';
+import SendIcon from '@mui/icons-material/Send';
 
 
 const NavBar = () => {
@@ -60,6 +60,9 @@ const NavBar = () => {
                         <Search className="searchIcon" />
                         <input placeholder="Search..." className="searchInput " />
                         <span className="focus-bg"></span>
+                        <IconButton color="primary" aria-label="upload picture" component="label">
+                            <SendIcon htmlColor='purple' />
+                        </IconButton>
                     </div>
                 </div>
 
