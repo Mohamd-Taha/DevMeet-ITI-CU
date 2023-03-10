@@ -8,9 +8,9 @@ export default function CloseFriend({user}) {
     <li className="sidebarFriend">
         <NavLink to={{pathname:`/profile`, state:{user: user}}}> 
         <img className='sidebarFriendImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
-        </NavLink>
         <span className='sidearFriendName'>{user.firstName}</span>
         <span className='sidearFriendName'>{user.lastName}</span>
+         </NavLink>
     </li>
   )
 }

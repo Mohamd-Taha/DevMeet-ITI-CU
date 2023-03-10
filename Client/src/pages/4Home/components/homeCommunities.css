@@ -1,0 +1,15 @@
+.sidebarCommunity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.sidebarCommunityImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}

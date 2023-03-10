@@ -5,7 +5,7 @@ const userAuthModel = require("../Models/userAuthModel");
 var createCommunity = async (req, res) => {
     var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,registeredNumber:registNo} = req.body;
     console.log(req.files)
-    image = (req.files)? req.files.image1[0].filename : "CommunityCover.png" ;
+    image = (req.files.image1)? req.files.image1[0].filename : "CommunityCover.png" ;
 
     //I'm not sure about the following line of code 
     console.log("start fun")
@@ -24,6 +24,12 @@ var createCommunity = async (req, res) => {
     await commModel.save();
     res.json(commModel);
 
+}
+
+const getCommunities = async (req,res)=>{
+    console.log("******entered get communities")
+    const communities = await communityModel.find({}).limit(10)
+    res.status(200).json(communities)
 }
 
 
@@ -126,4 +132,4 @@ var getCommunityAdminbyId=async (req,res)=>{
 */
 
 module.exports = { createCommunity, registerToCommunity, getACommunitiesByuserId,
-    tryImage,getCommunityByid }
+    tryImage,getCommunityByid, getCommunities }

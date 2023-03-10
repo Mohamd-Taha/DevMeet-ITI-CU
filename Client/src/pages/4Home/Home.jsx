@@ -9,6 +9,7 @@ import axios from 'axios';
 import Share from './components/Share'
 import NavBar from '../../Components/NavBar';
 import Footer from "../../Components/Footer";
+import HomeCommunities from './components/homeCommunities';
 
 const Homecomponent = () => {
 
@@ -16,6 +17,7 @@ const Homecomponent = () => {
   user = user.user
   const [currentPosts, setCurrentPosts] = useState()
   const [flag, setFlag] = useState(false)
+  const [communities, setCommunities] = useState()
   Object.freeze(user)
   const getNewPosts = () => {
     axios.get(`http://localhost:7400/posts/${user._id}`)
@@ -43,10 +45,7 @@ const Homecomponent = () => {
       })
       .catch((err) => { console.log(err) })
   }
-  useEffect(() => {
-    getNewPosts()
-  }, [])
-  const getSharePost = (post) => {
+   const getSharePost = (post) => {
     let MapObject = new Map(Object.entries(post.likes));
          post.likes = MapObject
      setCurrentPosts([post, ...currentPosts])
@@ -56,7 +55,19 @@ const Homecomponent = () => {
         // }
    
   }
-
+  useEffect(() => {
+    getNewPosts()
+  }, [])
+ 
+ useEffect(()=>{
+      axios.get(`http://localhost:7400/communities/get`)
+      .then((response) => { return response })
+      .then(({ data }) => {
+        console.log(data)
+        setCommunities(data)
+      })
+      .catch((err) => { console.log(err) })
+ }, [])
    const getTagPosts = (post) => {
    for (let i = 0; i < post.length; i++) {
           let MapObject = new Map(Object.entries(post[i].likes));
@@ -92,6 +103,9 @@ const Homecomponent = () => {
       </div>
       <div className='BottomRightDiv'>
         <div>Communities</div>
+       {communities?.map((c)=>(
+       <HomeCommunities key={c._id} community={c}></HomeCommunities>
+       ))}
       </div>
       {/* <Footer /> */}
     </div>
