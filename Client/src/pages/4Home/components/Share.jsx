@@ -51,7 +51,7 @@ const Share = ({ user, sendNewPost }) => {
   const [TagName, setTagName] = useState([]);  
   const handleChange = (event) => {
     const {target: { value },} = event;   // On autofill we get a stringified value.
-    setTagName(typeof value === 'string' ? value.split(',') : value,);
+    if (value.length <= 3)  setTagName(typeof value === 'string' ? value.split(',') : value,); //setting 3 selections as max tags
   };
 /////////////////////////////////////////////////////////////
 
@@ -78,21 +78,17 @@ const Share = ({ user, sendNewPost }) => {
             <div className="shareOption">
             <LocalOfferIcon htmlColor='blue'/>  
             <FormControl sx={{ width: '250px' }}  size="small" >
-              <InputLabel id="demo-multiple-checkbox-label">Tags</InputLabel>
+              <InputLabel id="demo-multiple-checkbox-label">Tags"max:3"</InputLabel>
               <Select labelId="demo-multiple-checkbox-label" id="demo-multiple-checkbox" multiple value={TagName} onChange={handleChange} input={<OutlinedInput label="Tag" />} renderValue={(selected) => selected.join(', ')} MenuProps={MenuProps} >
                 {Tags.map((tag) => (
                   <MenuItem key={tag} value={tag} >
                     <AlternateEmailIcon htmlColor='blue' classtag='shareIcon' />  
-                    <Checkbox checked={TagName.indexOf(tag) > -1} size="small" />
                     <ListItemText primary={tag} />
+                    <Checkbox checked={TagName.indexOf(tag) > -1} size="small" />
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl> 
-
-
-
-              
+            </FormControl>  
             </div>
           </div>
           
