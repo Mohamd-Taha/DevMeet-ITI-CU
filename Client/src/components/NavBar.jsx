@@ -60,9 +60,11 @@ const NavBar = () => {
                         <Search className="searchIcon" />
                         <input placeholder="Search..." className="searchInput " />
                         <span className="focus-bg"></span>
-                        <IconButton color="primary" aria-label="upload picture" component="label">
-                            <SendIcon htmlColor='purple' />
-                        </IconButton>
+                        <Link to='/search' >
+                            <IconButton color="primary" aria-label="upload picture" component="label">
+                                <SendIcon htmlColor='purple' /> 
+                            </IconButton>
+                        </Link>
                     </div>
                 </div>
 

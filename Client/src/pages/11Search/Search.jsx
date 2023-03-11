@@ -1,6 +1,6 @@
 import React from 'react'; 
 import NavBar from '../../Components/NavBar'; 
-import 'Search.css';
+import './Search.css';
 
 
 

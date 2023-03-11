@@ -10,6 +10,7 @@ import Profile from './Pages/5Profile/Profile'
 import Messanger from './Pages/6Messenger/Messenger'
 import Notifications from './Pages/7Notifications/Notifications'
 import Meetups from './Pages/8Meetups/Meetups'
+import Search from './Pages/11Search/Search'
 import Error404 from './Components/Error404'
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="messenger" element={<Messanger/>}></Route>
         <Route path="notifications" element={<Notifications/>}></Route>
         <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}
+        <Route path="search" element={<Search/>}></Route>  
         
         <Route path="*" element={<Error404></Error404>}></Route>
       </Routes>
