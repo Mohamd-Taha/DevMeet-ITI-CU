@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
 import { BrowserRouter, Routes, Route, Switch, Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext'; 
@@ -12,6 +12,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 const NavBar = () => {
     const { dispatch } = useAuthContext()
+    const [search, setSearch]= useState()
     const navigate = useNavigate()
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
@@ -58,9 +59,9 @@ const NavBar = () => {
                 <div className="topbarCentre">
                     <div className="searchbar">
                         <Search className="searchIcon" />
-                        <input placeholder="Search..." className="searchInput " />
+                        <input placeholder="Search..." className="searchInput " onChange={(e)=>{setSearch(e.target.value)}} />
                         <span className="focus-bg"></span>
-                        <IconButton color="primary" aria-label="upload picture" component="label">
+                        <IconButton color="primary" aria-label="upload picture" component="label" onClick={ <NavLink to={{ pathname: `/search`, state: { userSearch: search} }}/>}>
                             <SendIcon htmlColor='purple' />
                         </IconButton>
                     </div>

@@ -17,6 +17,8 @@ router.get("/register", authController.DisplayRegister)
 */
 //logout user
 router.get("/logout", authController.LogoutUser)
+//search user
+router.post("/search", authController.searchUser)
 //update user
 //delete user
 //get a user

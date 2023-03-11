@@ -11,6 +11,7 @@ import Messanger from './Pages/6Messenger/Messenger'
 import Notifications from './Pages/7Notifications/Notifications'
 import Meetups from './Pages/8Meetups/Meetups'
 import Error404 from './Components/Error404'
+import Search from './Pages/11Search/Search'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={!user?<Login></Login>:<Navigate to="/home"></Navigate>}></Route>
         <Route path="/register" element={!user?<Register></Register>:<Navigate to="/home"></Navigate>}></Route>
         <Route path="/home" element={user?<Home/>:<Navigate to="/login"></Navigate>}></Route>
+        <Route path="/search" element={user?<Search/>:<Navigate to="/login"></Navigate>}></Route>
         
         <Route path="profile" element={<Profile/>}></Route>  {/* "profile/:userID" */}
         <Route path="messenger" element={<Messanger/>}></Route>

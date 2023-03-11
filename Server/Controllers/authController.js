@@ -123,11 +123,14 @@ var getAGroupMessages=(req,res)=>{
 //searchByname
 // result is the fName,Lname,city,career,Picture
 
-var searchUserById= async ()=>{
-
-    var {firstname,lastname}=req.body;
-  
-    var ussersArray=await userAuth.find({firstname:firstname,lastname:lastname},'firstname lastname city career profilePicture');
+var searchUser= async ()=>{
+    var {firstName,lastName}=req.body;
+    if(firstName&&lastName){
+    var ussersArray=await userAuth.find({firstName:firstName,lastName:lastName});
+    }
+    else{
+    var ussersArray=await userAuth.find({firstName:firstName});
+    }
     res.json(ussersArray);
     
 }
@@ -165,4 +168,4 @@ var searchUserById= async ()=>{
 
 
 
-module.exports= {RegisterNewUser, LoginUser, LogoutUser};
+module.exports= {RegisterNewUser, LoginUser, LogoutUser, searchUser};
