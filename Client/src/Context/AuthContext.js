@@ -31,7 +31,7 @@ export const profileReducer=(state, action)=>{
 
 export const AuthContextProvider = ({children})=>{
  const [state, dispatch]=useReducer(authReducer, {
-  userId:null,
+  user:null,
  })
  const [profileState, profileDispatch]= useReducer(profileReducer)
 

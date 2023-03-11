@@ -1,12 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useAuthContext } from "../../hooks/useAuthContext";
-import Post from './components/Post'
+import Post from './Components/Post'
 import { Posts } from '../dummyData'
 import './Home.css'
-import Sidebar from './components/Sidebar';
+import Sidebar from './Components/Sidebar';
 import axios from 'axios';
-import Share from './components/Share'
+import Share from './Components/Share'
 import NavBar from '../../Components/NavBar';
 import Footer from "../../Components/Footer";
 import HomeCommunities from './components/homeCommunities';
@@ -91,7 +91,7 @@ const Homecomponent = () => {
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
       <div className='shareDiv'>
-        <Share user={user} sendNewPost={getSharePost} ></Share>
+        <Share user={user} sendNewPost={getSharePost}  personalCheck='true'></Share>
       </div>
       <div className='PostsDiv'>
         {currentPosts?.map((p) => (

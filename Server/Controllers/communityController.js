@@ -3,23 +3,22 @@ const userAuthModel = require("../Models/userAuthModel");
 
 
 var createCommunity = async (req, res) => {
-    var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,registeredNumber:registNo} = req.body;
-    console.log(req.files)
-    image = (req.files.image1)? req.files.image1[0].filename : "CommunityCover.png" ;
+    console.log("from create communit method")
+    //this line blow was used only to tes
+    // var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,registeredNumber:registNo,posts:posts} = req.body;
 
-    //I'm not sure about the following line of code 
+    var { communityName: name, adminId: admin, communityDescription: desc, AdminName: aName } = req.body;
+    // handle pics returning from multer
+    image1 = (req.files.image1) ? req.files.image1[0].filename : "CommunityCover.png";
+    image2 = (req.files.image2) ? req.files.image2[0].filename : "CommunityIcon.png";
+
     console.log("start fun")
-    
-    // var image=req.file.filename ;
-    // const image = req.files.image1[0].filename;
-
-    // var image=undefined;
-    // var image= ()=>req.file.filename ? req.file.filename : "not found"
-    var obk={adminId:admin,AdminName:aName,adminPic:"null"}
-    console.log(image);
-    var commModel = new communityModel({ communityName: name, communityAdmin: obk,
-        communityDescription: desc,commiunityIcon:image,registeredNumber:registNo });
-    
+    var obk = { adminId: admin, adminName: aName }
+    var commModel = new communityModel({
+        communityName: name, communityAdmin: obk,
+        communityDescription: desc, commiunityIcon: image2,
+        commiunityCover:image1
+    });
 
     await commModel.save();
     res.json(commModel);
@@ -35,9 +34,10 @@ const getCommunities = async (req,res)=>{
 
 var registerToCommunity = async (req, res) => {
     var { userId, communityId } = req.body;
-    console.log( "inside registerToCommunity")
+    console.log("inside registerToCommunity")
     var comm = await communityModel.findById(communityId);
     comm.registeredUsers.push(communityId);
+    comm.registeredNumber += 1;
     await comm.save();
     console.log(comm);
 
@@ -56,11 +56,11 @@ var registerToCommunity = async (req, res) => {
 //route communities/getAcomm
 var getACommunitiesByuserId = async (req, res) => {
 
-    var {userId} = req.body;
+    var { userId } = req.body;
     console.log(userId);
     console.log(typeof userId)
     // var x = await userAuthModel.findById(userId).populate('communitites');
-    var x = await userAuthModel.find({_id:userId})
+    var x = await userAuthModel.find({ _id: userId }).populate('posts')
     //.select('communities')
     console.log(x);
 
@@ -68,24 +68,60 @@ var getACommunitiesByuserId = async (req, res) => {
 
 }
 
+//just for test multer functionality
 var tryImage = (req, res) => {
     console.log("image")
-    res.json({body:req.body,file:req.file})
+    res.json({ body: req.body, file: req.file })
 }
 
 
-var getCommunityByid=async (req,res)=>{
-    let communityiD=req.query.id;
-    console.log("the id is below")
+var getCommunityByid = async (req, res) => {
+    let communityiD = req.query.id;
+    //let {communityiD}=req.body;
+    console.log("the nono is below")
     console.log(communityiD)
-   if( communityiD.match(/^[0-9a-fA-F]{24}$/))
-   {newComm= await communityModel.findById(communityiD);
-    // res.send(newComm)
-    res.json(newComm)}
-    else{
-        res.json({st:"fail"})
-    }
-     
+    //if( communityiD.match(/^[0-9a-fA-F]{24}$/))
+    //{
+    console.log("validation is true");
+
+    newComm = await communityModel.findById(communityiD)
+        .populate('posts')
+        .then(user => {
+            res.json(user);
+        });
+
+    // .exec((err ) => {
+    //     if (err) return handleError(err);
+    //     console.log('ERORRRRR');
+    // });
+    // res.json(newComm)
+    //}
+
+    // else{
+    //     res.json({st:"fail"})
+    // }
+
+}
+
+var addPostToCommunity = async (req, res) => {
+    //inputs are communityID & postId
+    var { postId, CommunityId } = req.body;
+    let newComm = communityModel.findById(CommunityId);
+    newComm.posts.push(postId);
+    newComm.save();
+    res.json({ status: "DONE" })
+}
+
+
+
+var requestToJoin = async (req, res) => {
+    var { userId, communityId } = req.body;
+    console.log("inside registerToCommunity")
+    var comm = await communityModel.findById(communityId);
+    comm.joinRequests.push(communityId);
+    await comm.save();
+    console.log(comm);
+
 }
 
 
@@ -100,16 +136,16 @@ var getCommunityByid=async (req,res)=>{
 
 //     //delete the user from the array of the user communitits property
 
-    
 
-    
+
+
 
 //     //.registeredUsers.findIndex(userId)
 
 
 
 // }
- 
+
 
 // var editCommunity=async (req,res)=>{
 
@@ -131,5 +167,7 @@ var getCommunityAdminbyId=async (req,res)=>{
 
 */
 
-module.exports = { createCommunity, registerToCommunity, getACommunitiesByuserId,
-    tryImage,getCommunityByid, getCommunities }
+module.exports = {
+    createCommunity, registerToCommunity, getACommunitiesByuserId,
+    tryImage, getCommunityByid, requestToJoin, getCommunities
+}

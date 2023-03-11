@@ -1,0 +1,39 @@
+.flex-container {
+    display: flex;
+    /* background-color: rgb(229, 30, 255); */
+    font-size: 10px;
+
+    /* background-color: #f1f1f1; */
+  }
+  
+  .flex-container > div {
+    /* background-color: rgb(229, 30, 255); */
+    color: black;
+    width: 20%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 20px;
+  }
+
+  .moderators :hover{
+    color: gray;
+
+  }
+
+  .commName{
+    font-size: 2em;
+    font-weight: bolder;
+    margin-top: 5px;
+    margin-left: 10%;
+  }
+
+  .center{
+    text-align: center;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 70%;
+    height: 200px;
+  }

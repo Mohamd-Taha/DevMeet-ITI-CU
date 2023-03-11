@@ -8,10 +8,14 @@ import Register from './Pages/2Register/Register.jsx';
 import Home from "./Pages/4Home/Home";
 import Profile from './Pages/5Profile/Profile' 
 import Messanger from './Pages/6Messenger/Messenger'
-import Notifications from './Pages/7Notifications/Notifications'
+//import Notifications from './Pages/7Notifications/Notifications'
 import Meetups from './Pages/8Meetups/Meetups'
 import Search from './Pages/11Search/Search'
 import Error404 from './Components/Error404'
+import Community from "./Pages/10Community/Community";
+import NotifyModal from "./Components/NotifyModal";
+import ComponentSearch from "./Components/ComponentSearch";
+
 
 
 function App() {
@@ -27,14 +31,20 @@ function App() {
         
         <Route path="profile" element={<Profile/>}></Route>  {/* "profile/:userID" */}
         <Route path="messenger" element={<Messanger/>}></Route>
-        <Route path="notifications" element={<Notifications/>}></Route>
+        {/* <Route path="notifications" element={<Notifications/>}></Route> */}
         <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}
         <Route path="search" element={<Search/>}></Route>  
+        <Route path="/community" element={<Community/>}></Route>  
+        <Route path="notifications/:id" element={<NotifyModal/>}></Route>
+        <Route path="componentSearch" element={<ComponentSearch/>}></Route>
+
+
         
         <Route path="*" element={<Error404></Error404>}></Route>
       </Routes>
     </BrowserRouter>
 
+    // <Community></Community>
 
     //  <div>
     //   {/* <Landing/>   */}

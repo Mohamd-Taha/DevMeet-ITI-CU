@@ -20,7 +20,9 @@ const mongoose=require('mongoose');
 const DB_URL = "mongodb://127.0.0.1:27017/DevMeet";
 // const DB_URL = "mongodb+srv://abdelrahman:devmeet23@devmeet.6qb3f5e.mongodb.net/?retryWrites=true&w=majority";
 mongoose.set('strictQuery', false);
-mongoose.connect(DB_URL, {useNewUrlParser:true});
+mongoose.connect(DB_URL, {useNewUrlParser:true},()=>{
+    console.log(`connected is done successfully with DB at link --- ${DB_URL}` )
+});
 
 
 

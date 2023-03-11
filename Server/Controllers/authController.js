@@ -5,22 +5,27 @@ const  jwt = require('jsonwebtoken');
 const path = require("path")
 //require('dotenv').config();
 const loginValidator = require("../Utils/loginValidator")
-
 const maxAge = 3*24*60*60 //expiration data for cookies
 
 
 
 var RegisterNewUser = async (req, res)=>{
  var newUser= req.body;
+ console.log("from register new user")
  
-
 
  //edit to add profilePicture
  img1="profilePic.png" ;
  img2="profileCover.png" ;
+//  img1=(req.files)? req.files.image1[0].filename : "profilePic.png" ;
+//  img2=(req.files)? req.files.image2[0].filename : "profileCover.png" ;
+ 
+//  img1= "profilePic.png" ;
+//  img2= "profileCover.png" ;
 
  newUser={...newUser,profilePicture:img1,coverPicture:img2};
- userValidator= UserValidator(req.body);
+ console.log(newUser)
+ var userValidator= UserValidator(newUser);
  try{
  if(userValidator){
 console.log("true")
@@ -34,7 +39,9 @@ console.log("true")
          var HashedPassword = await bcrypt.hash(newUser.password,10);
          newUser.password = HashedPassword;
          var newU = new userAuth(newUser);
+         console.log(newU)
         await newU.save();
+        console.log("user saved")
         console.log(newU)
      const accessToken = jwt.sign({UserId:newU._id, adminRole:newU.isAdmin}, "thisissecret", {expiresIn: maxAge});
      res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
@@ -46,7 +53,7 @@ console.log("true")
 
 }
 else{
-    throw Error("You entered invalid information xxx")
+    throw Error("You entered invalid information ajv error")
 }
  }
 catch(error){
@@ -123,11 +130,12 @@ var getAGroupMessages=(req,res)=>{
 //searchByname
 // result is the fName,Lname,city,career,Picture
 
-var searchUserById= async ()=>{
+var searchUserByname= async ()=>{
 
     var {firstname,lastname}=req.body;
   
-    var ussersArray=await userAuth.find({firstname:firstname,lastname:lastname},'firstname lastname city career profilePicture');
+    var ussersArray=await userAuth.find({firstname:firstname,lastname:lastname}
+        ,'firstname lastname city career profilePicture');
     res.json(ussersArray);
     
 }
