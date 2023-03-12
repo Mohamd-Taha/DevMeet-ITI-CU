@@ -9,18 +9,18 @@ import Typography from '@mui/material/Typography';
 
 
 
-const Comments = ({ message }) => { 
+const Comments = ({ message, firstName, lastName, userPicturePath }) => { 
 
     
     return (
         <>  
-        <List sx={{ width: '100%', maxWidth: 500,   }}>
+        <List sx={{ width: '100%', maxWidth: 500,}}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar src="/assets/persons/8.jpg" //de img al user ale by3ml comment bnfso  ex.(user.img)  
+                    <Avatar src={`http://localhost:7400/images/${userPicturePath}`}//de img al user ale by3ml comment bnfso  ex.(user.img)  
                     />   
                 </ListItemAvatar>
-                <ListItemText primary="Abdelrahman " // al asm da mn l user ale by3ml comment bnfso ex.(user.name)
+                <ListItemText primary={firstName}  // al asm da mn l user ale by3ml comment bnfso ex.(user.name)
                     secondary={
                         <React.Fragment>
                             <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary" > { message } </Typography> 

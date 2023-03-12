@@ -29,9 +29,12 @@ const Share = ({ user, sendNewPost }) => {
 
   const [description, setDescription] = useState()
   const [image, setImage] = useState()
+  const [error, setError] = useState()
   const [placeholder, setPlaceholder] = useState(`What's on your mind ${user.firstName}?`)
 
   const makePost = () => {
+    setError(null)
+    if(description){
     const formData = new FormData()
     formData.append("userId", user._id)
     formData.append("description", description)
@@ -47,6 +50,10 @@ const Share = ({ user, sendNewPost }) => {
         sendNewPost(data) 
       })
       .catch((err) => { console.log(err) })
+    }
+    else{
+   setError("*")
+    }
     
      document.getElementById("shareTextbox").value=""
 
@@ -66,7 +73,8 @@ const Share = ({ user, sendNewPost }) => {
       <div className="shareWrapper">
         <div className="shareTop">
           <img className='shareProfileImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
-          <input placeholder={placeholder} id="shareTextbox" className='shareInput' onChange={(e) => {setDescription(e.target.value)}} />
+          {error&&<div style={{color:'red', fontWeight:'bolder'}}> {error}</div>}
+          <input placeholder={placeholder} required id="shareTextbox" className='shareInput' onChange={(e) => {setDescription(e.target.value)}} />
         </div>
         <hr className='shareHr' />
         <div className="shareBottom">
