@@ -12,4 +12,9 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
+}   
+
+.communityNavLink{
+text-decoration: none;
+  color: black;
 }

@@ -10,14 +10,16 @@ import Share from './components/Share'
 import NavBar from '../../Components/NavBar';
 import Footer from "../../Components/Footer";
 import HomeCommunities from './components/homeCommunities';
+import Search from '../11Search/Search';
 
 const Homecomponent = () => {
 
   let { user } = useAuthContext()
   user = user.user
   const [currentPosts, setCurrentPosts] = useState()
-  const [flag, setFlag] = useState(false)
+  const [flag, setFlag] = useState(true)
   const [communities, setCommunities] = useState()
+  const [search, setSearch] = useState()
   Object.freeze(user)
   const getNewPosts = () => {
     axios.get(`http://localhost:7400/posts/${user._id}`)
@@ -28,7 +30,6 @@ const Homecomponent = () => {
           data[i].likes = MapObject
         }
         setCurrentPosts(data)
-        console.log(currentPosts)
 
       })
       .catch((err) => { console.log(err) })
@@ -55,16 +56,35 @@ const Homecomponent = () => {
         // }
    
   }
+
+  const getSearch=(data)=>{
+    setSearch(data);
+    setFlag(false);
+    console.log("************");
+    console.log(search);
+    try{
+    const searchQuery= search.split(" ")
+    axios.post(`http://localhost:7400/search`,{firstName:searchQuery[0], lastName:searchQuery[1] }, {withCredentials: true} )
+        .then((response)=>{return response})
+        .then(({data})=>{
+        console.log(data)
+        })
+        .catch((err)=>{console.log(err)})
+      }
+      catch{}
+
+  }
+ 
   useEffect(() => {
     getNewPosts()
   }, [])
- 
+
  useEffect(()=>{
       axios.get(`http://localhost:7400/communities/get`)
       .then((response) => { return response })
       .then(({ data }) => {
-        console.log(data)
-        setCommunities(data)
+      console.log(data)
+      setCommunities(data)
       })
       .catch((err) => { console.log(err) })
  }, [])
@@ -77,27 +97,35 @@ const Homecomponent = () => {
    
   }
   const getLikedPost = (post) => {
-    setCurrentPosts(currentPosts.map(el => (el._id === post._id ? el.likes = post.likes : el)))
-    console.log("enteredsharepost")
+    const index = currentPosts.findIndex((el) => el._id === post._id);
+    const updatedPost = {...post, likes: post.likes};
+    setCurrentPosts([ 
+  ...currentPosts.slice(0, index),
+  updatedPost,
+  ...currentPosts.slice(index + 1)
+]);
+     console.log("enteredsharepost")
+  //  await setCurrentPosts(currentPosts.map(el => (el._id === post._id ? el.likes = post.likes : el)))
+   
   }
-  return (
+  return (  
     <div className='parentHomeDiv'>
-      <NavBar />
-      <div className='filterDiv'>
-        <btn className="tagbuttons" style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New</btn>
-        <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
-      </div>
+      <NavBar sendSearch={getSearch}/>
       <div className='leftHomeDiv'>
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
-      <div className='shareDiv'>
+     { flag ?< div className='filterDiv'>
+        <btn className="tagbuttons" style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New</btn>
+        <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
+      </div> : <div className='searchDiv'><Search/></div>}
+       { flag && <div className='shareDiv'>
         <Share user={user} sendNewPost={getSharePost} ></Share>
-      </div>
-      <div className='PostsDiv'>
+      </div>}
+      {flag &&  <div className='PostsDiv'>
         {currentPosts?.map((p) => (
           <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} />
         ))}
-      </div>
+      </div>}
       <div className='TopRightDiv'>
         <div>Meeting Times</div>
       </div>

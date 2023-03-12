@@ -29,6 +29,8 @@ const Share = ({ user, sendNewPost }) => {
 
   const [description, setDescription] = useState()
   const [image, setImage] = useState()
+  const [placeholder, setPlaceholder] = useState(`What's on your mind ${user.firstName}?`)
+
   const makePost = () => {
     const formData = new FormData()
     formData.append("userId", user._id)
@@ -45,6 +47,10 @@ const Share = ({ user, sendNewPost }) => {
         sendNewPost(data) 
       })
       .catch((err) => { console.log(err) })
+    
+     document.getElementById("shareTextbox").value=""
+
+
   }
 
 /////////////////////////////////////////////////////////////
@@ -60,7 +66,7 @@ const Share = ({ user, sendNewPost }) => {
       <div className="shareWrapper">
         <div className="shareTop">
           <img className='shareProfileImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
-          <input placeholder={`What's on your mind ${user.firstName}?`} className='shareInput' onChange={(e) => { setDescription(e.target.value) }} />
+          <input placeholder={placeholder} id="shareTextbox" className='shareInput' onChange={(e) => {setDescription(e.target.value)}} />
         </div>
         <hr className='shareHr' />
         <div className="shareBottom">

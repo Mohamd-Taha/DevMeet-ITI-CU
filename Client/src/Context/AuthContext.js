@@ -1,4 +1,4 @@
-import {createContext, useReducer,useEffect} from 'react'
+import {createContext, useReducer,useEffect, useState} from 'react'
 
 export const AuthContext = createContext()
 
@@ -31,8 +31,9 @@ export const profileReducer=(state, action)=>{
 
 export const AuthContextProvider = ({children})=>{
  const [state, dispatch]=useReducer(authReducer, {
-  userId:null,
+  user:null,
  })
+const [isLoading, setIsLoading] = useState(true);
  const [profileState, profileDispatch]= useReducer(profileReducer)
 
  useEffect(() => {
@@ -41,10 +42,11 @@ export const AuthContextProvider = ({children})=>{
     if (user) {
       dispatch({ type: 'LOGIN', payload: user }) 
     }
+   setIsLoading(false)
   }, [])
  console.log("Authcontext state:", state)
  return(
-<AuthContext.Provider value={{...state, ...profileState, dispatch, profileDispatch}}>
+<AuthContext.Provider value={{...state, ...profileState, isLoading, dispatch, profileDispatch}}>
  {children}
 </AuthContext.Provider>
  )

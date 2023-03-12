@@ -18,10 +18,11 @@ export default function Post({ post, userId, sendNewPost }) {
   const [image, setImage] = useState()
   const [otherUser, setOtherUser ] = useState()
   // const [isliked, setIsLiked] = useState(false)
-  const likeHandler = () => {
-    axios.patch(`http://localhost:7400/likes/${post._id}`, { userId }, { withCredentials: true })
+  const likeHandler = async () => {
+   await axios.patch(`http://localhost:7400/likes/${post._id}`, { userId }, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
+        console.log(data)
         let MapObject = new Map(Object.entries(data.likes));
         data.likes = MapObject
         console.log(data)
@@ -69,11 +70,12 @@ export default function Post({ post, userId, sendNewPost }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <NavLink to={{ pathname: `/profile`, state: { userId: post.userId } }}> <img className='postProfileImg'
+            <NavLink to={`/profile`} state={{user: otherUser}}> <img className='postProfileImg'
               src={`http://localhost:7400/images/${post.userPicturePath}`}
               alt="" /></NavLink>
             <span className="postUsername">
-              {post.firstName}
+              {post.firstName}&nbsp;
+              {post.lastName}
             </span>
             <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span>
           </div>

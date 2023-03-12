@@ -6,30 +6,10 @@ import axios from 'axios';
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Search = () => { 
-  let { user } = useAuthContext()
-let location = useLocation()
-console.log(location)
-let {search} = location.state 
-useEffect(()=>{
-try{
-console.log(search)
-search = search.split(" ")
-console.log(search)
-}
-catch(err){
-}
- axios.post(`http://localhost:7400/search`,{firstName:search[0], lastName:search[1] }, {withCredentials: true} )
-        .then((response)=>{return response})
-        .then(({data})=>{
-          console.log(data)
-        })
-        .catch((err)=>{console.log(err)})
-    
-})
+let { user } = useAuthContext()
     return (
         <div>
-            <NavBar/> 
-            Search worksss
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam sint, optio animi fugiat soluta mollitia. Necessitatibus, quam voluptas accusamus ut distinctio fugiat consequatur voluptatibus obcaecati, delectus libero numquam officia soluta natus sit nisi dolore odit saepe iste dolor illum. Qui, officiis? Cum, atque sapiente enim expedita, porro blanditiis, velit fugiat in dicta commodi explicabo vel totam tempora praesentium amet libero. Sed cum possimus maiores dicta suscipit vitae? Dicta temporibus rem, dolores fugit voluptates dignissimos eius itaque quaerat debitis eveniet quam voluptatibus dolor cum tenetur, sint molestias aliquam non quidem tempora? Cupiditate aut molestias, velit eius aspernatur dignissimos culpa architecto error quas vel labore. Distinctio, quas deleniti officia magni, ab illum quos adipisci excepturi fuga animi sunt exercitationem, fugiat natus delectus sint? Praesentium dolor harum, impedit recusandae repudiandae doloribus perspiciatis facere temporibus at ex, laboriosam dicta quis aut beatae corporis fugit culpa maiores ducimus hic autem dignissimos eveniet dolorum nemo! Non, vitae obcaecati. Quis alias dignissimos sapiente optio excepturi minima, animi labore perferendis explicabo quos illum sequi eum ullam assumenda fugit corporis ab blanditiis nisi commodi! Possimus consequatur modi deleniti temporibus id accusamus repudiandae tempore quae nobis labore ratione aperiam culpa commodi deserunt ad, officia amet earum impedit alias tenetur ipsam quod ullam. Iste ea vel recusandae natus a illum quis accusamus praesentium esse necessitatibus quod, ipsum tempora doloribus nostrum perferendis possimus modi eius beatae aspernatur optio doloremque? Consectetur dolorem quae esse fuga earum quod sint dolore error perspiciatis ullam, provident dolorum numquam unde illo? Commodi debitis id laudantium iusto, aspernatur vero placeat atque ratione? Dignissimos, deleniti consequuntur modi culpa ad perspiciatis fuga tenetur numquam dicta alias, accusantium quibusdam repudiandae dolores magni asperiores nam atque porro libero aliquid quaerat ullam saepe rerum voluptatem temporibus. Modi, reiciendis omnis. Molestiae assumenda architecto dolorem beatae quam, quaerat officia? Eos repellendus porro, inventore nesciunt assumenda mollitia qui tempora magni exercitationem facilis ipsam consequatur, quasi magnam nulla voluptas pariatur deleniti amet fuga illum. Animi voluptate officia nisi ullam vero sint magni commodi molestiae voluptatem quo corporis, autem quisquam nihil, quod expedita aspernatur, nobis maxime odio dignissimos! Vitae repellat distinctio quibusdam mollitia temporibus illo reiciendis pariatur asperiores repellendus? Velit hic possimus architecto modi doloremque suscipit debitis ipsa repudiandae unde repellat ullam, fugiat quaerat tenetur eius id nesciunt obcaecati, numquam minima et assumenda quisquam saepe ea! Pariatur consequatur exercitationem, architecto tempore quasi reiciendis officiis iusto ipsa non similique dolor eum nam veniam laborum doloremque quaerat omnis? Vel laudantium ut libero, provident molestiae officiis tempore fugit mollitia soluta magni voluptatibus voluptatum iste rem itaque animi corporis labore ducimus earum dolorum accusantium voluptate. Consectetur aspernatur impedit quia cupiditate alias delectus, inventore dignissimos soluta. At, exercitationem veritatis. Fuga iusto delectus odit tempora ex ut dolores amet adipisci qui assumenda at, libero ab, corporis architecto officia rem! Ipsa soluta dolorum, sed cupiditate rerum, amet doloremque esse placeat tenetur minima magni ad voluptatum blanditiis? Reiciendis ipsa optio voluptatum nemo voluptatem animi vero consequuntur autem aspernatur, asperiores, impedit magni odit fugiat consequatur eos laborum nihil dolor rerum maiores a? Nostrum dolor nulla sapiente hic.
         </div>
     );
 };

@@ -10,10 +10,9 @@ import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/Send';
 
 
-const NavBar = () => {
+const NavBar = ({sendSearch}) => {
     const { dispatch } = useAuthContext()
     const [search, setSearch]= useState()
-    const navigate = useNavigate()
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
         axios.get('http://localhost:7400/logout', {
@@ -61,9 +60,11 @@ const NavBar = () => {
                         <Search className="searchIcon" />
                         <input placeholder="Search..." className="searchInput " onChange={(e)=>{setSearch(e.target.value)}} />
                         <span className="focus-bg"></span>
-                        <IconButton color="primary" aria-label="upload picture" component="label" onClick={ <NavLink to={{ pathname: `/search`, state: { userSearch: search} }}/>}>
-                            <SendIcon htmlColor='purple' />
-                        </IconButton>
+                        <div>
+                            <IconButton color="primary" aria-label="upload picture" component="label"onClick={()=>{sendSearch(search)}}>
+                                <SendIcon htmlColor='purple' /> 
+                            </IconButton>
+                        </div>
                     </div>
                 </div>
 

@@ -123,13 +123,13 @@ var getAGroupMessages=(req,res)=>{
 //searchByname
 // result is the fName,Lname,city,career,Picture
 
-var searchUser= async ()=>{
+var searchUser= async (req, res)=>{
     var {firstName,lastName}=req.body;
     if(firstName&&lastName){
-    var ussersArray=await userAuth.find({firstName:firstName,lastName:lastName});
+    var ussersArray=await userAuth.find({firstName:{ $regex : new RegExp(firstName, "i") },lastName: {$regex : new RegExp(lastName,"i") }});
     }
     else{
-    var ussersArray=await userAuth.find({firstName:firstName});
+    var ussersArray=await userAuth.find({firstName:{ $regex : new RegExp(firstName, "i") }});
     }
     res.json(ussersArray);
     

@@ -10,12 +10,13 @@ import Profile from './Pages/5Profile/Profile'
 import Messanger from './Pages/6Messenger/Messenger'
 import Notifications from './Pages/7Notifications/Notifications'
 import Meetups from './Pages/8Meetups/Meetups'
-import Error404 from './Components/Error404'
 import Search from './Pages/11Search/Search'
+import Error404 from './Components/Error404'
+
 
 
 function App() {
-  const {user, dispatch} = useAuthContext()
+  const {user, dispatch, isLoading} = useAuthContext()
   return (
     
     <BrowserRouter>
@@ -26,7 +27,7 @@ function App() {
         <Route path="/home" element={user?<Home/>:<Navigate to="/login"></Navigate>}></Route>
         <Route path="/search" element={user?<Search/>:<Navigate to="/login"></Navigate>}></Route>
         
-        <Route path="profile" element={<Profile/>}></Route>  {/* "profile/:userID" */}
+        <Route path="profile" element={user?<Profile/>:<Navigate to="/login"></Navigate>}></Route>  {/* "profile/:userID" */}
         <Route path="messenger" element={<Messanger/>}></Route>
         <Route path="notifications" element={<Notifications/>}></Route>
         <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}

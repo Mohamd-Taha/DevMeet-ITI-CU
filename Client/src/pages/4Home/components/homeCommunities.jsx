@@ -5,10 +5,10 @@ function HomeCommunities({community}) {
 
   return (
       <li className="sidebarCommunity">
-        <NavLink to={{pathname:`/community`, state:{community: community}}}> 
+           <NavLink className={'communityNavLink'} to={`/community`} state={{community: community}}>
         <img className='sidebarCommunityImg' src={`http://localhost:7400/images/${community.commiunityIcon}`} alt="" />
-         </NavLink>
-        <span>{community.communityName}</span>
+        <span className='communitySpan'>{community.communityName}</span>
+              </NavLink>
        
     </li>
   )
