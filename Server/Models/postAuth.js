@@ -16,7 +16,7 @@ var postsSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    required: true,
+    required: true
   },
   userPicturePath: {
     type: String,
@@ -24,7 +24,7 @@ var postsSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    default: "",
+    required: true
   },
   picturePath: {
     type: String,
@@ -39,6 +39,11 @@ var postsSchema = new mongoose.Schema({
   comments: {
     type: [mongoose.SchemaTypes.ObjectId],
     default: [],
+  },
+  personalCheck:{
+    type:Boolean
+    //,default:true
+
   },
   
   helpful: {

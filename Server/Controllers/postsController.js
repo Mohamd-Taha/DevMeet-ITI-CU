@@ -1,6 +1,7 @@
 const Post= require('../Models/postAuth')
 const User= require("../Models/userAuthModel");
 const Comment= require("../Models/commentModel");
+const Community=require ('../Models/communityModel')
 const mongoose = require("mongoose");
 //CREATE POST
 const Authorize = ()=>{
@@ -14,7 +15,7 @@ const Authorize = ()=>{
   }
 }
 const createPost = async (req, res) => {
-    const { userId, description,picturePath, tags} = req.body; 
+    const { userId, description,picturePath, tags,personal,communityId} = req.body; 
     const {file} = req
     console.log(userId)
     console.log(description)
@@ -26,6 +27,7 @@ const createPost = async (req, res) => {
 //  newUser={...newUser,profilePicture:img1,coverPicture:img2};
     //const user = await User.findById(userId);
     //   '/images/post.picturePath'
+
  PostObj={
     userId,
     firstName: user.firstName,
@@ -34,7 +36,8 @@ const createPost = async (req, res) => {
     picturePath: image1,
     userPicturePath: user.profilePicture,
     likes: {},
-    tags
+    tags,
+    personal
   }
   console.log(PostObj)
     const newPost = new Post(PostObj);

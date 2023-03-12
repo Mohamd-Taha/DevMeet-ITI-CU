@@ -15,25 +15,17 @@ var communitySchema = new mongoose.Schema({
 
     communityAdmin:
     {
-
         adminId: {type:mongoose.SchemaTypes.ObjectId , ref: "users"},
         //in mongodb validation file i nelgect to store fName,lName,pic so i will igonre them here too
-        adminName: String,
-        adminPic: String
-
-    }
-
+        adminName: String
+    },
 // communityAdmin:
 //     {
 //                 type:mongoose.SchemaTypes.ObjectId,
 //                 Required:true,       
 //                 ref:'users'
 //             }
-    ,
-
-
-
-
+    
     communityDescription: {
         type: String,
         Required: true,
@@ -42,24 +34,28 @@ var communitySchema = new mongoose.Schema({
 
     commiunityIcon: {
         type: String
-        ,default: "GeneralCommunityIcon-DevMETT"
+        ,default: "GeneralCommunityIcon-DevMETT.png"
 
     },
+    commiunityCover: {
+        type: String
+        ,default: "GeneralCommunityCover-DevMETT.png"
 
+    },
     registeredUsers:
         { type: [mongoose.SchemaTypes.ObjectId], ref: "DevMeetUsers" }
     ,
-    registeredNumber: { type: Number },
+    registeredNumber: { type: Number,default:1 },
 
     meetups:
         {type: [mongoose.SchemaTypes.ObjectId],ref:"meetups"},
     
-    post: 
-    {type: [mongoose.SchemaTypes.ObjectId],ref:"posts"},
-
+    posts:
+     [{ type:  mongoose.SchemaTypes.ObjectId, ref: 'posts' }],
+    
 
     joinRequests:
-        { type: [mongoose.SchemaTypes.ObjectId], ref: "DevMeetUsers" }
+        { type: [mongoose.SchemaTypes.ObjectId], ref: "users" }
 
 },{timestamps:true})
 

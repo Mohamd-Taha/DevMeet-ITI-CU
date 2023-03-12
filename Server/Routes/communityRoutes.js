@@ -9,6 +9,8 @@ Router.post('/getAcomm',communityController.getACommunitiesByuserId)
 Router.post('/tryimage',communityController.tryImage)
 Router.get('/getCommunityByid',communityController.getCommunityByid)
 Router.get('/get',communityController.getCommunities)
+Router.get('/requestToJoin',communityController.requestToJoin)
+
 // Router.post('/deleteUserFromCommunity',communityController.deleteUserFromCommunity)
 
 
