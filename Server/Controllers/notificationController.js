@@ -4,17 +4,26 @@ const Notifies = require('../Models/notificationModel')
 const notifyCtrl = {
     createNotify: async (req, res) => {
         try {
+            // console.log("INSIDE CREATE NOTIFY")
+            // console.log(req.body)
+            // console.log("before destructing")
             const { id, recipients, url, text, content, image,user,isRead } = req.body
-
+            // console.log(id)
+            // console.log(recipients)
+            // console.log(text)
+            // console.log(content)
             //if(recipients.includes(req.user._id.toString())) return;
 
             const notify = new Notifies({
                 id, recipients, url, text, content, image, user,isRead
             })
             //user: req.user._id
+            // console.log("before save in create notify")
+            console.log(notify)
+            
+            await notify.save();
 
-            await notify.save()
-            return res.json({notify})
+            return res.json(notify)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -38,6 +47,8 @@ const notifyCtrl = {
 
             const notifies = await Notifies.find({recipients: req.query.id})
             .sort('-createdAt').populate('user', 'profilePicture firstName lastName')
+
+            // let notificationToClient={id:notifies.id,isRead:}
             
             return res.json({notifies})
         } catch (err) {

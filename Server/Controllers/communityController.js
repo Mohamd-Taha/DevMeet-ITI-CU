@@ -17,7 +17,7 @@ var createCommunity = async (req, res) => {
     var commModel = new communityModel({
         communityName: name, communityAdmin: obk,
         communityDescription: desc, commiunityIcon: image2,
-        commiunityCover:image1
+        commiunityCover: image1
     });
 
     await commModel.save();
@@ -25,7 +25,7 @@ var createCommunity = async (req, res) => {
 
 }
 
-const getCommunities = async (req,res)=>{
+const getCommunities = async (req, res) => {
     console.log("******entered get communities")
     const communities = await communityModel.find({}).limit(10)
     res.status(200).json(communities)
@@ -33,9 +33,9 @@ const getCommunities = async (req,res)=>{
 
 
 var registerToCommunity = async (req, res) => {
-    var { userId, communityId } = req.body;
+    let { userId, communityId } = req.body;
     console.log("inside registerToCommunity")
-    var comm = await communityModel.findById(communityId);
+    let comm = await communityModel.findById(communityId);
     comm.registeredUsers.push(communityId);
     comm.registeredNumber += 1;
     await comm.save();
@@ -53,14 +53,14 @@ var registerToCommunity = async (req, res) => {
     // selectedUser.posts.get
 }
 
-//route communities/getAcomm
+//get all communities by specified user
 var getACommunitiesByuserId = async (req, res) => {
 
     var { userId } = req.body;
     console.log(userId);
     console.log(typeof userId)
     // var x = await userAuthModel.findById(userId).populate('communitites');
-    var x = await userAuthModel.find({ _id: userId }).populate('posts')
+    var x = await userAuthModel.findOne({ _id: userId }, 'communities').populate('communities')
     //.select('communities')
     console.log(x);
 
@@ -78,14 +78,13 @@ var tryImage = (req, res) => {
 var getCommunityByid = async (req, res) => {
     let communityiD = req.query.id;
     //let {communityiD}=req.body;
-    console.log("the nono is below")
+    console.log(" getCommunityByid method")
     console.log(communityiD)
     //if( communityiD.match(/^[0-9a-fA-F]{24}$/))
     //{
     console.log("validation is true");
 
-    newComm = await communityModel.findById(communityiD)
-        .populate('posts')
+    newComm = await communityModel.findById(communityiD).populate('posts')
         .then(user => {
             res.json(user);
         });
@@ -105,7 +104,7 @@ var getCommunityByid = async (req, res) => {
 
 var addPostToCommunity = async (req, res) => {
     //inputs are communityID & postId
-    var { postId, CommunityId } = req.body;
+    let { postId, CommunityId } = req.body;
     let newComm = communityModel.findById(CommunityId);
     newComm.posts.push(postId);
     newComm.save();
@@ -115,9 +114,9 @@ var addPostToCommunity = async (req, res) => {
 
 
 var requestToJoin = async (req, res) => {
-    var { userId, communityId } = req.body;
+    let { userId, communityId } = req.body;
     console.log("inside registerToCommunity")
-    var comm = await communityModel.findById(communityId);
+    let comm = await communityModel.findById(communityId);
     comm.joinRequests.push(communityId);
     await comm.save();
     console.log(comm);

@@ -1,7 +1,7 @@
-const Post= require('../Models/postAuth')
-const User= require("../Models/userAuthModel");
-const Comment= require("../Models/commentModel");
-const Community=require ('../Models/communityModel')
+const Post = require('../Models/postAuth')
+const User = require("../Models/userAuthModel");
+const Comment = require("../Models/commentModel");
+const Community = require('../Models/communityModel')
 const mongoose = require("mongoose");
 var jwt = require('jsonwebtoken');
 //CREATE POST
@@ -10,25 +10,21 @@ const Authorize = (Token, userId)=>{
   if(decoded.userId==userId || decoded.isAdmin==true){
     return
   }
-  else{
+  else {
     throw Error("invalid Credentials")
   }
 }
 const createPost = async (req, res) => {
-    const { userId, description,picturePath, tags,personal,communityId} = req.body; 
-    const {file} = req
-    console.log(userId)
-    console.log(description)
-    const user = await User.findById(userId);
-    console.log(req.files)
-     //edit to add profilePicture
- const image1 =(req.files.image1)? req.files.image1[0].filename: null ;
-//  console.log(img1)
-//  newUser={...newUser,profilePicture:img1,coverPicture:img2};
-    //const user = await User.findById(userId);
-    //   '/images/post.picturePath'
 
- PostObj={
+  const { userId, description, picturePath, tags, personalCheck, communityId } = req.body;
+  const { file } = req
+  const user = await User.findById(userId);
+  // console.log(req.files)
+  //edit to add profilePicture
+  const image1 = (req.files.image1) ? req.files.image1[0].filename : null;
+
+
+  PostObj = {
     userId,
     firstName: user.firstName,
     lastName: user.lastName,
@@ -37,32 +33,42 @@ const createPost = async (req, res) => {
     userPicturePath: user.profilePicture,
     likes: {},
     tags,
-    personal
+    personalCheck,
+    communityId
   }
-  console.log(PostObj)
-    const newPost = new Post(PostObj);
-    await newPost.save();
-    res.status(200).json(newPost)
-    // const currentUserPosts = await Post.find({ userId: userId });
-    // const followingPosts = await Post.find({userId: { $in: user.following }})
-    // res
-    //   .status(200)
-    //   .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
-    //   .sort((a,b)=>{
-    //       return b.createdAt - a.createdAt; //sort by date in descending
-    //   })
-    //   );
+
+
+  const newPost = new Post(PostObj);
+  await newPost.save();
+  console.log("post saved")
+
+
+  if (!newPost.personalCheck) {
+    const newComm = await Community.findById(communityId).posts.push(newPost._id);
+    console.log(`post is added to communit${newComm.communityName} `)
+  }
+
+  res.status(200).json(newPost)
+  // const currentUserPosts = await Post.find({ userId: userId });
+  // const followingPosts = await Post.find({userId: { $in: user.following }})
+  // res
+  //   .status(200)
+  //   .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
+  //   .sort((a,b)=>{
+  //       return b.createdAt - a.createdAt; //sort by date in descending
+  //   })
+  //   );
 };
 const updatePost = async (req, res) => {
-  const {id} = req.params
-  const { userId, desc} = req.body;
+  const { id } = req.params
+  const { userId, desc } = req.body;
   console.log(desc)
   try {
     const post = await Post.findById(id);
     console.log(post)
     if (post.userId == userId) {
       console.log("true")
-      post.description=desc
+      post.description = desc
       await post.save();
       res.status(200).json("Post Updated");
     } else {
@@ -73,7 +79,7 @@ const updatePost = async (req, res) => {
   }
 };
 //DELETE POST
- const deletePost = async (req, res) => {
+const deletePost = async (req, res) => {
   const id = req.params.id;
  const post = await Post.findById(id);
  Authorize(req.cookies.jwt, post.userId)
@@ -115,7 +121,7 @@ const likePost = async (req, res) => {
     const Poster = await User.findById(post.userId)
     const isLiked = post.likes.get(userId);
     console.log(isLiked)
-//Check if liked
+    //Check if liked
     if (isLiked) {
       post.likes.delete(userId);
       Poster.likes--
@@ -125,20 +131,20 @@ const likePost = async (req, res) => {
     }
     console.log(post.likes)
     console.log(post.likes.size)
-//Handout badges
-    if(Poster.likes==5){
-      Poster.badge5Likes=true;
+    //Handout badges
+    if (Poster.likes == 5) {
+      Poster.badge5Likes = true;
     }
-      if(Poster.likes==10){
-      Poster.badge10Likes=true;
+    if (Poster.likes == 10) {
+      Poster.badge10Likes = true;
     }
-//Save to database
+    //Save to database
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
       { new: true }
     );
-console.log(updatedPost.likes.size)
+    console.log(updatedPost.likes.size)
     await Poster.save();
 
     res.status(200).json(updatedPost);
@@ -198,23 +204,23 @@ const helpfulPost = async (req, res) => {
 
 //READ
 //Tags removed need to be done
-const getFollowPosts = async (req, res)=>{
-  try{
- const {userId}=req.params
- console.log(userId)
+const getFollowPosts = async (req, res) => {
+  try {
+    const { userId } = req.params
+    console.log(userId)
     const currentUserPosts = await Post.find({ userId: userId });
-   const user = await User.findById(userId);
-   console.log(user.following)
-   const followingPosts = await Post.find({userId: { $in: user.following }})
+    const user = await User.findById(userId);
+    console.log(user.following)
+    const followingPosts = await Post.find({ userId: { $in: user.following } })
 
     res
       .status(200)
       .json(currentUserPosts.concat(...followingPosts) //combine owner posts with following posts
-      .sort((a,b)=>{
+        .sort((a, b) => {
           return b.createdAt - a.createdAt; //sort by date in descending
-      })
+        })
       );
-    }
+  }
   catch (error) {
     res.status(500).json(error);
   }
@@ -222,86 +228,86 @@ const getFollowPosts = async (req, res)=>{
 
 
 //POST
-const getPostComments = async (req,res)=>{
-  const {postId} = req.params;
-  const comment = await Comment.find({postId:postId}).sort({createdAt:-1})
+const getPostComments = async (req, res) => {
+  const { postId } = req.params;
+  const comment = await Comment.find({ postId: postId }).sort({ createdAt: -1 })
   res.status(200).json(comment);
 }
 
 
-const searchPosts = async(req,res)=>{
-const {desc} = req.body
-const post = await Post.find({description: {$regex:desc}}).sort({description:1, createdAt:-1})
-res.status(200).json(post)
+const searchPosts = async (req, res) => {
+  const { desc } = req.body
+  const post = await Post.find({ description: { $regex: desc } }).sort({ description: 1, createdAt: -1 })
+  res.status(200).json(post)
 }
 
-const getFollowPostsByTop = async (req, res)=>{
+const getFollowPostsByTop = async (req, res) => {
 
-    console.log("intop")
- const {userId}=req.params
-    const currentUserPosts = await Post.find({ userId: userId });
-   const user = await User.findById(userId);
-   console.log(user.following)
- const followingPosts = await Post.aggregate([
-  {
-    $match: { userId: { $in: user.following } }
-  },
-  {
-    $addFields: {
-      trueValues: {
-        $size: {
-          $filter: {
-            input: { $objectToArray: "$likes" },
-            as: "m",
-            cond: { $eq: ["$$m.v", true] }
+  console.log("intop")
+  const { userId } = req.params
+  const currentUserPosts = await Post.find({ userId: userId });
+  const user = await User.findById(userId);
+  console.log(user.following)
+  const followingPosts = await Post.aggregate([
+    {
+      $match: { userId: { $in: user.following } }
+    },
+    {
+      $addFields: {
+        trueValues: {
+          $size: {
+            $filter: {
+              input: { $objectToArray: "$likes" },
+              as: "m",
+              cond: { $eq: ["$$m.v", true] }
+            }
           }
         }
       }
+    },
+    {
+      $sort: { trueValues: -1, createdAt: -1 }
     }
-  },
-  {
-    $sort: { trueValues: -1, createdAt: -1 }
-  }
-]);
+  ]);
 
-   console.log(followingPosts, "******")
-    res
-      .status(200)
-      .json(followingPosts) //combine owner posts with following posts
-      // .sort((a,b)=>{
-      //     return b.createdAt - a.createdAt; //sort by date in descending
-      // }
+  console.log(followingPosts, "******")
+  res
+    .status(200)
+    .json(followingPosts) //combine owner posts with following posts
+  // .sort((a,b)=>{
+  //     return b.createdAt - a.createdAt; //sort by date in descending
+  // }
 };
 
-const getTopPostsbyTags = async (req, res)=>{
- const {tag} = req.params
- console.log('*****************tags')
+const getTopPostsbyTags = async (req, res) => {
+  const { tag } = req.params
+  console.log('*****************tags')
   const trendingPosts = await Post.aggregate([
-  {
-    $match: { tags: { $in: [tag] } }
-  }, 
-  {
-    $addFields: {
-      trueValues: {
-        $size: {
-          $filter: {
-            input: { $objectToArray: "$likes" },
-            as: "m",
-            cond: { $eq: ["$$m.v", true] }
+    {
+      $match: { tags: { $in: [tag] } }
+    },
+    {
+      $addFields: {
+        trueValues: {
+          $size: {
+            $filter: {
+              input: { $objectToArray: "$likes" },
+              as: "m",
+              cond: { $eq: ["$$m.v", true] }
+            }
           }
         }
       }
-    }
-  },
-  {
-    $sort: { trueValues: -1, createdAt: -1 }
-  },
-  { $limit: 20 }
-])
-console.log(trendingPosts)
-res.status(200).json(trendingPosts)
+    },
+    {
+      $sort: { trueValues: -1, createdAt: -1 }
+    },
+    { $limit: 20 }
+  ])
+  console.log(trendingPosts)
+  res.status(200).json(trendingPosts)
 
 }
 
 
-module.exports= {createPost, getFeedPosts, getUserPosts, likePost, wowPost, helpfulPost, getFollowPosts, getPostComments, deletePost, updatePost,searchPosts, getFollowPostsByTop, getTopPostsbyTags};
+module.exports = { createPost, getFeedPosts, getUserPosts, likePost, wowPost, helpfulPost, getFollowPosts, getPostComments, deletePost, updatePost, searchPosts, getFollowPostsByTop, getTopPostsbyTags };

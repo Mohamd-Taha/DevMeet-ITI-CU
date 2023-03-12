@@ -33,12 +33,13 @@ var usersSchema=new mongoose.Schema({
  //add ref
  communities:{
   type:[mongoose.Schema.Types.ObjectId],
-  default:[]
- },
+ref:"communities" ,
+default:[]},
   //add ref
 
  meetups:{
   type:[mongoose.Schema.Types.ObjectId],
+  ref:"meetups",
   default:[]
  },
   following:{

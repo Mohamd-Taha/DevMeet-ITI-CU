@@ -18,7 +18,6 @@ import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 
 
 
-
 function App() {
   const {user, dispatch, isLoading} = useAuthContext()
   return (
@@ -35,7 +34,7 @@ function App() {
         <Route path="messenger" element={<Messanger/>}></Route>
         {/* <Route path="notifications" element={<Notifications/>}></Route> */}
         <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}
-        <Route path="/community" element={<Community/>}></Route>  
+        <Route path="/community/:id" element={<Community/>}></Route>  
         <Route path="notifications/:id" element={<NotifyModal/>}></Route>
         <Route path="componentSearch" element={<ComponentSearch/>}></Route>
 
@@ -45,7 +44,6 @@ function App() {
       </Routes>
     </BrowserRouter>
 
-    // <Community></Community>
 
     //  <div>
     //   {/* <Landing/>   */}
