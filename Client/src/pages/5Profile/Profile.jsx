@@ -4,11 +4,16 @@ import NavBar from '../../Components/NavBar';
 import Sidebar from "./Components/sidebar/Sidebar";
 import Feed from "./Components/feed/Feed";
 import Rightbar from "./Components/rightbar/Rightbar";
+import { useLocation } from 'react-router-dom';
 
 
 
 
 export default function Profile() {
+    const location = useLocation()
+    console.log(location)
+    const {state} = location
+
     return (
         <>
             <NavBar />

@@ -1,18 +1,19 @@
 var jwt = require('jsonwebtoken');
 const userAuth= require("../Models/userAuthModel");
 
-const requireAuth = (req,res, next)=>{
+const requireAuth = (req, res, next)=>{
  var Token = req.cookies.jwt //grab token from cookies
+ console.log(Token)
  if(!Token) {
-  res.redirect('/login') //if token doesnt exist redirect to login
+  // res.redirect('/login') //if token doesnt exist redirect to login
+  console.log("invalid credentials no jwt")
  }
-jwt.verify(Token, "secrettoken", (err, decodedToken) =>{
+jwt.verify(Token, "thisissecret", (err, decodedToken) =>{
 if(err){
- console.log(err.message, "hi")
- res.redirect('/login')
+console.log(err)
 }
 else{
-  console.log(decodedToken)
+console.log(decodedToken)
  next()
 }
  })

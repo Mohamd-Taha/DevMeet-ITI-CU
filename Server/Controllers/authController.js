@@ -43,7 +43,7 @@ console.log("true")
         await newU.save();
         console.log("user saved")
         console.log(newU)
-     const accessToken = jwt.sign({UserId:newU._id, adminRole:newU.isAdmin}, "thisissecret", {expiresIn: maxAge});
+     const accessToken = jwt.sign({userId:newU._id, adminRole:newU.isAdmin}, "thisissecret", {expiresIn: maxAge});
      res.cookie('jwt', accessToken, {maxAge: maxAge * 1000}) // times 1000 because cookies is in milliseconds   
      res.header("x-auth-token", accessToken)
         // res.status(201).send("Created Successfully");
@@ -64,7 +64,6 @@ catch(error){
 }
 var LoginUser = async (req,res)=>{
 var LoginUser=req.body;
-console.log(LoginUser)
 LoginValidator = loginValidator(LoginUser)
 // console.log(loginValidator)
 console.log("false")
@@ -73,7 +72,9 @@ if(LoginValidator){
     console.log("true")
     //check if user exists
     var foundUser = await userAuth.find({email:LoginUser.email}).exec();
+    console.log(foundUser)
     if(!foundUser){
+    console.log('error thrown')
     throw Error ("Email or password is invalid")
     }
     // check correct password

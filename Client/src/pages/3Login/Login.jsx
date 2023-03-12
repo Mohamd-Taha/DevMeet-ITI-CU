@@ -25,6 +25,7 @@ const Login = () => {
 
     const LoginServer = async (e) => {
         e.preventDefault()
+        console.log("inside login")
         setError(null) 
         const res = await fetch('http://localhost:7400/login', {
             method: 'POST',
@@ -34,8 +35,12 @@ const Login = () => {
         });
         console.log(res)
         const data = await res.json();
-        if (!res.ok) { setError(data.error) }
+        console.log(data)
+        if (!res.ok) { 
+            console.log("inside res isnt")
+            setError(data.error) }
         if (res.ok) { // save the user to local storage
+            console.log("res is ok")
             localStorage.setItem('user', JSON.stringify(data))
             dispatch({ type: "LOGIN", payload: data })
         }

@@ -3,10 +3,10 @@ const User= require("../Models/userAuthModel");
 const Comment= require("../Models/commentModel");
 const Community=require ('../Models/communityModel')
 const mongoose = require("mongoose");
+var jwt = require('jsonwebtoken');
 //CREATE POST
-const Authorize = ()=>{
-  var Token = req.cookies.jwt
-  decoded = jwt.verify(Token, "secrettoken")
+const Authorize = (Token, userId)=>{
+ const decoded = jwt.verify(Token, "thisissecret")
   if(decoded.userId==userId || decoded.isAdmin==true){
     return
   }
@@ -75,17 +75,11 @@ const updatePost = async (req, res) => {
 //DELETE POST
  const deletePost = async (req, res) => {
   const id = req.params.id;
-  const { userId } = req.body;
-
+ const post = await Post.findById(id);
+ Authorize(req.cookies.jwt, post.userId)
   try {
-    const post = await Post.findById(id);
-    console.log(post)
-    if (post.userId == userId) {
       await post.deleteOne();
       res.status(200).json("Post deleted successfully");
-    } else {
-      res.status(403).json("Action forbidden");
-    }
   } catch (error) {
     res.status(500).json(error);
   }
