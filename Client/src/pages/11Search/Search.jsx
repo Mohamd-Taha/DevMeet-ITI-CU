@@ -9,7 +9,7 @@ const Search = ({ posts }) => {
 
     return (
         <div>
-            <NavBar />
+            {/* <NavBar /> */}
             {/* <div className="search-results">
                 <h1>Search Results</h1>
                 <div className="posts">

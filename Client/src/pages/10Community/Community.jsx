@@ -4,8 +4,8 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 
 import axios, { isCancel, AxiosError } from 'axios';
 import { width } from '@mui/system';
-import Post from '../4Home/Components/Post';
-import Share from '../4Home/Components/Share';
+import Post from '../4Home/components/Post';
+import Share from '../4Home/components/Share';
 
 
 

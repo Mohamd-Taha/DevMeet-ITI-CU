@@ -1,15 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useAuthContext } from "../../hooks/useAuthContext";
-import Post from './Components/Post'
+import Post from './components/Post'
 import { Posts } from '../dummyData'
 import './Home.css'
-import Sidebar from './Components/Sidebar';
+import Sidebar from './components/Sidebar';
 import axios from 'axios';
-import Share from './Components/Share'
+import Share from './components/Share'
 import NavBar from '../../Components/NavBar';
 import Footer from "../../Components/Footer";
-import HomeCommunities from './Components/homeCommunities';
+import HomeCommunities from './components/homeCommunities';
 import Search from '../11Search/Search';
 
 const Homecomponent = () => {

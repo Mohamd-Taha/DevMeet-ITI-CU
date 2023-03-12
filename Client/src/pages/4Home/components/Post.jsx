@@ -98,7 +98,7 @@ const Post = ({ post, userId, sendNewPost }) => {
 
 
   useEffect(() => {
-    const id = userId
+    const id = post.userId;
     axios.get(`http://localhost:7400/user/${id}`, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
