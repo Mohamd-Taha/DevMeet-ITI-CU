@@ -13,8 +13,8 @@ import Meetups from './Pages/8Meetups/Meetups'
 import Search from './Pages/11Search/Search'
 import Error404 from './Components/Error404'
 import Community from "./Pages/10Community/Community";
-import NotifyModal from "./Components/NotifyModal";
-import ComponentSearch from "./Components/ComponentSearch";
+import NotifyModal from "./Pages/7Notifications/NotifyModal";
+import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 
 
 
