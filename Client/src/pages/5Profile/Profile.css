@@ -49,3 +49,9 @@
 .profilerightBottom {
     display: flex;
 }
+
+#UpdateProfile{
+position:absolute;
+left: 90%;
+bottom: 55%;
+}

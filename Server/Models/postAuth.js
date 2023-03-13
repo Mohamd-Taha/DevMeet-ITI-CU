@@ -45,7 +45,6 @@ var postsSchema = new mongoose.Schema({
     //,default:true
 
   },
-  
   helpful: {
     type: Map,
     of: Boolean,

@@ -32,18 +32,14 @@ const Rightbar = ({ profile, userProfile }) => {
                 <div className="rightbarWrapper">
                     <h4 className='rightbarTitle'>User information</h4>
                     <div className="rightbarInfo">
-                        <div className="rightbarInfoItem">
-                            <span className="rightbarInfoKey">City:</span>
-                            <span className="rightbarInfoValue">Cairo</span>
-                        </div>
-                        <div className="rightbarInfoItem">
-                            <span className="rightbarInfoKey">From:</span>
-                            <span className="rightbarInfoValue">Egypt</span>
-                        </div>
-                        <div className="rightbarInfoItem">
-                            <span className="rightbarInfoKey">Title:</span>
-                            <span className="rightbarInfoValue">Sofrware Developer</span>
-                        </div>
+                        {userProfile.city && <div className="rightbarInfoItem">
+                          <span className="rightbarInfoKey">Location:</span>
+                            <span className="rightbarInfoValue">{userProfile.city}</span>
+                        </div>}
+                      {userProfile.career &&  <div className="rightbarInfoItem">
+                            <span className="rightbarInfoKey">Occupation:</span>
+                            <span className="rightbarInfoValue">{userProfile.career}</span>
+                        </div>}
                     </div>
 
                     <hr className='sidebarHr' />

@@ -15,6 +15,7 @@ import Error404 from './Components/Error404'
 import Community from "./Pages/10Community/Community";
 import NotifyModal from "./Pages/7Notifications/NotifyModal";
 import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
+import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfile";
 
 
 
@@ -32,6 +33,7 @@ function App() {
         
         <Route path="profile" element={user?<Profile/>:<Navigate to="/login"></Navigate>}></Route>  {/* "profile/:userID" */}
         <Route path="messenger" element={<Messanger/>}></Route>
+        <Route path="/updateProfile" element={<UpdateProfile/>}></Route>
         {/* <Route path="notifications" element={<Notifications/>}></Route> */}
         <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}
         <Route path="/community/:id" element={<Community/>}></Route>  

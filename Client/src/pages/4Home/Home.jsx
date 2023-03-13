@@ -193,7 +193,7 @@ getNewPosts()
           <input className='buttonSearch' type="button" value="Posts" />
           <input  className='buttonSearch'type="button" value="Communities" />
         </div>
-        {searchResults.map((c)=>(
+        {searchResults?.map((c)=>(
         <Search key={c._id} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture}/>
         ))}
         
