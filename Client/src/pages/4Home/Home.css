@@ -117,6 +117,19 @@ margin-top: 10px;
 .searchDiv{
  grid-column-start: 8;
  grid-column-end: 20;
- grid-row-start: 10;
+ grid-row-start: 6;
  grid-row-end: 45;
+}
+
+.SearchNav{
+    display:flex;
+    background-color: #9263b3;
+    justify-content:space-around;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.buttonSearch{
+ border-radius: 20px;
+ border: none;
 }

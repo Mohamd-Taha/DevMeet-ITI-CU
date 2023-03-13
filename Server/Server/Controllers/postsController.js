@@ -15,7 +15,10 @@ const Authorize = (Token, userId)=>{
   }
 }
 const createPost = async (req, res) => {
-    const { userId, description,picturePath, tags,personal,communityId} = req.body; 
+    const { userId, description,picturePath, tags, personal,communityId} = req.body;
+    console.log(tags) 
+    const tagsArray=tags.split(",")
+    console.log(typeof tags)
     const {file} = req
     console.log(userId)
     console.log(description)
@@ -36,8 +39,8 @@ const createPost = async (req, res) => {
     picturePath: image1,
     userPicturePath: user.profilePicture,
     likes: {},
-    tags,
-    personal
+    tags:[...tagsArray],
+    personal,
   }
   console.log(PostObj)
     const newPost = new Post(PostObj);

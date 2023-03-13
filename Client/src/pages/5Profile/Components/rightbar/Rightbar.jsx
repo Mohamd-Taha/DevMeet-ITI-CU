@@ -2,8 +2,10 @@ import React from 'react'
 import './rightbar.css'
 import { Users } from "../../../dummyData";
 import Online from '../online/Online'
+import axios from 'axios';
+import { useEffect } from 'react'
 
-export default function Rightbar({ profile }) {
+export default function Rightbar({ profile, userProfile }) {
 
     const HomeRightbar = () => {
         return (
@@ -26,7 +28,17 @@ export default function Rightbar({ profile }) {
         )
     }
 
-    const ProfileRightbar = () => {
+    const ProfileRightbar = ({userProfile}) => {
+    console.log(userProfile)
+//     useEffect(()=>{
+//     axios.get(`http://localhost:7400/user/followers/${userProfile._id}`, { withCredentials: true })
+//       .then((response) => { return response })
+//       .then(({ data }) => {
+//      console.log(data)
+//       })
+//       .catch((err) => { console.log(err) })
+
+// },[])
         return (
             <>
                 <h4 className='rightbarTitle'>User information</h4>

@@ -30,15 +30,18 @@ const Share = ({ user, sendNewPost }) => {
   const [description, setDescription] = useState()
   const [image, setImage] = useState()
   const [error, setError] = useState()
+  const [TagName, setTagName] = useState([]);
   const [placeholder, setPlaceholder] = useState(`What's on your mind ${user.firstName}?`)
 
   const makePost = () => {
     setError(null)
     if (description) {
+      console.log(TagName)
       const formData = new FormData()
       formData.append("userId", user._id)
       formData.append("description", description)
       formData.append("image1", image)
+      formData.append("tags", TagName)
       formData.append('picturePath', user.profilePicture)
       //console.log(formData)
       axios.post(`http://localhost:7400/posts/`, formData, { withCredentials: true, })
@@ -59,7 +62,7 @@ const Share = ({ user, sendNewPost }) => {
   }
 
   /////////////////////////////////////////////////////////////
-  const [TagName, setTagName] = useState([]);
+
   const handleChange = (event) => {
     const { target: { value }, } = event;   // On autofill we get a stringified value.
     if (value.length <= 3) setTagName(typeof value === 'string' ? value.split(',') : value,); //setting 3 selections as max tags

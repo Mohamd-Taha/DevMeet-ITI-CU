@@ -8,10 +8,26 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton';
+import axios from 'axios';
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 
-const Comments = ({ message, firstName, lastName, userPicturePath }) => { 
 
+const Comments = ({id, message, firstName, lastName, userPicturePath, sendComments, userId, sendCount}) => { 
+  let { user } = useAuthContext()
+  user = user.user
+  Object.freeze(user)
+    const DeleteMyComment = () => {
+    console.log(id)
+    axios.delete(`http://localhost:7400/comments/${id}`, { withCredentials: true })
+      .then((response) => { return response })
+      .then(({ data }) => {
+        console.log(data)
+        sendComments()
+        sendCount()
+      })
+      .catch((err) => { console.log(err) })
+  }
     
     return (
         <>  
@@ -30,9 +46,10 @@ const Comments = ({ message, firstName, lastName, userPicturePath }) => {
                 />
                 
                 {/* {   && } */}
+                  {(userId==user._id) && 
                 <IconButton >
-                    <HighlightOffIcon htmlColor='#F25268' fontSize='small' /*onClick={DeleteMyComment} */  />
-                </IconButton>
+                    <HighlightOffIcon htmlColor='#F25268' fontSize='small' onClick={DeleteMyComment}   />
+                </IconButton>}
 
             </ListItem>   
         <Divider variant="inset" component="li" style={{listStyle:'none'}}/>  

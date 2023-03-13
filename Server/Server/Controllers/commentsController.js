@@ -1,7 +1,17 @@
 const Post= require('../Models/postAuth')
 const User= require("../Models/userAuthModel");
 const Comment = require("../Models/commentModel")
+var jwt = require('jsonwebtoken');
 
+const Authorize = (Token, userId)=>{
+ const decoded = jwt.verify(Token, "thisissecret")
+  if(decoded.userId==userId || decoded.isAdmin==true){
+    return
+  }
+  else{
+    throw Error("invalid Credentials")
+  }
+}
 
 const postComments = async (req,res)=>{
  const {userId} = req.params
@@ -24,5 +34,17 @@ const image1 =(req.files.image1)? req.files.image1[0].filename: null ;
             res.status(200).json(comment);
 }
 
+ const deleteComment = async (req, res) => {
+ const id = req.params.id;
+ const comment = await Comment.findById(id);
+ Authorize(req.cookies.jwt, comment.userId)
+  try {
+      await comment.deleteOne();
+      res.status(200).json("Comment deleted successfully");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
-module.exports= {postComments};
+
+module.exports= {postComments, deleteComment};

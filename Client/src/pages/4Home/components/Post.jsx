@@ -20,7 +20,7 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 
 
 
-const Post = ({ post, userId, sendNewPost }) => {
+const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
 
   let { user } = useAuthContext()
   user = user.user
@@ -74,6 +74,9 @@ const Post = ({ post, userId, sendNewPost }) => {
       setError("*")
     }
   }
+  const updateCount = ()=>{
+    setCommentCount(commentCount-1)
+  }
   const commentGet = () => {
     const postId = post._id
     axios.get(`http://localhost:7400/posts/comments/${postId}`, { withCredentials: true })
@@ -91,14 +94,13 @@ const Post = ({ post, userId, sendNewPost }) => {
       .then((response) => { return response })
       .then(({ data }) => {
         console.log(data)
+        refreshPosts()
       })
       .catch((err) => { console.log(err) })
   }
 
-
-
   useEffect(() => {
-    const id = userId
+    const id = post.userId
     axios.get(`http://localhost:7400/user/${id}`, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
@@ -160,7 +162,7 @@ const Post = ({ post, userId, sendNewPost }) => {
 
           <Divider variant="inset" component="li" style={{ listStyle: 'none' }} />
           <div className='comments'>
-            {isVisible && comments?.map((c) => <Comments key={c._id} message={c.description} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.userPicturePath} />)}
+            {isVisible && comments?.map((c) => <Comments key={c._id} message={c.description} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.userPicturePath} sendComments={commentGet} id={c._id} userId={c.userId} sendCount={updateCount} />)}
           </div>
         </div>
       </div>

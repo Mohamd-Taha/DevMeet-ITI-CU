@@ -24,7 +24,7 @@ const getUserFollowing = async (req, res) => {
  const {id} = req.params;
  const user = await userAuth.findById(id).select("-password")
 try{
- const formattedFollowing = user.following
+ const formattedFollowing = await userAuth.find({_id: { $in: user.following }}).select("-password")
  
  res.status(200).json(formattedFollowing);
 }
@@ -38,7 +38,7 @@ const getUserFollowers = async (req, res) => {
  const {id} = req.params;
  const user = await userAuth.findById(id)
 try{
- const formattedFollowers = user.followers
+ const formattedFollowers = await userAuth.find({_id: { $in: user.followers }}).select("-password")
  res.status(200).json(formattedFollowers);
 }
 catch(err){

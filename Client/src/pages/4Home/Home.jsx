@@ -20,6 +20,7 @@ const Homecomponent = () => {
   const [flag, setFlag] = useState(true)
   const [communities, setCommunities] = useState()
   const [search, setSearch] = useState()
+  const [searchResults, setSearchResults] = useState()
   Object.freeze(user)
   const getNewPosts = () => {
     axios.get(`http://localhost:7400/posts/${user._id}`)
@@ -68,6 +69,7 @@ const Homecomponent = () => {
         .then((response)=>{return response})
         .then(({data})=>{
         console.log(data)
+        setSearchResults(data)
         })
         .catch((err)=>{console.log(err)})
       }
@@ -88,6 +90,11 @@ const Homecomponent = () => {
       })
       .catch((err) => { console.log(err) })
  }, [])
+  const DeletePost=()=>{
+console.log("inside home delete post")
+getNewPosts()
+  }
+
    const getTagPosts = (post) => {
    for (let i = 0; i < post.length; i++) {
           let MapObject = new Map(Object.entries(post[i].likes));
@@ -117,13 +124,27 @@ const Homecomponent = () => {
      { flag ?< div className='filterDiv'>
         <btn className="tagbuttons" style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New</btn>
         <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
-      </div> : <div className='searchDiv'><Search/></div>}
+      </div> : <>
+      <div className='searchDiv'>
+        <div className='SearchNav'>
+          <input className='buttonSearch' type="button" value="Users" />
+          <input className='buttonSearch' type="button" value="Posts" />
+          <input  className='buttonSearch'type="button" value="Communities" />
+        </div>
+        {searchResults.map((c)=>(
+        <Search key={c._id} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture}/>
+        ))}
+        
+        </div>
+        
+        </>
+        }
        { flag && <div className='shareDiv'>
         <Share user={user} sendNewPost={getSharePost} ></Share>
       </div>}
       {flag &&  <div className='PostsDiv'>
         {currentPosts?.map((p) => (
-          <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} />
+          <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} />
         ))}
       </div>}
       <div className='TopRightDiv'>
