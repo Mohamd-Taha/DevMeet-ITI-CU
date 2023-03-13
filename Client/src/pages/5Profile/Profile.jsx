@@ -3,7 +3,7 @@ import "./Profile.css"
 import NavBar from '../../Components/NavBar';
 // import Leftbar from "./Components/Leftbar/Leftbar";
 import ProfilePosts from "./Components/ProfilePosts/ProfilePosts";
-import Rightbar from "./Components/Rightbar/Rightbar";
+import Rightbar from "./Components/rightbar/Rightbar";
 import { useLocation } from 'react-router-dom';
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ function Profile() {
 const location = useLocation()
 const navigate = useNavigate();
 const [userProfile, setUserProfile] = useState();
+const [isFollowing, setIsFollowing] = useState();
 const {state} = location
  let { user } = useAuthContext()
 
@@ -34,13 +35,20 @@ const checkFollowing=(user, userProfile)=>{
     if(user.user_id!=userProfile._id){
     for (let i = 0; i < user.user.following.length; i++) {
     if(user.user.following[i]==userProfile._id){
-        return true
+        setIsFollowing(true)
+        console.log("inside checkfollowing")
     }   
 }
-return false
 }
-return false
+setIsFollowing(false)
 }
+
+useEffect(()=>{
+    if(user && userProfile) {
+    console.log("********* inside usefffect checkfollowing")
+   checkFollowing(user, userProfile)
+    }
+},[])
 
 const handleProfile=()=>{
   navigate('/updateProfile');
@@ -57,6 +65,7 @@ const handleFollow= ()=>{
         .then(({ data }) => {
             setUserProfile({...userProfile, following:data})
              console.log("followed")
+            setIsFollowing(!isFollowing)
         })
         .catch((err) => { console.log(err) })
 
@@ -80,16 +89,16 @@ const handleFollow= ()=>{
                       color="primary" 
                       id="UpdateProfile" onClick={handleProfile}>Update Profile</Button>
                                    }
-                        {user.user._id!=userProfile._id && checkFollowing(user, userProfile) && <Button 
+                        {user.user._id!=userProfile._id  && <Button style={{backgroundColor:'purple'}}
                       variant="contained" 
                       color="primary" 
-                      id="UpdateProfile" onClick={handleFollow}>Following</Button>
+                      id="UpdateProfile" onClick={handleFollow}>{isFollowing?<span style={{color:'gray'}}>Following</span>:"Follow"}</Button>
                                    }
-                     {user.user._id!=userProfile._id && !checkFollowing(user, userProfile) && <Button 
+                     {/* {user.user._id!=userProfile._id && <Button 
                       variant="contained" 
                       color="primary" 
-                      id="UpdateProfile" onClick={handleFollow}>Follow</Button>
-                                   }           
+                      id="UpdateProfile2" onClick={handleFollow}>Follow</Button>
+                                   }            */}
 
                         <div className="profileInfo">
                             <h4 className='profileInfoName'>{userProfile.firstName+" "+userProfile.lastName}</h4>

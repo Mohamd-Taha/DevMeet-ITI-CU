@@ -1,6 +1,6 @@
 import React , { useEffect, useState } from 'react'
 import Follower from './Follower';
-import './Rightbar.css'
+import './rightbar.css'
 import axios from 'axios';
 
 

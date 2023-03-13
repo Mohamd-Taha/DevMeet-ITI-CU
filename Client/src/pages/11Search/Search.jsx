@@ -5,8 +5,11 @@ import './Search.css';
 import axios from 'axios';
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Button from '@mui/material/Button';
+import { NavLink } from "react-router-dom";
 
-const Search = ({ firstName, lastName, userPicturePath }) => {
+
+  
+const Search = ({ firstName, lastName, userPicturePath, user }) => {
 
     return (
         <div className="container">
@@ -25,7 +28,9 @@ const Search = ({ firstName, lastName, userPicturePath }) => {
                                                         <tr>
                                                             <td>
                                                                 <div className="widget-26-job-emp-img">
-                                                                    <img src={`http://localhost:7400/images/${userPicturePath}`} />
+                                                                    <NavLink to={`/profile`} state={{ user: user }}>
+                                                                        <img src={`http://localhost:7400/images/${userPicturePath}`} />
+                                                                    </NavLink>
                                                                 </div>
                                                             </td>
                                                             <td>

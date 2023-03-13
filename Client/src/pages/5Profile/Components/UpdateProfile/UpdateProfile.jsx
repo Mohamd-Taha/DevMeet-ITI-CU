@@ -22,10 +22,12 @@ function UpdateProfile() {
  const [lastName, setLastName] = useState(user?.lastName)
  const [location, setLocation] = useState(user?.city)
  const [occupation, setOccupation] = useState(user?.career)
+ const [success, setSuccess] = useState()
 console.log(user)
 
 const handleSubmit = (event)=>{
 event.preventDefault()
+setSuccess(null)
 const formData = new FormData()
  formData.append("image1", profileImage)
  formData.append("image2", coverImage)
@@ -35,6 +37,7 @@ const formData = new FormData()
  formData.append("city", location)
  formData.append("career", occupation)
   axios.put(`http://localhost:7400/user/${user._id}`, formData, { withCredentials: true, })
+
         .then((response) => {
           console.log(response)
           return response
@@ -43,6 +46,7 @@ const formData = new FormData()
           localStorage.setItem('user', JSON.stringify(data))
           dispatch({ type: "Update", payload: data })
           console.log("done :D")
+          setSuccess("update success!")
 
         })
         .catch((err) => { console.log(err) })
@@ -122,6 +126,7 @@ const formData = new FormData()
                       color="primary" 
                       type="submit" 
                       id="submit-button">Save Changes</Button>
+                    { success && <div className='successDiv'>{success}</div>}
                   </FormControl>
                 </FormGroup>
               </form>
