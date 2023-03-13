@@ -4,10 +4,10 @@ var jwt = require('jsonwebtoken');
 const Authorize = (Token, userId)=>{
  const decoded = jwt.verify(Token, "thisissecret")
   if(decoded.userId==userId || decoded.isAdmin==true){
-    return
+    return true
   }
   else{
-    console.log("invalid Credentials")
+    return false
   }
 }
 //get user with id
@@ -118,7 +118,8 @@ else{
 //Update User
 
 const updateUser= async (req, res) => {
- Authorize(req.cookies.jwt, req.params.id)
+ 
+ if(Authorize(req.cookies.jwt, req.params.id)){
   try{
     const { firstName, lastName, city, desc, career} = req.body;
     const image1 =(req.files.image1)? req.files.image1[0].filename: "profilePic.png" ;
@@ -132,6 +133,10 @@ await user.save()
   catch(err){
   res.status(500).json(error);
   }
+}
+else{
+  res.status(500).json("invalid credentials");
+}
 
 }
 
