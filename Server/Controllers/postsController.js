@@ -11,7 +11,7 @@ const Authorize = (Token, userId)=>{
     return
   }
   else{
-    throw Error("invalid Credentials")
+    console.log("invalid Credentials")
   }
 }
 const createPost = async (req, res) => {

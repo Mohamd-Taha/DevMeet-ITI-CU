@@ -15,7 +15,7 @@ router.get("/user/top/likes", userController.getUserByLikes)
 //remove or add follow
 router.patch("/user/:id/:followId", userController.addRemoveFollow)
 
-router.put("/user/:id", userController.updateUser)
+router.put("/user/:id", authMW.requireAuth, userController.updateUser)
 //follow a user
 //unfollow a user
 module.exports=router;

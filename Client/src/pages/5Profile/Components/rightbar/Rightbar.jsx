@@ -19,7 +19,7 @@ const Rightbar = ({ profile, userProfile }) => {
             })
             .catch((err) => { console.log(err) })
             console.log(followers);
-    }, [])
+    }, [userProfile])
 
 
 

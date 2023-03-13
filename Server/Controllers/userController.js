@@ -1,5 +1,15 @@
 const userAuth= require("../Models/userAuthModel");
+var jwt = require('jsonwebtoken');
 
+const Authorize = (Token, userId)=>{
+ const decoded = jwt.verify(Token, "thisissecret")
+  if(decoded.userId==userId || decoded.isAdmin==true){
+    return
+  }
+  else{
+    console.log("invalid Credentials")
+  }
+}
 //get user with id
 const getUser = async (req, res)=>{
  try {
@@ -108,15 +118,21 @@ else{
 //Update User
 
 const updateUser= async (req, res) => {
-  if (req.body._id === req.params.id || req.body.isAdmin) {
-      const user = await userAuth.findByIdAndUpdate(req.params.id, {
-        $set: req.body,
-      });
-      res.status(200).json("Account has been updated");
-    
-  } else {
-    return res.status(403).json("You can update only your account!");
+ Authorize(req.cookies.jwt, req.params.id)
+  try{
+    const { firstName, lastName, city, desc, career} = req.body;
+    const image1 =(req.files.image1)? req.files.image1[0].filename: "profilePic.png" ;
+    const image2 =(req.files.image2)? req.files.image2[0].filename: "profileCover.png" ;
+    const user = await userAuth.findById(req.params.id)
+Object.assign(user, {firstName, lastName, profilePicture:image1, coverPicture:image2, city, desc, career})
+console.log(user)
+await user.save()
+  res.status(200).json("Account has been updated");
   }
+  catch(err){
+  res.status(500).json(error);
+  }
+
 }
 
 
