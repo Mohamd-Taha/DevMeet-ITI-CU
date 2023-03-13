@@ -3,7 +3,7 @@ import "./Profile.css"
 import NavBar from '../../Components/NavBar';
 // import Leftbar from "./Components/Leftbar/Leftbar";
 import ProfilePosts from "./Components/ProfilePosts/ProfilePosts";
-import Rightbar from "./Components/rightbar/Rightbar";
+import Rightbar from "./Components/Rightbar/Rightbar";
 import { useLocation } from 'react-router-dom';
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
@@ -98,7 +98,7 @@ const handleFollow= ()=>{
                     </div>
 
                     <div className="profilerightBottom">
-                        <ProfilePosts />
+                        <ProfilePosts userProfile={userProfile} />
                         <Rightbar profile  userProfile={userProfile} />
                     </div>
                 </div>

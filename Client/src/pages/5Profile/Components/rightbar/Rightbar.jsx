@@ -1,6 +1,6 @@
 import React , { useEffect, useState } from 'react'
 import Follower from './Follower';
-import './rightbar.css'
+import './Rightbar.css'
 import axios from 'axios';
 
 
@@ -19,6 +19,7 @@ const Rightbar = ({ profile, userProfile }) => {
             })
             .catch((err) => { console.log(err) })
             console.log(followers);
+            console.log("0000000");
     }, [userProfile])
 
 
@@ -44,16 +45,12 @@ const Rightbar = ({ profile, userProfile }) => {
 
                     <hr className='sidebarHr' />
 
-                    <h3 className='rightbarTitle'>My Followers</h3>
-                    <div className="rightbarFollowings">
+                    { followers && <h3 className='rightbarTitle'>{"("+followers.length+") "}Followers</h3>}
 
-                        
-                    {followers?.map((f) => ( 
-                        <Follower  key={f._id} follower={f} />
-                    ))}
-
-                        
-
+                    <div className="rightbarFollowings"> 
+                        {followers?.map((f) => ( 
+                            <Follower  key={f._id} follower={f} />
+                        ))} 
                     </div>
 
                     <hr className='sidebarHr' />
