@@ -1,5 +1,5 @@
 import React from 'react'
-import "./share.css"
+import "./ProfileShare.css"
 import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material"
 import Button from '@mui/material/Button';
 
@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 
 
 const Share = () => {
-
 
 
     return (

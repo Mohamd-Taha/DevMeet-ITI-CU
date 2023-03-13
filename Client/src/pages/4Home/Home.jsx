@@ -14,7 +14,7 @@ import Search from '../11Search/Search';
 
 const Homecomponent = () => {
 
-  let { user } = useAuthContext()
+  let { user } = useAuthContext();
   user = user.user
   const [currentPosts, setCurrentPosts] = useState()
   const [flag, setFlag] = useState(true)
@@ -31,6 +31,7 @@ const Homecomponent = () => {
           data[i].likes = MapObject
         }
         setCurrentPosts(data)
+        console.log(data)
 
       })
       .catch((err) => { console.log(err) })
@@ -47,15 +48,70 @@ const Homecomponent = () => {
       })
       .catch((err) => { console.log(err) })
   }
-   const getSharePost = (post) => {
+
+  const getSharePost = (post) => {
+
+
+    let reci=user.followers.map(e=>{
+      return {id:e, isRead:'false' }
+    })
+
+    let msg = {
+      id: user._id,
+      text: "Added New Post",
+      content: post.description,
+      // recipients:user.followers,
+      recipients:reci,
+      url: `/post/${post._id}`
+    }
+    console.log(user.followers)
+
+    axios.post('http://localhost:7400/notification', {...msg })
+      .then((res) => { console.log("notify added succefully") })
+
+
+
+
+    /***
+     * handle logic of notifications
+    var folllowerofpost=user.followers;
+
+    
+    /***
+
+[
+  { objectid:"efhshnh545h454h4" ,isRead:'false'},
+  { objectid:"efhshnh545h454h4" ,isRead:'false'},
+  { objectid:"efhshnh545h454h4" ,isRead:'false'}
+]
+
+//handle notification read
+var readed =(notifyid)=>{
+  notificationmodel.find(notifyid).recipients[0].isRead ='true'
+}
+
+let msg={
+      id:user._id,
+      text:"Added New Post",
+      content:post.description,
+      recipients:reci,
+      //url: `/post/${res.data.newPost._id}`,
+    }
+ */
+
+
+
+    // axios.post('/notification',{msg});
+
+
+
     let MapObject = new Map(Object.entries(post.likes));
-         post.likes = MapObject
-     setCurrentPosts([post, ...currentPosts])
-  //  for (let i = 0; i < post.length; i++) {
-  //         let MapObject = new Map(Object.entries(post[i].likes));
-  //         post[i].likes = MapObject
-        // }
-   
+    post.likes = MapObject
+    setCurrentPosts([post, ...currentPosts])
+    //  for (let i = 0; i < post.length; i++) {
+    //         let MapObject = new Map(Object.entries(post[i].likes));
+    //         post[i].likes = MapObject
+    // }
   }
 
   const getSearch=(data)=>{
@@ -81,12 +137,18 @@ const Homecomponent = () => {
     getNewPosts()
   }, [])
 
- useEffect(()=>{
-      axios.get(`http://localhost:7400/communities/get`)
+  //get all communities from this user
+  useEffect(() => {
+    axios.post(`http://localhost:7400/communities/getAcomm`,
+      {
+        userId: user._id
+      })
       .then((response) => { return response })
       .then(({ data }) => {
-      console.log(data)
-      setCommunities(data)
+        console.log("from inside the home get comm")
+        console.log(data)
+        console.log("after display data recieeved from the server")
+        setCommunities(data.communities)
       })
       .catch((err) => { console.log(err) })
  }, [])
@@ -140,7 +202,7 @@ getNewPosts()
         </>
         }
        { flag && <div className='shareDiv'>
-        <Share user={user} sendNewPost={getSharePost} ></Share>
+       <Share user={user} sendNewPost={getSharePost} personalCheck='true'  ></Share>
       </div>}
       {flag &&  <div className='PostsDiv'>
         {currentPosts?.map((p) => (
@@ -152,9 +214,9 @@ getNewPosts()
       </div>
       <div className='BottomRightDiv'>
         <div>Communities</div>
-       {communities?.map((c)=>(
-       <HomeCommunities key={c._id} community={c}></HomeCommunities>
-       ))}
+        {communities?.map((c) => (
+          <HomeCommunities key={c._id} community={c}></HomeCommunities>
+        ))}
       </div>
       {/* <Footer /> */}
     </div>

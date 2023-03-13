@@ -25,7 +25,9 @@ const Tags = ['JavaScript', 'TypeScript', 'React', 'CSS', 'HTML', 'Angular', 'No
 /////////////////////////////////////////////////////////////
 
 
-const Share = ({ user, sendNewPost }) => {
+const Share = ({ user, sendNewPost, personalCheck }) => {
+
+
 
   const [description, setDescription] = useState()
   const [image, setImage] = useState()
@@ -43,6 +45,8 @@ const Share = ({ user, sendNewPost }) => {
       formData.append("image1", image)
       formData.append("tags", TagName)
       formData.append('picturePath', user.profilePicture)
+      // formData.append('communityId',communityId)
+      formData.append('personalCheck', personalCheck)
       //console.log(formData)
       axios.post(`http://localhost:7400/posts/`, formData, { withCredentials: true, })
         .then((response) => {

@@ -3,8 +3,7 @@ const mongoose = require('mongoose')
 const notificationSchema = new mongoose.Schema({
     id: mongoose.Types.ObjectId,
     user: {type: mongoose.Types.ObjectId, ref: 'users'},
-    // recipients: [mongoose.Types.ObjectId],
-    recipients: [{id:{type:mongoose.SchemaTypes.ObjectId},isRead:Boolean}],
+    recipients: [mongoose.Types.ObjectId],
     url: String,
     text: String,
     content: String,

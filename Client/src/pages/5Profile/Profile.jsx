@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import "./Profile.css" 
 import NavBar from '../../Components/NavBar';
-import Sidebar from "./Components/sidebar/Sidebar";
-import Feed from "./Components/feed/Feed";
+// import Leftbar from "./Components/Leftbar/Leftbar";
+import ProfilePosts from "./Components/ProfilePosts/ProfilePosts";
 import Rightbar from "./Components/rightbar/Rightbar";
 import { useLocation } from 'react-router-dom';
 import { useAuthContext } from "../../hooks/useAuthContext";
 import axios from 'axios';
 
-export default function Profile() {
+function Profile() {
 const location = useLocation()
 console.log(location)
 const {state} = location
@@ -27,24 +27,26 @@ else{
         <>
             <NavBar />
             <div className="profile">
-                <Sidebar />
+                {/* < Leftbar /> */}
                 <div className="profileRight">
                     <div className="profilerightTop">
                         <div className="profileCover">
-                            <img className='profileCoverImg' src="assets/post/3.jpg" alt="" />
-                            <img className='profileUserImg' src="assets/persons/4.jpg" alt="" />
+                            <img className='profileCoverImg' src={`http://localhost:7400/images/${userProfile.coverPicture}`} alt="" />
+                            <img className='profileUserImg' src={`http://localhost:7400/images/${userProfile.profilePicture}`} alt="" />
                         </div>
                         <div className="profileInfo">
-                            <h4 className='profileInfoName'>{userProfile.firstName}&nbsp;{userProfile.lastName}</h4>
-                            <span className='profileInfoDesc'>Hello MEARN</span>
+                            <h4 className='profileInfoName'>{userProfile.firstName+" "+userProfile.lastName}</h4>
+                            <span className='profileInfoDesc'>Hello World</span>
                         </div>
                     </div>
+
                     <div className="profilerightBottom">
-                        <Feed />
-                        {userProfile && <Rightbar userProfile={userProfile} profile/>}
+                        <ProfilePosts />
+                        <Rightbar profile  userProfile={userProfile} />
                     </div>
                 </div>
             </div>
-        </>
+        </> 
     )
 }
+export default Profile;

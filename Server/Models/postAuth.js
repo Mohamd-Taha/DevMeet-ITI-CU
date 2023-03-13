@@ -30,7 +30,7 @@ var postsSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-
+  
   likes: {
     type: Map,
     of: Boolean
@@ -40,17 +40,11 @@ var postsSchema = new mongoose.Schema({
     type: [mongoose.SchemaTypes.ObjectId],
     default: [],
   },
-  personalCheck: {
-    type: Boolean
-    ,default:true
+  personalCheck:{
+    type:Boolean
+    //,default:true
 
   },
-  communityId:
-  {
-    type: mongoose.SchemaTypes.ObjectId,
-    default:null
-  },
-
   
   helpful: {
     type: Map,
