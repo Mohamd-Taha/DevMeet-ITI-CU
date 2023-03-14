@@ -14,6 +14,12 @@ const upload = multer({dest: './images' });
 const cors=require('cors')
 
 
+const conversationroute=require('./Routes/conversations')
+const messageroute=require('./Routes/messages')
+
+
+
+
 
 //added to maintain omar code at models
 const mongoose=require('mongoose');
@@ -87,8 +93,8 @@ app.use(userRoutes);
 app.use(postRoutes);
 app.use(notificationRoutes);
 app.use('/communities',communityRouter);
-app.use("api/conversations",conversationRoute)
-app.use("api/messages",messageRoute)
+app.use("/api/conversations",conversationroute)
+app.use("/api/messages",messageroute)
 app.use('/api/zoom-meetings', zoomMeetingRoutes);
 
 // app.get('*', Auth.checkUser);
