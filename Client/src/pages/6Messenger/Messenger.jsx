@@ -18,10 +18,10 @@ const Messanger = () => {
     const [conversations, setConversation] = useState([])
     const [currentChat, setCurrentChat] = useState(null)
     const [messages, setMessages] = useState([])
-    const [ newMessage, setNewMessage ] = useState("")
-    const scrollRef=useRef();
-     const [userImg, setuserImg] = useState([])
- 
+    const [newMessage, setNewMessage] = useState("")
+    const scrollRef = useRef();
+    const [userImg, setuserImg] = useState([])
+
 
     useEffect(() => {
         const getConversations = () => {
@@ -36,7 +36,7 @@ const Messanger = () => {
         };
         getConversations();
     }, [user._id])
-    
+
 
     useEffect(() => {
         const getUser = async () => {
@@ -49,7 +49,7 @@ const Messanger = () => {
 
                 })
         }
-      
+
         // console.log(currentChat._id)
         getUser()
     }, [currentChat])
@@ -66,87 +66,81 @@ const Messanger = () => {
 
                 })
         }
-      
+
         // console.log(currentChat._id)
         getImgUser()
-    }, [user._id]) 
+    }, [user._id])
 
     const doThis = (d) => {
         setCurrentChat(d)
     }
-   
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-       
+
         const message = {
             conversationId: currentChat._id,
             sender: user._id,
-            text: newMessage  
+            text: newMessage
         }
-        await axios.post("http://localhost:7400/api/messages/",message).
-        then(res => {
-            setMessages([...messages,res.data])
-            console.log(res.data)
-            console.log(message)
-            setNewMessage("")
-        }).catch(
-            err => {
-                console.log("err")
-            })
-    
-}
-useEffect(()=>{
-scrollRef.current?.scrollIntoView({bahavior:"smooth"})
-},[messages])
-return (<>
-    <NavBar></NavBar>
-    <div className='messanger'>
-        <div className="chatMenu">
-            <div className="chatMenuWrapper">
-                <input type="text" placeholder='Search for friends' className='chatMenuInput' />
-                {conversations.map(C => (
-                    <div onClick={() => doThis(C)}>
-                        <Conversation conversation={C} currentUser={user} />
-                    </div>
+        await axios.post("http://localhost:7400/api/messages/", message).
+            then(res => {
+                setMessages([...messages, res.data])
+                console.log(res.data)
+                console.log(message)
+                setNewMessage("")
+            }).catch(
+                err => {
+                    console.log("err")
+                })
+
+    }
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ bahavior: "smooth" })
+    }, [messages])
+    return (<>
+        <NavBar></NavBar>
+        <div className='messanger'>
+            <div className="chatMenu">
+                <div className="chatMenuWrapper">
+                    <input type="text" placeholder='Search for friends' className='chatMenuInput' />
+                    {conversations.map(C => (
+                        <div onClick={() => doThis(C)}>
+                            <Conversation conversation={C} currentUser={user} />
+                        </div>
 
 
-                ))}
+                    ))}
 
+                </div>
+            </div>
+            <div className="chatBox">
+                <div className="chatBoxWrapper"> {
+                        currentChat ? <> <div className="chatBoxTop">
+                                    {messages.map((m) => (
+                                        <div ref={scrollRef}>
+                                            <Message message={m} own={m.sender === user._id} />
+                                        </div> 
+                                    ) 
+                                    )}
+
+                                </div>
+                                    <div className="chatBoxBottom">
+                                        <textarea className='chatMessageInput' placeholder='write something...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
+                                        <button className='chatSubmitButton' onClick={handleSubmit}>SEND</button>
+                                    </div> 
+                                    </> : <span className='noConversationText'>Open a conversation to start a chat...</span>}
+                </div>
+            </div>
+            {/* //(e) => setNewMessage(e.target.value) */}
+            <div className="chatOnline">
+                <div className="chatOnlineWrapper">
+                    <ChatOnline /> {/* <img className='postProfileImg'src={`http://localhost:7400/images/${img.userPicturePath}`}/> */}
+                </div>
             </div>
         </div>
-        <div className="chatBox">
-            <div className="chatBoxWrapper">
-                {
-                    currentChat ?
-                        <>
-                            <div className="chatBoxTop">
-                                {messages.map((m) =>(
-                                    <div  ref={scrollRef}>
-                                          <Message message={m} own={m.sender === user._id} />  
-                                    </div>
-                                  
-                                )
-                                  
-                                )}
-
-                            </div>
-                            <div className="chatBoxBottom">
-                                <textarea className='chatMessageInput' placeholder='write something...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                                <button className='chatSubmitButton' onClick={handleSubmit}>send</button>
-                            </div>
-                        </> : <span className='noConversationText'>Open a conversation to start a chat.</span>}
-            </div>
-        </div>
-        {/* //(e) => setNewMessage(e.target.value) */}
-        <div className="chatOnline">
-            <div className="chatOnlineWrapper">
-                <ChatOnline />
-                {/* <img className='postProfileImg'src={`http://localhost:7400/images/${img.userPicturePath}`}/> */}
-            </div>
-        </div>
-    </div>
     </>
-);
+    );
 }
 
 export default Messanger;

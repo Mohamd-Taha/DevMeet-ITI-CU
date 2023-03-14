@@ -5,16 +5,18 @@
     cursor: pointer;
 }
 .conversation:hover{
-    background-color: rgb(245, 243, 243);
-    margin-top: 20px;
+    background-color:#c7a7e6;
+    /* margin-top: 5px; */
+    border-radius: 15px;
 }
 .conversationImg{
-width: 40px;
-height: 40px;
+width: 50px;
+height: 50px;
 border-radius: 50%;
 object-fit: cover;
 margin-right: 20px;
 }
 .conversationName{
-    font-weight: 500;
+    font-weight: 800;
+    font-size: larger;
 }

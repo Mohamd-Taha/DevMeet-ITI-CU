@@ -1,31 +1,39 @@
-.message{
+.message {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 15px;
 }
-.messageTop{
+
+.messageTop {
     display: flex;
 }
-.messageImg{
-    width: 32px;
-    height: 32px;
+
+.messageImg {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
 }
-.messageText{
+
+.messageText {
     padding: 10px;
     border-radius: 20px;
-    background-color:rgb(99, 31, 145);
+    background-color: rgb(78, 0, 129);
     color: white;
+    font-weight: 600;
+    font-family: 'raleway';
 }
-.messageBottom{
-    font-size: 12px;
-    margin-top: 10px;
+
+.messageBottom {
+    font-size: 10px; 
+    margin-bottom:20px; 
 }
-.message.own{
+
+.message.own {
     align-items: flex-end;
 }
-.message.own .messageText{
-    background-color: lightgray;
+
+.message.own .messageText {
+    background-color: rgb(247, 229, 255);
     color: black;
 }
