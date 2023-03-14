@@ -38,7 +38,7 @@ const Rightbar = ({ profile, userProfile }) => {
                             <span className="rightbarInfoValue">{userProfile.city}</span>
                         </div>}
                       {userProfile.career &&  <div className="rightbarInfoItem">
-                            <span className="rightbarInfoKey">Occupation:</span>
+                            <span className="rightbarInfoKey">Title:</span>
                             <span className="rightbarInfoValue">{userProfile.career}</span>
                         </div>}
                     </div>

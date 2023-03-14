@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './sidebar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { RssFeed, Chat, PlayCircleFilledOutlined, Group, Bookmark, HelpOutline, WorkOutline, Event, School } from '@mui/icons-material'
-import { Users } from "../../dummyData"
 import CloseFriend from './CloseFriend'
 import CodeIcon from '@mui/icons-material/Code';
 import Button from '@mui/material/Button';
@@ -79,7 +78,7 @@ console.log(tag)
                         <span className="sidebarListItemText">Git</span>
                     </li>
                 </ul>
-                <Button variant="contained" style={{ backgroundColor: 'purple' }} >See More</Button>
+                {/* <Button variant="contained" style={{ backgroundColor: 'purple' }} >See More</Button> */}
                 <hr className='sidebarHr' />
                 <ul className="sidebarFriendList">
                     <li className="sidebarListItem">
