@@ -10,8 +10,6 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { Alert, Box, Button, Card, CardActions, CardContent, Container, Divider, FormControl, FormGroup, FormHelperText, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
 
-
-
 function Profile() {
 const location = useLocation()
 const navigate = useNavigate();

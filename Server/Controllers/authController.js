@@ -66,7 +66,6 @@ var LoginUser = async (req,res)=>{
 var LoginUser=req.body;
 LoginValidator = loginValidator(LoginUser)
 // console.log(loginValidator)
-console.log("false")
 try{
 if(LoginValidator){
     console.log("true")

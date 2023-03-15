@@ -88,19 +88,16 @@ console.log(req.params)
  console.log(followuser)
 if((user && followuser) && (id!=followId)){
 if(user.following.includes(followuser._id)){
-console.log('Before filter:')
-console.log(user.following)
-console.log(followuser.followers) 
 const index = user.following.indexOf(followId);
 if (index !== -1) {
   user.following.splice(index, 1);
 }
 const followIndex = followuser.followers.indexOf(id);
 if (followIndex !== -1) {
-  followuser.followers.splice(index, 1);
+  followuser.followers.splice(followIndex, 1);
 }
 console.log('After filter:')
-console.log(user.following)
+console.log(user.following) 
 console.log(followuser.followers)
 console.log("unfollowed")
 }

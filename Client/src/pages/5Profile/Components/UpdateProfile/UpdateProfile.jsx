@@ -66,31 +66,31 @@ const formData = new FormData()
                 <FormGroup row={true} id="email-group" sx={{marginTop: "1em"}}>
                   <FormControl fullWidth>
                     <InputLabel htmlFor="Description" id="email-confirmation-label">Description</InputLabel>
-                    <Input id="Description" type="text"  onChange={(e) => { setDescription(e.target.value) }} />
+                    <Input id="Description" type="text" style={{marginTop:"20px"}} value={description} onChange={(e) => { setDescription(e.target.value) }} />
                     <FormHelperText id="Occupation">Enter new Description?</FormHelperText>
                   </FormControl>
                   <FormControl fullWidth>
                     <InputLabel htmlFor="firstNameUpdate" id="email-label">First Name</InputLabel>
-                    <Input id="firstNameUpdate" type="text" onChange={(e) => { setFirstName(e.target.value) }} />
+                    <Input id="firstNameUpdate" type="text" value={firstName} onChange={(e) => { setFirstName(e.target.value) }} />
                     <FormHelperText id="email-helper-text">Enter new first name?</FormHelperText>
                   </FormControl>
                 </FormGroup>
                 <FormGroup row={true} id="email-confirmation-group" >
                   <FormControl fullWidth>
                     <InputLabel htmlFor="lastNameUpdate" id="email-confirmation-label">Last Name</InputLabel>
-                    <Input id="e-confirmation" type="text" onChange={(e) => { setLastName(e.target.value) }} />
+                    <Input id="e-confirmation" type="text" value={lastName} onChange={(e) => { setLastName(e.target.value) }} />
                     <FormHelperText id="lastNameUpdate">Enter new last name?</FormHelperText>
                   </FormControl>
                 </FormGroup>
                  <FormGroup row={true} id="email-confirmation-group" >
                   <FormControl fullWidth>
                     <InputLabel htmlFor="location" id="email-confirmation-label">Location</InputLabel>
-                    <Input id="location" type="text" onChange={(e) => { setLocation(e.target.value) }} />
+                    <Input id="location" type="text" value={location} onChange={(e) => { setLocation(e.target.value) }} />
                     <FormHelperText id="email-confirmation-helper-text">Enter new Location?</FormHelperText>
                   </FormControl>
                    <FormControl fullWidth>
                     <InputLabel htmlFor="Occupation" id="email-confirmation-label">Occupation</InputLabel>
-                    <Input id="Occupation" type="text" onChange={(e) => { setOccupation(e.target.value) }} />
+                    <Input id="Occupation" type="text" value={occupation} onChange={(e) => { setOccupation(e.target.value) }} />
                     <FormHelperText id="Occupation">Enter new Occupation?</FormHelperText>
                   </FormControl>
                    <FormControl fullWidth>
