@@ -101,3 +101,11 @@
         transform: rotate(360deg);
     }
 }
+
+
+.TagsCorner{
+    color: rgb(47, 78, 218); 
+    font-size: 15px;
+    font-weight: 700;
+    font-family:'Consolas';
+}

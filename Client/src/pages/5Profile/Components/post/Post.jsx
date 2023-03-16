@@ -9,10 +9,13 @@ import { BrowserRouter, Route, Routes, Navigate, NavLink } from "react-router-do
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ProfileComments from './ProfileComments';
+import { format } from "timeago.js"
 import axios from 'axios';
 import { fontWeight } from '@mui/system';
 import { useAuthContext } from "../../../../hooks/useAuthContext";
@@ -120,20 +123,25 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
               <NavLink to={`/profile`} state={{ user: otherUser }}> <img className='postProfileImg'
                 src={`http://localhost:7400/images/${post.userPicturePath}`}
                 alt="" /></NavLink>
-              <span className="postUsername">
-                {post.firstName}&nbsp;
-                {post.lastName}
-              </span>
-              <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span>
+              <span className="postUsername"> {post.firstName+" "+post.lastName} </span>
+              <span className="postDate">{format(post.createdAt)}</span>
+              {/* <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span> */}
             </div>
 
-            {(post.userId==user._id) && 
             <div className="postTopRight">  
-              <IconButton color="primary" component="label" onClick={DeleteMyPost} >
-                <DeleteIcon htmlColor='#F25268' />   
-              </IconButton> 
+              {
+                !post.tags[0] ? 
+                <span className="TagsCorner" style={{color:'gray'}}> Not Taged </span> :  
+                <span className="TagsCorner"> {post.tags.join(", ")}</span>
+              } 
+
+              {
+                (post.userId==user._id) && 
+                  <IconButton color="primary" component="label" onClick={DeleteMyPost} >
+                    <DeleteIcon htmlColor='#F25268' />   
+                  </IconButton> 
+              }
             </div>
-            }
 
           </div>
           <div className="postCenter">

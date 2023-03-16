@@ -22,7 +22,7 @@ const Conversation = ({ conversation, currentUser }) => {
         //need to add profile picture
         <div className='conversation'>
             <img className='conversationImg' src="images/profileimg.jpg" alt="" />
-            <span className="conversationName">{user?.firstName}</span>
+            <span className="conversationName">{user?.firstName+" "+user?.lastName}</span>
         </div>
     );
 };

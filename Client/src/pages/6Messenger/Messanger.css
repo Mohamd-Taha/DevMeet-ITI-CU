@@ -5,7 +5,7 @@
     margin-top: 100px;
     background-color: #f2ebff;
     border-radius: 20px;
-    box-shadow: 0px 0px 10px rgb(80, 0, 117);
+    box-shadow: 0px 0px 20px rgb(80, 0, 117);
 }
 
 .chatMenu {
@@ -13,7 +13,7 @@
 }
 
 .chatMenuInput {
-    width: 90%;
+    width: 70%;
     padding: 10px;
     margin-bottom: 30px;
     border: none;
@@ -30,11 +30,12 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    width: 700px;
+    width: 70%;
 }
 
 .chatBoxTop {
     height: 100%;
+    width: auto;
     overflow-y: scroll;
     padding-right: 10px;
     height: 375px;
@@ -52,7 +53,7 @@
 }
 
 .chatSubmitButton {
-    width: 70px;
+    width: 70%px;
     height: 40px;
     border: none;
     border-radius: 15px;
@@ -85,13 +86,14 @@
 
 .noConversationText {
     position: absolute;
-    top: 10%;
+    top: 15%;
     font-size: 30px;
     color: rgb(122, 104, 124);
     cursor: default;
     font-family: 'raleway';
     opacity: 25%;
-    font-weight: 700;
+    width: 85%;
+    font-weight: 900;
 }
 
 ::-webkit-scrollbar {

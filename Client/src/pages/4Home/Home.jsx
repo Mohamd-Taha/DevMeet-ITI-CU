@@ -20,6 +20,13 @@ const Homecomponent = () => {
   const [communities, setCommunities] = useState()
   const [search, setSearch] = useState()
   const [searchResults, setSearchResults] = useState()
+
+  const [activeButton, setActiveButton] = useState(null);  //for New / Trending 
+  const handleButtonClick = (buttonIndex) => { //for New / Trending 
+    setActiveButton(buttonIndex);
+  };
+
+
   Object.freeze(user)
   const getNewPosts = () => {
     axios.get(`http://localhost:7400/posts/${user._id}`)
@@ -31,6 +38,7 @@ const Homecomponent = () => {
         }
         setCurrentPosts(data)
         console.log(data)
+        handleButtonClick(1)
 
       })
       .catch((err) => { console.log(err) })
@@ -44,6 +52,7 @@ const Homecomponent = () => {
           data[i].likes = MapObject
         }
         setCurrentPosts(data)
+        handleButtonClick(0)
       })
       .catch((err) => { console.log(err) })
   }
@@ -51,8 +60,8 @@ const Homecomponent = () => {
   const getSharePost = (post) => {
 
 
-    let reci=user.followers.map(e=>{
-      return {id:e, isRead:'false' }
+    let reci = user.followers.map(e => {
+      return { id: e, isRead: 'false' }
     })
 
     let msg = {
@@ -60,12 +69,12 @@ const Homecomponent = () => {
       text: "Added New Post",
       content: post.description,
       // recipients:user.followers,
-      recipients:reci,
+      recipients: reci,
       url: `/post/${post._id}`
     }
     console.log(user.followers)
 
-    axios.post('http://localhost:7400/notification', {...msg })
+    axios.post('http://localhost:7400/notification', { ...msg })
       .then((res) => { console.log("notify added succefully") })
 
 
@@ -113,25 +122,25 @@ let msg={
     // }
   }
 
-  const getSearch=(data)=>{
+  const getSearch = (data) => {
     setSearch(data);
     setFlag(false);
     console.log("************");
     console.log(search);
-    try{
-    const searchQuery= search.split(" ")
-    axios.post(`http://localhost:7400/search`,{firstName:searchQuery[0], lastName:searchQuery[1] }, {withCredentials: true} )
-        .then((response)=>{return response})
-        .then(({data})=>{
-        console.log(data)
-        setSearchResults(data)
+    try {
+      const searchQuery = search.split(" ")
+      axios.post(`http://localhost:7400/search`, { firstName: searchQuery[0], lastName: searchQuery[1] }, { withCredentials: true })
+        .then((response) => { return response })
+        .then(({ data }) => {
+          console.log(data)
+          setSearchResults(data)
         })
-        .catch((err)=>{console.log(err)})
-      }
-      catch{}
+        .catch((err) => { console.log(err) })
+    }
+    catch { }
 
   }
- 
+
   useEffect(() => {
     getNewPosts()
   }, [])
@@ -150,60 +159,60 @@ let msg={
         setCommunities(data.communities)
       })
       .catch((err) => { console.log(err) })
- }, [])
-  const DeletePost=()=>{
-console.log("inside home delete post")
-getNewPosts()
+  }, [])
+  const DeletePost = () => {
+    console.log("inside home delete post")
+    getNewPosts()
   }
 
-   const getTagPosts = (post) => {
-   for (let i = 0; i < post.length; i++) {
-          let MapObject = new Map(Object.entries(post[i].likes));
-          post[i].likes = MapObject
-        }
-        setCurrentPosts(post)
-   
+  const getTagPosts = (post) => {
+    for (let i = 0; i < post.length; i++) {
+      let MapObject = new Map(Object.entries(post[i].likes));
+      post[i].likes = MapObject
+    }
+    setCurrentPosts(post)
+
   }
   const getLikedPost = (post) => {
     const index = currentPosts.findIndex((el) => el._id === post._id);
-    const updatedPost = {...post, likes: post.likes};
-    setCurrentPosts([ 
-  ...currentPosts.slice(0, index),
-  updatedPost,
-  ...currentPosts.slice(index + 1)
-]);
-     console.log("enteredsharepost")
-  //  await setCurrentPosts(currentPosts.map(el => (el._id === post._id ? el.likes = post.likes : el)))
-   
+    const updatedPost = { ...post, likes: post.likes };
+    setCurrentPosts([
+      ...currentPosts.slice(0, index),
+      updatedPost,
+      ...currentPosts.slice(index + 1)
+    ]);
+    console.log("enteredsharepost")
+    //  await setCurrentPosts(currentPosts.map(el => (el._id === post._id ? el.likes = post.likes : el)))
+
   }
-  return (  
+  return (
     <div className='parentHomeDiv'>
-      <NavBar sendSearch={getSearch}/>
+      <NavBar sendSearch={getSearch} />
       <div className='leftHomeDiv'>
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
-     { flag ?< div className='filterDiv'>
-        <btn className="tagbuttons" style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New</btn>
-        <btn className="tagbuttons" onClick={getTrendingPosts}>Trending</btn>
+      {flag ? < div className='filterDiv'>
+        <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons' }  style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New Posts</lable>
+        <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons' } onClick={getTrendingPosts} >Trending Posts</lable>
       </div> : <>
-      <div className='searchDiv'>
-        <div className='SearchNav'>
-          <input className='buttonSearch' type="button" value="Users" />
-          <input className='buttonSearch' type="button" value="Posts" />
-          <input  className='buttonSearch'type="button" value="Communities" />
+        <div className='searchDiv'>
+          <div className='SearchNav'>
+            <input className='buttonSearch' type="button" value="Users" />
+            <input className='buttonSearch' type="button" value="Posts" />
+            <input className='buttonSearch' type="button" value="Communities" />
+          </div>
+          {searchResults?.map((c) => (
+            <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture} />
+          ))}
+
         </div>
-        {searchResults?.map((c)=>(
-        <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture}/>
-        ))}
-        
-        </div>
-        
-        </>
-        }
-       { flag && <div className='shareDiv'>
-       <Share user={user} sendNewPost={getSharePost} personalCheck='true'  ></Share>
+
+      </>
+      }
+      {flag && <div className='shareDiv'>
+        <Share user={user} sendNewPost={getSharePost} personalCheck='true'  ></Share>
       </div>}
-      {flag &&  <div className='PostsDiv'>
+      {flag && <div className='PostsDiv'>
         {currentPosts?.map((p) => (
           <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} />
         ))}

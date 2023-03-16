@@ -7,12 +7,10 @@ function Message({ message, own }) {
     return (
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
-                <img className='messageImg' src="images/profileimg.jpg" alt="" />
+                <img className='messageImg' src="images/profileimg.jpg" alt="you" />
                 <p className='messageText'>{message.text}</p>
             </div>
-            <div className="messageBottom">
-                {format(message.createdAt)}
-            </div>
+                <span  className="messageBottom"  > {format(message.createdAt)} </span>
         </div>
     );
 }

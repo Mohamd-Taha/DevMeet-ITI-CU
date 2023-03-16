@@ -33,27 +33,37 @@ const Rightbar = ({ profile, userProfile }) => {
                 <div className="rightbarWrapper">
                     <h4 className='rightbarTitle'>User information</h4>
                     <div className="rightbarInfo">
-                        {userProfile.city && <div className="rightbarInfoItem">
-                          <span className="rightbarInfoKey">Location:</span>
-                            <span className="rightbarInfoValue">{userProfile.city}</span>
-                        </div>}
-                      {userProfile.career &&  <div className="rightbarInfoItem">
-                            <span className="rightbarInfoKey">Title:</span>
-                            <span className="rightbarInfoValue">{userProfile.career}</span>
-                        </div>}
+                        {!userProfile.city && !userProfile.career &&
+                            <div>
+                                <p>Update your profile info...</p>
+                            </div>
+                        } 
+
+                        {userProfile.city && 
+                            <div className="rightbarInfoItem">
+                                <span className="rightbarInfoKey">Location:</span>
+                                <span className="rightbarInfoValue">{userProfile.city}</span>
+                            </div>
+                        }
+
+                        {userProfile.career &&  
+                            <div className="rightbarInfoItem">
+                                <span className="rightbarInfoKey">Title:</span>
+                                <span className="rightbarInfoValue">{userProfile.career}</span>
+                            </div>
+                        } 
                     </div>
 
-                    <hr className='sidebarHr' />
+                <hr className='sidebarHr' />
 
-                    { followers && <h3 className='rightbarTitle'>{"("+followers.length+") "}Followers</h3>}
+                { followers && <h3 className='rightbarTitle'>{"("+followers.length+") "}Followers</h3>}
+                <div className="rightbarFollowings"> 
+                    {followers?.map((f) => ( 
+                        <Follower  key={f._id} follower={f} />
+                    ))} 
+                </div>
 
-                    <div className="rightbarFollowings"> 
-                        {followers?.map((f) => ( 
-                            <Follower  key={f._id} follower={f} />
-                        ))} 
-                    </div>
-
-                    <hr className='sidebarHr' />
+                <hr className='sidebarHr' />
 
                 </div>
             </div>
