@@ -25,13 +25,13 @@ const Messanger = () => {
 
     useEffect(() => {
         const getConversations = async () => {
-try{
-          const res= await axios.get("http://localhost:7400/api/conversations/" + user._id)
-          setConversation(res.data);
-          console.log(res);
-} catch(err){
-    console.log(err)
-}
+            try {
+                const res = await axios.get("http://localhost:7400/api/conversations/" + user._id)
+                setConversation(res.data);
+                console.log(res);
+            } catch (err) {
+                console.log(err)
+            }
         }
         getConversations();
     }, [user])
@@ -105,39 +105,39 @@ try{
                 <div className="chatMenuWrapper">
                     <input type="text" placeholder='Search for friends' className='chatMenuInput' />
                     {conversations.map(C => (
-                        <div onClick={() => doThis(C)}>
+                        <div onClick={() => doThis(C)} style={{ width: '350px', height: '500px', overflow: 'auto' }} >
                             <Conversation conversation={C} currentUser={user} />
                         </div>
-
-
                     ))}
-
                 </div>
             </div>
             <div className="chatBox">
                 <div className="chatBoxWrapper"> {
-                        currentChat ? <> <div className="chatBoxTop">
-                                    {messages.map((m) => (
-                                        <div ref={scrollRef}>
-                                            <Message message={m} own={m.sender === user._id} />
-                                        </div> 
-                                    ) 
-                                    )}
-
+                    currentChat ? <>
+                        <div className="chatBoxTop">
+                            {messages.map((m) => (
+                                <div ref={scrollRef}>
+                                    <Message message={m} own={m.sender === user._id} />
                                 </div>
-                                    <div className="chatBoxBottom">
-                                        <textarea className='chatMessageInput' placeholder='write something...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                                        <button className='chatSubmitButton' onClick={handleSubmit}>SEND</button>
-                                    </div> 
-                                    </> : <span className='noConversationText'>Open a conversation to start a chat...</span>}
+                            )
+                            )}
+                        </div>
+                        <div className="chatBoxBottom">
+                            <textarea className='chatMessageInput' placeholder='write something...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
+                            <button className='chatSubmitButton' onClick={handleSubmit}>SEND</button>
+                        </div>
+                    </> : <div className='noConversationText' >
+                        <span> Open a conversation to start a chat...</span>
+                    </div>
+                }
                 </div>
             </div>
             {/* //(e) => setNewMessage(e.target.value) */}
-            <div className="chatOnline">
-                <div className="chatOnlineWrapper">
-                    <ChatOnline /> {/* <img className='postProfileImg'src={`http://localhost:7400/images/${img.userPicturePath}`}/> */}
-                </div>
-            </div>
+            {/* <div className="chatOnline"> */}
+            {/* <div className="chatOnlineWrapper"> */}
+            {/*  <ChatOnline />  <img className='postProfileImg'src={`http://localhost:7400/images/${img.userPicturePath}`}/> */}
+            {/* </div> */}
+            {/* </div> */}
         </div>
     </>
     );

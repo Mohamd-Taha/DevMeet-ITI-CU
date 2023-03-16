@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import "./post.css"
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -6,13 +7,15 @@ import { BrowserRouter, Route, Routes, Navigate, NavLink } from "react-router-do
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { fontWeight } from '@mui/system';
 import Comments from './Comments';
 import axios from 'axios';
-import { fontWeight } from '@mui/system';
-import { useAuthContext } from "../../../hooks/useAuthContext";
+import { format } from "timeago.js"
 
 
 
@@ -34,9 +37,13 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
   const [otherUser, setOtherUser] = useState();
   const [Allcomments, setAllComments] = useState([]);   //for new comment
   const [newComment, setNewComment] = useState();       //for new comment
-  const [isVisible, setIsVisible] = useState(false);            // for comments div visibilty
+  const [isVisible, setIsVisible] = useState(false);              // for comments div visibilty
   const ToggleShowComments = () => { setIsVisible(!isVisible); }; // for comments div visibilty 
-  // const [isliked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState();           // for like animation    
+  // const ToggleLikeIcon= () => {  }; // for like animation
+  
+
+
   const likeHandler = async () => {
     await axios.patch(`http://localhost:7400/likes/${post._id}`, { userId }, { withCredentials: true })
       .then((response) => { return response })
@@ -45,10 +52,12 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
         let MapObject = new Map(Object.entries(data.likes));
         data.likes = MapObject
         console.log(data)
-        sendNewPost(data)
+        sendNewPost(data) 
+        setIsLiked(!isLiked)
       })
       .catch((err) => { console.log(err) })
   }
+
   const commentPost = () => {
     setError(null)
     if (comment) {
@@ -114,23 +123,31 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
         <div className="postWrapper">
           <div className="postTop">
             <div className="postTopLeft">
-              <NavLink to={`/profile`} state={{ user: otherUser }}> <img className='postProfileImg'
-                src={`http://localhost:7400/images/${post.userPicturePath}`}
-                alt="" /></NavLink>
-              <span className="postUsername">
-                {post.firstName}&nbsp;
-                {post.lastName}
-              </span>
-              <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span>
+              <NavLink to={`/profile`} state={{ user: otherUser }}> 
+                <img className='postProfileImg' src={`http://localhost:7400/images/${post.userPicturePath}`} alt="" />
+              </NavLink>
+              <span className="postUsername"> {post.firstName+" "+post.lastName} </span>
+              <span className="postDate">{format(post.createdAt)}</span>
+              {/* <span className="postDate">{format(post.createdAt)+" ("+date.toLocaleString('en-GB', {  day: 'numeric', month: 'long'  })+") "}</span> */}
+              {/* <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span> */}
             </div>
 
-            {(post.userId==user._id) && 
-            <div className="postTopRight">  
-              <IconButton color="primary" component="label" onClick={DeleteMyPost} >
-                <DeleteIcon htmlColor='#F25268' />   
-              </IconButton> 
+
+            <div className="postTopRight">
+              {
+                !post.tags[0] ? 
+                <span className="TagsCorner" style={{color:'gray'}}> Not Taged </span> :  
+                <span className="TagsCorner"> {post.tags.join(", ")}</span>
+              } 
+                            
+
+              {
+                (post.userId==user._id) && 
+                  <IconButton color="primary" component="label" onClick={DeleteMyPost} >
+                    <DeleteIcon htmlColor='#F25268' />   
+                  </IconButton> 
+              }
             </div>
-            }
 
           </div>
           <div className="postCenter">
@@ -138,9 +155,10 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
             {post.picturePath && <img className='postImg' src={`http://localhost:7400/images/${post.picturePath}`} alt="" />}
           </div>
           <div className="postBottom">
-            <div className="postBottomLeft">
-              {/* <img className='likeIcon' src="/assets/like.png" onClick={likeHandler} alt="" /> */}
-              <img className='likeIcon' src="/assets/heart.png" onClick={likeHandler} alt="" />
+            <div className="postBottomLeft" onClick={likeHandler} >
+              {/* <img className='likeIcon' src="/assets/like.png"  onClick={likeHandler} alt="" /> */}
+              {/* <img className='likeIcon' src="/assets/heart.png" onClick={likeHandler} alt="" /> */}
+              {isLiked ? <FavoriteIcon htmlColor='#f25268' style={{marginRight:'5px'}} /> : <FavoriteBorderIcon htmlColor='red' style={{marginRight:'5px'}} />}
               <span className="postLikeCounter" style={{ fontWeight: 'bold' }} > {post.likes.size}  Likes </span>
             </div>
             <div className="postBottomRight">

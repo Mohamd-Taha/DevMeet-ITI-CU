@@ -83,11 +83,10 @@ function Profile() {
                             </div>
 
                             {user.user._id == userProfile._id &&
-                                <Button style={{ backgroundColor: 'purple' }} variant="contained"  id="UpdateProfile" onClick={handleProfile}> Update Profile</Button>
+                                <Button style={{ backgroundColor: 'purple'  , translate:'-120%'}} variant="contained"  id="UpdateProfile" onClick={handleProfile}> Update Profile</Button>
                             }
                             {user.user._id != userProfile._id && <Button style={{ backgroundColor: 'purple' }}
-                                variant="contained"
-                                color="primary"
+                                variant="contained" color="primary"
                                 id="UpdateProfile" onClick={handleFollow}>{isFollowing ? <span style={{ color: 'gray' }}>Following</span> : "Follow"}</Button>
                             }
                             {/* {user.user._id!=userProfile._id && <Button 

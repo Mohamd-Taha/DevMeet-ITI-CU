@@ -29,8 +29,10 @@ const NavBar = ({sendSearch}) => {
         <nav id="menu" className=" navbar-default navbarFIXtop">
             <div className=" ">
                 <div className="navbarHHeader">
+                <NavLink to="/home"  >
                     <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a>                 
                     <img src="/assets/SiteLogo.png" height="50px" alt="pic" />
+                </NavLink>
                 </div>
 
                 <ul className=" navbarNNNav navtoright unordlist">

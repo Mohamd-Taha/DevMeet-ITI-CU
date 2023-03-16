@@ -1,106 +1,128 @@
-
-.parentHomeDiv{
- display: grid;
- grid-template-columns: repeat(24, 1fr);
- grid-template-rows: repeat(50, 20px);
- 
-}
-
-.filterDiv{
- grid-column-start: 8;
- grid-column-end: 20;
- grid-row-start: 6;
- grid-row-end: 8;
- text-align: center;
- display: flex;
- position: sticky;
- justify-content:space-around;
- align-items: center;
- overflow-x: auto;
-}
-
-.tagbuttons{
-font-size: 1rem;
-padding: 5px 20px;
-width: 50%;
-border-bottom: 0.5px solid rgb(174, 174, 175);
- font-family: "Raleway", sans-serif;
-}
-
-.tagbuttons:hover{
- background-color: #f2f1f3;
-}
-
-.leftHomeDiv{
- grid-column-start: 2;
- grid-column-end: 7;
- grid-row-start: 5;
- grid-row-end: 50;
-}
-.leftHomeDiv a{
- font-size: 1rem;
- display: block;
- text-align: left;
- margin: 20px; 
- padding: 10px;
- text-decoration: none;
- color: black;
- margin-bottom: 10px;
- font-weight: bolder;
- font-family: "Raleway", sans-serif;
-}
-
-.leftHomeDiv a:hover{
-background-color: #a388a8;
-border-radius: 10px;
-height: 40px;
+.parentHomeDiv {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    grid-template-rows: repeat(50, 20px);
 
 }
 
-.PostsDiv{
- grid-column-start: 8;
- grid-column-end: 20;
- grid-row-start: 18;
- grid-row-end: 45;
+.filterDiv {
+    grid-column-start: 8;
+    grid-column-end: 20;
+    grid-row-start: 6;
+    grid-row-end: 8;
+    text-align: center;
+    display: flex;
+    position: sticky;
+    justify-content: space-around;
+    align-items: center;
+    overflow-x: auto;
 }
 
-.shareDiv{
- grid-column-start: 8;
- grid-column-end: 20;
- grid-row-start: 10;
-}
-.TopRightDiv{
- grid-column-start: 21;
- grid-column-end: 24;
- grid-row-start: 5;
- grid-row-end: 20;
- background-color:  #ffffff;
- border: 1px solid black;
- font-family: "Raleway", sans-serif;
- border-radius: 5px;
+.tagbuttons {
+    font-size: 15px;
+    padding: 5px 20px;
+    border-radius: 30px;
+    width: 50%;
+    border-bottom: 1px solid rgb(199, 17, 255);
+    font-family: "Raleway", sans-serif;
 }
 
-.TopRightDiv div{
-text-align: center;
-margin-top: 10px;
+.tagbuttons:hover {
+    background-color: #e2c6fd;
+    cursor: pointer;
 }
 
-.BottomRightDiv{
- grid-column-start: 21;
- grid-column-end: 24;
- grid-row-start:23;
- grid-row-end: 50;
- background-color:  #ffffff;
- border: 1px solid black;
- font-family: "Raleway", sans-serif;
- border-radius: 5px;
- overflow-y: scroll;
- font-family: "Raleway", sans-serif;
+.tagbuttons:active{
+    background-color: #d2a5ff;
 }
-.BottomRightDiv div{
- text-align: center;
- margin-top: 10px;
+
+.activetagbuttons {
+    font-size: 20px;
+    font-weight: 700; 
+    padding: 5px 20px;
+    border-radius: 30px;
+    width: 60%; 
+    background-color: #a432b8;
+    font-family: "Raleway", sans-serif;
 }
+
+
+
+
+.leftHomeDiv {
+    grid-column-start: 2;
+    grid-column-end: 7;
+    grid-row-start: 5;
+    grid-row-end: 50;
+}
+
+.leftHomeDiv a {
+    font-size: 1rem;
+    display: block;
+    text-align: left;
+    margin: 20px;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: bolder;
+    font-family: "Raleway", sans-serif;
+}
+
+.leftHomeDiv a:hover {
+    background-color: #a388a8;
+    border-radius: 10px;
+    height: 40px;
+
+}
+
+.PostsDiv {
+    grid-column-start: 8;
+    grid-column-end: 20;
+    grid-row-start: 18;
+    grid-row-end: 45;
+}
+
+.shareDiv {
+    grid-column-start: 8;
+    grid-column-end: 20;
+    grid-row-start: 10;
+}
+
+.TopRightDiv {
+    grid-column-start: 21;
+    grid-column-end: 24;
+    grid-row-start: 5;
+    grid-row-end: 20;
+    background-color: #ffffff;
+    border: 1px solid black;
+    font-family: "Raleway", sans-serif;
+    border-radius: 5px;
+}
+
+.TopRightDiv div {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.BottomRightDiv {
+    grid-column-start: 21;
+    grid-column-end: 24;
+    grid-row-start: 23;
+    grid-row-end: 50;
+    background-color: #ffffff;
+    border: 1px solid black;
+    font-family: "Raleway", sans-serif;
+    border-radius: 5px;
+    overflow-y: scroll;
+    font-family: "Raleway", sans-serif;
+}
+
+.BottomRightDiv div {
+    text-align: center;
+    margin-top: 10px;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
 }
@@ -114,22 +136,23 @@ margin-top: 10px;
 }
 
 
-.searchDiv{
- grid-column-start: 8;
- grid-column-end: 20;
- grid-row-start: 6;
- grid-row-end: 45;
+.searchDiv {
+    grid-column-start: 8;
+    grid-column-end: 20;
+    grid-row-start: 6;
+    grid-row-end: 45;
 }
 
-.SearchNav{
-    display:flex;
+.SearchNav {
+    display: flex;
     background-color: #9263b3;
-    justify-content:space-around;
+    justify-content: space-around;
     padding: 10px;
     border-radius: 15px;
 }
 
-.buttonSearch{
- border-radius: 20px;
- border: none;
+.buttonSearch {
+    border-radius: 20px;
+    border: none;
 }
+
