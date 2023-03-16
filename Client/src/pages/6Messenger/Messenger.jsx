@@ -5,7 +5,7 @@ import Conversation from './conversations/Conversation';
 import Message from './messages/Message';
 import axios from "axios";
 import NavBar from '../../Components/NavBar';
-// import { io } from "socket.io-client";
+import { io } from "socket.io-client";
 
 
 import "./Messanger.css"
@@ -19,8 +19,38 @@ const Messanger = () => {
     const [currentChat, setCurrentChat] = useState(null)
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("")
+    const [arrivalMessage, setArrivalMessage] = useState(null)
+    const socket= useRef()
     const scrollRef = useRef();
     const [userImg, setuserImg] = useState([])
+
+    useEffect(()=>{
+        socket.current=io("ws://localhost:8900")
+              socket.current.on("getMessage", data=>{
+                    setArrivalMessage({
+                        sender: data.senderId,
+                        text: data.text,
+                        createdAt: Date.now(),
+                    })
+                })
+        },[])
+
+    useEffect(()=>{
+
+arrivalMessage&&currentChat?.members.includes(arrivalMessage.sender)&&
+setMessages((prev)=>[...messages, arrivalMessage])
+
+    },[arrivalMessage, currentChat])
+
+  
+
+    //array was with user
+useEffect(()=>{
+    socket.current.emit("addUser", user._id)
+    socket.current.on("getUsers", users=>{
+        console.log(users)
+    })
+},[])
 
 
     useEffect(() => {
@@ -34,14 +64,13 @@ try{
 }
         }
         getConversations();
-    }, [user])
+    }, [])
 
 
 
     useEffect(() => {
         const getUser = async () => {
             await axios.get("http://localhost:7400/api/messages/" + currentChat?._id).then(res => {
-
                 setMessages(res.data)
             }).catch(
                 err => {
@@ -83,6 +112,12 @@ try{
             sender: user._id,
             text: newMessage
         }
+        const receiverId = currentChat.members.find(member=>member!==user._id)
+        socket.current.emit("sendMessage", {
+            senderId:user._id, 
+            receiverId,
+            text: newMessage,
+        })
         await axios.post("http://localhost:7400/api/messages/", message).
             then(res => {
                 setMessages([...messages, res.data])
@@ -95,6 +130,7 @@ try{
                 })
 
     }
+
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ bahavior: "smooth" })
     }, [messages])
