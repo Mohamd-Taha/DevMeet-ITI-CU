@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import "./ProfilePosts.css"
 import ProfileShare from '../ProfileShare/ProfileShare'
 import Post from '../post/Post'
-import { Posts } from "../../../dummyData";
 import axios from 'axios';
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 

@@ -14,6 +14,7 @@ import Search from './Pages/11Search/Search'
 import Error404 from './Components/Error404'
 import Community from "./Pages/10Community/Community";
 import NotifyModal from "./Pages/7Notifications/NotifyModal";
+import Notifications from "./Pages/7Notifications/Notifications";
 import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfile";
 
@@ -21,6 +22,7 @@ import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfi
 
 function App() {
   const {user, dispatch, isLoading} = useAuthContext()
+  
   return (
     
     <BrowserRouter>
@@ -37,6 +39,7 @@ function App() {
         {/* <Route path="notifications" element={<Notifications/>}></Route> */}
         <Route path="meetups" element={<Meetups/>}></Route>  {/* "meetups/:meetupID" */}
         <Route path="/community/:id" element={<Community/>}></Route>  
+        <Route path="notifications" element={<Notifications/>}></Route> 
         <Route path="notifications/:id" element={<NotifyModal/>}></Route>
         <Route path="componentSearch" element={<ComponentSearch/>}></Route>
 

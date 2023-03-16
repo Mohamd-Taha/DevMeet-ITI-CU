@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Post from './components/Post'
-import { Posts } from '../dummyData'
 import './Home.css'
 import Sidebar from './components/Sidebar';
 import axios from 'axios';

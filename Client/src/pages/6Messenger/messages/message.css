@@ -1,0 +1,39 @@
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.messageTop {
+    display: flex;
+}
+
+.messageImg {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.messageText {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(78, 0, 129);
+    color: white;
+    font-weight: 600;
+    font-family: 'raleway';
+}
+
+.messageBottom {
+    font-size: 10px; 
+    margin-bottom:20px; 
+}
+
+.message.own {
+    align-items: flex-end;
+}
+
+.message.own .messageText {
+    background-color: rgb(247, 229, 255);
+    color: black;
+}

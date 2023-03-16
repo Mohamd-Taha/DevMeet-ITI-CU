@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react'
 import "./post.css"
 import { MoreVert } from "@mui/icons-material"
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Users } from "../../../../Pages/dummyData"
 import { BrowserRouter, Route, Routes, Navigate, NavLink } from "react-router-dom";
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
