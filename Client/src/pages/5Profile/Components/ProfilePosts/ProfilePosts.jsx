@@ -106,7 +106,7 @@ let msg={
 
 useEffect(()=>{
   getMyPosts()
-  },[])
+  },[userProfile])
   
 
   

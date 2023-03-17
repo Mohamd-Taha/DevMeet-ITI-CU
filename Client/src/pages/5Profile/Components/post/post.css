@@ -35,7 +35,9 @@
 }
 
 .postDate {
+    color:gray;
     font-size: 12px;
+    font-weight: 500;
 }
 
 .postCenter {
@@ -57,7 +59,8 @@
 
 .postBottomLeft {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
+    cursor: pointer;
 }
 
 .likeIcon {

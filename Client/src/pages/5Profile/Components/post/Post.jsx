@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react'
 import "./post.css"
-import { MoreVert } from "@mui/icons-material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BrowserRouter, Route, Routes, Navigate, NavLink } from "react-router-dom";
 import Divider from '@mui/material/Divider';
@@ -42,6 +41,11 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
   const [newComment, setNewComment] = useState();       //for new comment
   const [isVisible, setIsVisible] = useState(false);            // for comments div visibilty
   const ToggleShowComments = () => { setIsVisible(!isVisible); }; // for comments div visibilty 
+  const [isLiked, setIsLiked] = useState(post.likes.get(userId));    // for like animation    
+
+
+
+
   // const [isliked, setIsLiked] = useState(false)
   const likeHandler = async () => {
     await axios.patch(`http://localhost:7400/likes/${post._id}`, { userId }, { withCredentials: true })
@@ -52,6 +56,7 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
         data.likes = MapObject
         console.log(data)
         sendNewPost(data)
+        setIsLiked(!isLiked)
       })
       .catch((err) => { console.log(err) })
   }
@@ -119,12 +124,19 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
       <div className='post'>
         <div className="postWrapper">
           <div className="postTop">
+            
             <div className="postTopLeft">
-              <NavLink to={`/profile`} state={{ user: otherUser }}> <img className='postProfileImg'
-                src={`http://localhost:7400/images/${post.userPicturePath}`}
-                alt="" /></NavLink>
+              <NavLink to={`/profile`} state={{ user: otherUser }}> 
+                <img className='postProfileImg'  src={`http://localhost:7400/images/${post.userPicturePath}`} alt="" />
+              </NavLink>
+
               <span className="postUsername"> {post.firstName+" "+post.lastName} </span>
-              <span className="postDate">{format(post.createdAt)}</span>
+              
+              {(format(post.createdAt)>"3 days ago") ?
+                <span className="postDate">{" ("+date.toLocaleString('en-GB', {  day: 'numeric', month: 'long'  })+") "}</span> 
+                :
+                <span className="postDate">{format(post.createdAt)+" "}</span>
+              }
               {/* <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span> */}
             </div>
 
@@ -132,7 +144,7 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
               {
                 !post.tags[0] ? 
                 <span className="TagsCorner" style={{color:'gray'}}> Not Taged </span> :  
-                <span className="TagsCorner"> {post.tags.join(", ")}</span>
+                <span className="TagsCorner"> {"#"+post.tags.join(", #")}</span>
               } 
 
               {
@@ -149,9 +161,8 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
             {post.picturePath && <img className='postImg' src={`http://localhost:7400/images/${post.picturePath}`} alt="" />}
           </div>
           <div className="postBottom">
-            <div className="postBottomLeft">
-              {/* <img className='likeIcon' src="/assets/like.png" onClick={likeHandler} alt="" /> */}
-              <img className='likeIcon' src="/assets/heart.png" onClick={likeHandler} alt="" />
+            <div className="postBottomLeft"  onClick={likeHandler} > 
+              {isLiked ? <FavoriteIcon htmlColor='#f25268' style={{marginRight:'5px'}} /> : <FavoriteBorderIcon htmlColor='red' style={{marginRight:'5px'}} />}
               <span className="postLikeCounter" style={{ fontWeight: 'bold' }} > {post.likes.size}  Likes </span>
             </div>
             <div className="postBottomRight">

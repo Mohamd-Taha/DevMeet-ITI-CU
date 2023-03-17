@@ -192,7 +192,8 @@ let msg={
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
       {flag ? < div className='filterDiv'>
-        <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons' }  style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>New Posts</lable>
+        <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons' }  style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
+            <span>&nbsp;&nbsp;</span>
         <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons' } onClick={getTrendingPosts} >Trending Posts</lable>
       </div> : <>
         <div className='searchDiv'>
@@ -218,10 +219,10 @@ let msg={
         ))}
       </div>}
       <div className='TopRightDiv'>
-        <div>Meeting Times</div>
+        <p>Meeting Times</p>
       </div>
       <div className='BottomRightDiv'>
-        <div>Communities</div>
+        <p>Communities</p>
         {communities?.map((c) => (
           <HomeCommunities key={c._id} community={c}></HomeCommunities>
         ))}

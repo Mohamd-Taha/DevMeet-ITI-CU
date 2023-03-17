@@ -6,84 +6,68 @@ import CloseFriend from './CloseFriend'
 import CodeIcon from '@mui/icons-material/Code';
 import Button from '@mui/material/Button';
 import axios from 'axios'
+import TagIcon from '@mui/icons-material/Tag';
 
+export default function Sidebar({ getTagPosts }) {
+    const [topUsers, setTopUsers] = useState()
+    const filterTag = (event) => {
+        const tag = event.target.innerText.replace(/\s/g, '');
+        console.log(tag)
+        axios.get(`http://localhost:7400/posts/tags/${tag}`)
+            .then((response) => { return response })
+            .then(({ data }) => {
+                getTagPosts(data)
+            })
+            .catch((err) => { console.log(err) })
 
-export default function Sidebar({getTagPosts}) {
-const [topUsers, setTopUsers] = useState()
-const filterTag=(event)=>{
-const tag = event.target.innerText.replace(/\s/g, '');
-console.log(tag)
- axios.get(`http://localhost:7400/posts/tags/${tag}`) 
- .then((response) => { return response })
- .then(({ data }) => {
-        getTagPosts(data)
-      })
-      .catch((err) => { console.log(err) })
-  
     }
-    useEffect(()=>{
-     const elements = document.querySelectorAll('.sidebarListItem');
-     elements.forEach((element) => {
-     element.addEventListener('click', filterTag);
-    });
-    return () => {
+    useEffect(() => {
+        const elements = document.querySelectorAll('.sidebarListItem');
         elements.forEach((element) => {
-        element.removeEventListener('click', filterTag);
-      });
-    };
-    },[])
+            element.addEventListener('click', filterTag);
+        });
+        return () => {
+            elements.forEach((element) => {
+                element.removeEventListener('click', filterTag);
+            });
+        };
+    }, [])
 
-    useEffect(()=>{
- axios.get(`http://localhost:7400/user/top/likes`) 
- .then((response) => { return response })
- .then(({ data }) => {
-        setTopUsers(data)
-      })
-      .catch((err) => { console.log(err) })
-    },[])
+    useEffect(() => {
+        axios.get(`http://localhost:7400/user/top/likes`)
+            .then((response) => { return response })
+            .then(({ data }) => {
+                setTopUsers(data)
+            })
+            .catch((err) => { console.log(err) })
+    }, [])
+
+
+
+    const Tags = ['JavaScript', 'TypeScript', 'React', 'CSS', 'HTML', 'Angular', 'NodeJS', 'MongoDB', 'UXUI', 'PHP', 'Mysql', 'SQL', 'Database', 'Data Structure', 'C', 'C#', 'C++', 'Java', 'R', 'Python', 'DevOps', 'Data Analysis',
+        'Frontend', 'Backend', 'ProblemSolving', 'React Native', 'Kotlin', 'Flutter', 'Cyber Security', 'VueJS', 'Algorithms']; // lw momkn ta5odhom mn hna (melFront) fa eshta fa dol kfaya awi
+
+
     return (
         <div className='sidebar'>
             <div className="sidebarWrapper">
-                <ul className="sidebarList">
-                    <li className="sidebarListItem">
-                        <RssFeed className='sidebarIcon' />
-                        <h3 className="sidebarListItemText">Trending Tags</h3>
+                <ul className="sidebarList" >
+                    <li > 
+                        <h2 className="sidebarListItemTextMAIN" >Trending Tags <RssFeed className='sidebarIcon' /></h2>
                     </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">Java</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">Web Development</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">DataManagment</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">DevOps</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">Flutter</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">ProblemSolving </span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <CodeIcon className='sidebarIcon' />
-                        <span className="sidebarListItemText">Git</span>
-                    </li>
+                    {Tags.map((tag, index) => (
+                        <li className="sidebarListItem" key={index} >
+                            <TagIcon className='sidebarIcon' />
+                            <span className="sidebarListItemText" >{tag}</span>
+                        </li>
+                    ))}
                 </ul>
                 {/* <Button variant="contained" style={{ backgroundColor: 'purple' }} >See More</Button> */}
+
                 <hr className='sidebarHr' />
-                <ul className="sidebarFriendList">
-                    <li className="sidebarListItem">
-                        <Group className='sidebarIcon' />  <span className="sidebarListItemText">Top Users</span>
-                    </li>
+
+                <ul className="sidebarFriendList"> 
+                        <h3 className="sidebarListItemTextMAIN" >Top Users <Group className='sidebarIcon'  /> </h3>
                     {topUsers?.map(u => (
                         <CloseFriend key={u._id} user={u} />
                     ))}

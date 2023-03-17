@@ -57,95 +57,92 @@ function UpdateProfile() {
   }
   return (
     <>
-    <NavBar ></NavBar>
-    <section style={{ marginTop:'90px'}}>
-      <Container maxWidth="md">
-        <Card sx={{ boxShadow: 1, maxWidth: 'md' }}>
-          <CardContent>
-            <Container maxWidth="sm">
-              <Typography variant="h3" color="text.primary"  style={{ fontFamily:'raleway', fontWeight:'bolder' , color:'purple'}} >
-                Update Profile
-              </Typography>
-              {/* <Alert severity="error" aria-live="assertive">
-                </Alert> */}
-              <form onSubmit={handleSubmit}>
-                <FormGroup row={true} id="email-group" sx={{ marginTop: "1em" }}>
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor="Description" id="email-confirmation-label">Description</InputLabel>
-                    <Input id="Description" type="text" style={{marginTop:"20px"}} value={description} onChange={(e) => { setDescription(e.target.value) }} />
-                    <FormHelperText id="Occupation">Enter new Description?</FormHelperText>
-                  </FormControl>
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor="firstNameUpdate" id="email-label">First Name</InputLabel>
-                    <Input id="firstNameUpdate" type="text" value={firstName} onChange={(e) => { setFirstName(e.target.value) }} />
-                    <FormHelperText id="email-helper-text">Enter new first name?</FormHelperText>
-                  </FormControl>
-                </FormGroup>
-                <FormGroup row={true} id="email-confirmation-group" >
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor="lastNameUpdate" id="email-confirmation-label">Last Name</InputLabel>
-                    <Input id="e-confirmation" type="text" value={lastName} onChange={(e) => { setLastName(e.target.value) }} />
-                    <FormHelperText id="lastNameUpdate">Enter new last name?</FormHelperText>
-                  </FormControl>
-                </FormGroup>
-                <FormGroup row={true} id="email-confirmation-group" >
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor="location" id="email-confirmation-label">Location</InputLabel>
-                    <Input id="location" type="text" value={location} onChange={(e) => { setLocation(e.target.value) }} />
-                    <FormHelperText id="email-confirmation-helper-text">Enter new Location?</FormHelperText>
-                  </FormControl>
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor="Occupation" id="email-confirmation-label">Occupation</InputLabel>
-                    <Input id="Occupation" type="text" value={occupation} onChange={(e) => { setOccupation(e.target.value) }} />
-                    <FormHelperText id="Occupation">Enter new Occupation?</FormHelperText>
-                  </FormControl>
+      <NavBar ></NavBar>
+      <section style={{ marginTop: '90px' }}>
+        <Container maxWidth="md">
+          <Card sx={{ boxShadow: 1, maxWidth: 'md' }}>
+            <CardContent>
+              <Container maxWidth="sm">
+                <Typography variant="h3" color="text.primary" style={{ fontFamily: 'raleway', fontWeight: 'bolder', color: 'purple' , marginBottom:'30px'}} >
+                  Update Profile
+                </Typography>
+                {/* <Alert severity="error" aria-live="assertive"> </Alert> */}
+
+                <form onSubmit={handleSubmit}>
+                  <FormGroup row={true} id="email-group" sx={{ marginTop: "1em" }}>
+                    <FormControl fullWidth>
+                      {/* <InputLabel htmlFor="firstNameUpdate" id="email-label" >First Name...</InputLabel> */}
+                      <Input id="firstNameUpdate" type="text" value={firstName} placeholder="First Name..." onChange={(e) => { setFirstName(e.target.value) }} />
+                      <FormHelperText id="email-helper-text">Update First name...</FormHelperText>
+                    </FormControl>
+                  </FormGroup>
+
+                  <FormGroup row={true} id="email-confirmation-group" >
+                    <FormControl fullWidth>
+                      {/* <InputLabel htmlFor="lastNameUpdate" id="email-confirmation-label">Last Name...</InputLabel> */}
+                      <Input id="e-confirmation" type="text" value={lastName} placeholder="Last Name..." onChange={(e) => { setLastName(e.target.value) }} />
+                      <FormHelperText id="lastNameUpdate">Update Last name...</FormHelperText>
+                    </FormControl>
+                  </FormGroup>
+
+                  <FormGroup row={true} id="email-confirmation-group" >
+                    <FormControl fullWidth>
+                      {/* <InputLabel htmlFor="location" id="email-confirmation-label">Location...</InputLabel> */}
+                      <Input id="location" type="text" value={location} placeholder="Location..." onChange={(e) => { setLocation(e.target.value) }} />
+                      <FormHelperText id="email-confirmation-helper-text">Update Location...</FormHelperText>
+                    </FormControl> 
+
+                    <FormControl fullWidth>
+                        {/* <InputLabel htmlFor="Occupation" id="email-confirmation-label">Title...</InputLabel> */}
+                        <Input id="Occupation" type="text" value={occupation} placeholder="Title..." onChange={(e) => { setOccupation(e.target.value) }} />
+                        <FormHelperText id="Occupation">Update Title...</FormHelperText>
+                      <FormControl fullWidth>
+                        {/* <InputLabel htmlFor="Description" id="email-confirmation-label">Bio...</InputLabel> */}
+                        <Input id="Description" type="text" style={{ marginTop: "20px" }} placeholder="Bio..."value={description} onChange={(e) => { setDescription(e.target.value) }} />
+                        <FormHelperText id="Occupation">Update Bio...</FormHelperText>
+                      </FormControl>
+                    </FormControl> 
+
+                    <FormControl style={{ paddingLeft: '70px', paddingTop: '25px' }}>
+                      <IconButton color="primary" aria-label="upload picture" component="label">
+                        <AccountBoxIcon htmlColor='#7e3e9c' className='ProfileIcon' />
+                        <input hidden type="file" name="image1" accept="image/png, image/jpeg" onChange={(e) => {
+                          let file = e.target.files[0];
+                          console.log(file)
+                          if (file) {
+                            setProfileImage(file);
+                          }
+                        }} />
+                      </IconButton>
+                      <FormHelperText style={{ textAlign: "center" }} id="Occupation">Enter new Profile Picture?</FormHelperText>
+                    </FormControl>
 
 
-                  <FormControl  style={{paddingLeft:'70px', paddingTop:'25px'}}>
-                    <IconButton color="primary" aria-label="upload picture" component="label">
-                      <AccountBoxIcon htmlColor='#7e3e9c' className='ProfileIcon' />
-                      <input hidden type="file" name="image1" accept="image/png, image/jpeg" onChange={(e) => {
-                        let file = e.target.files[0];
-                        console.log(file)
-                        if (file) {
-                          setProfileImage(file);
-                        }
-                      }} />
-                    </IconButton>
-                    <FormHelperText style={{ textAlign: "center" }} id="Occupation">Enter new Profile Picture?</FormHelperText>
-                  </FormControl>
-
+                    <FormControl style={{ paddingLeft: '70px', paddingTop: '25px' }}>
+                      <IconButton color="primary" aria-label="upload picture" component="label">
+                        <ContactEmergencyIcon htmlColor='#7e3e9c' className='ProfileIcon' />
+                          <input hidden type="file" name="image2" accept="image/png, image/jpeg" onChange={(e) => {
+                            let file = e.target.files[0];
+                            if (file) { setCoverImage(file); }
+                            }} />
+                      </IconButton>
+                      <FormHelperText style={{ textAlign: "center" }} id="Occupation">Enter new Cover Picture?</FormHelperText>
+                    </FormControl> 
+                  </FormGroup>
                   
-                  <FormControl  style={{paddingLeft:'70px' , paddingTop:'25px'}}>
-                    <IconButton color="primary" aria-label="upload picture" component="label">
-                      <ContactEmergencyIcon htmlColor='#7e3e9c' className='ProfileIcon' />
-                      <input hidden type="file" name="image2" accept="image/png, image/jpeg" onChange={(e) => {
-                        let file = e.target.files[0];
-                        if (file) { setCoverImage(file); }
-                      }} />
-                    </IconButton>
-                    <FormHelperText style={{ textAlign: "center" }} id="Occupation">Enter new Cover Picture?</FormHelperText>
-                  </FormControl>
+                  <FormGroup row={true} id="submit-group" sx={{ marginTop: "1em" }}>
+                    <FormControl fullWidth>
+                      <Button  variant="contained" type="submit" style={{ backgroundColor: 'purple' }} id="submit-button">Save Changes</Button>
+                      {success && <div className='successDiv'>{success}</div>}
+                    </FormControl>
+                  </FormGroup>
 
-
-                </FormGroup>
-                <FormGroup row={true} id="submit-group" sx={{ marginTop: "1em" }}>
-                  <FormControl fullWidth>
-                    <Button
-                      // disabled={} 
-                      variant="contained" 
-                      type="submit"
-                      style={{backgroundColor: 'purple'}}
-                      id="submit-button">Save Changes</Button>
-                    {success && <div className='successDiv'>{success}</div>}
-                  </FormControl>
-                </FormGroup>
-              </form>
-            </Container>
-          </CardContent>
-        </Card>
-      </Container> 
-    </section>
+                </form>
+              </Container>
+            </CardContent>
+          </Card>
+        </Container>
+      </section>
     </>
   )
 }

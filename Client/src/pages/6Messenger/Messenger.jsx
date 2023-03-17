@@ -105,8 +105,7 @@ useEffect(()=>{
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault(); 
         const message = {
             conversationId: currentChat._id,
             sender: user._id,
@@ -127,8 +126,7 @@ useEffect(()=>{
             }).catch(
                 err => {
                     console.log("err")
-                })
-
+                }) 
     }
 
     useEffect(() => {
@@ -139,9 +137,9 @@ useEffect(()=>{
         <div className='messanger'>
             <div className="chatMenu">
                 <div className="chatMenuWrapper">
-                    <input type="text" placeholder='Search for friends' className='chatMenuInput' />
+                    <input type="text" placeholder='Search for users...' className='chatMenuInput' />
                     {conversations.map(C => (
-                        <div onClick={() => doThis(C)} style={{ width: '350px', height: '500px', overflow: 'auto' }} >
+                        <div onClick={() => doThis(C)} style={{ width: '85%' }} >
                             <Conversation conversation={C} currentUser={user} />
                         </div>
                     ))}
@@ -159,8 +157,8 @@ useEffect(()=>{
                             )}
                         </div>
                         <div className="chatBoxBottom">
-                            <textarea className='chatMessageInput' placeholder='write something...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                            <button className='chatSubmitButton' onClick={handleSubmit}>SEND</button>
+                            <textarea className='chatMessageInput' placeholder='write you message...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
+                            <button className='chatSubmitButton'  onClick={handleSubmit}>SEND</button>
                         </div>
                     </> : <div className='noConversationText' >
                         <span> Open a conversation to start a chat...</span>

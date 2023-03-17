@@ -14,9 +14,10 @@ function Profile() {
     const location = useLocation()
     const navigate = useNavigate();
     const [userProfile, setUserProfile] = useState();
-    const [isFollowing, setIsFollowing] = useState();
+
     const { state } = location
     let { user } = useAuthContext()
+
 
     useEffect(() => {
         if (state) {
@@ -30,16 +31,41 @@ function Profile() {
     })
 
     const checkFollowing = (user, userProfile) => {
-        if (user.user_id != userProfile._id) {
-            for (let i = 0; i < user.user.following.length; i++) {
-                if (user.user.following[i] == userProfile._id) {
-                    setIsFollowing(true)
-                    console.log("inside checkfollowing")
-                }
+        console.log(user)
+        if (user?.user_id != userProfile?._id) {
+            if (user.user.following.includes(userProfile._id)) {
+                console.log("true")
+                return true
             }
         }
-        setIsFollowing(false)
+
+        return false
     }
+
+
+    const AddConversation = () => {
+        console.log(user)
+        axios.post("http://localhost:7400/api/conversations/", {
+            receiverId: userProfile._id,
+            senderId: user.user._id,
+        }).
+            then(res => {
+                console.log(res.data)
+                console.log("****works");
+            }).catch(
+                err => {
+                    console.log("err")
+                })
+    }
+
+
+    const [isFollowing, setIsFollowing] = useState(checkFollowing(user, userProfile));
+    console.log(isFollowing)
+
+
+
+
+
 
     useEffect(() => {
         if (user && userProfile) {
@@ -82,8 +108,14 @@ function Profile() {
                                 <img className='profileUserImg' src={`http://localhost:7400/images/${userProfile.profilePicture}`} alt="" />
                             </div>
 
+                            {user.user._id != userProfile._id && <Button style={{ backgroundColor: 'purple', translate: '-120%' }}
+                                variant="contained" id="UpdateProfile" onClick={AddConversation} > Message </Button>
+                            }
+
+
+
                             {user.user._id == userProfile._id &&
-                                <Button style={{ backgroundColor: 'purple'  , translate:'-120%'}} variant="contained"  id="UpdateProfile" onClick={handleProfile}> Update Profile</Button>
+                                <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={handleProfile}> Update Profile</Button>
                             }
                             {user.user._id != userProfile._id && <Button style={{ backgroundColor: 'purple' }}
                                 variant="contained" color="primary"

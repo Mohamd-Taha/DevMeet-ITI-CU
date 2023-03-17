@@ -1,11 +1,16 @@
 const router=require("express").Router();
 const Conversation=require("../Models/Conversation");
 router.post("/", async (req, res) => {
-    const newConversation = new Conversation({
-      members: [req.body.senderId, req.body.receiverId]
-    });
+   
   
     try {
+      const foundConversation =  await Conversation.find({members: { $in:[req.body.senderId, req.body.receiverId]}})
+      if(foundConversation){
+      await foundConversation.deleteOne()
+      }
+      const newConversation = new Conversation({
+        members: [req.body.senderId, req.body.receiverId]
+      });
       const savedConversation = await newConversation.save();
       res.status(200).json(savedConversation);
     } catch (err) {

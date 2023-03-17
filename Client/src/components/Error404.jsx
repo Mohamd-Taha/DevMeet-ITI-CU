@@ -20,8 +20,8 @@ const Error404 = () => {
                     The page you're looking for doesn't exist
                 </Typography>
 
-                <NavLink to={`/`} >
-                    <Button variant="contained" style={{  fontFamily:'raleway' , }} >Back Home</Button>
+                <NavLink to={`/`} style={{ textDecoration: 'none' }}>
+                    <Button variant="contained" style={{ backgroundColor:'purple' , fontFamily:'raleway'  }}  >Back Home</Button>
                 </NavLink>
 
             </Box>
