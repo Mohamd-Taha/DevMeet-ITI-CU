@@ -192,9 +192,9 @@ let msg={
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
       {flag ? < div className='filterDiv'>
-        <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons' }  style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
-            <span>&nbsp;&nbsp;</span>
-        <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons' } onClick={getTrendingPosts} >Trending Posts</lable>
+        <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons'} style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
+        <span>&nbsp;&nbsp;</span>
+        <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons'} onClick={getTrendingPosts} >Trending Posts</lable>
       </div> : <>
         <div className='searchDiv'>
           <div className='SearchNav'>
@@ -217,6 +217,19 @@ let msg={
         {currentPosts?.map((p) => (
           <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} />
         ))}
+
+        {currentPosts && currentPosts.length == 0 &&  user.following.length!=0 ? // if there is no posts in home page 
+          <div className='noHomePostsyet'>
+            <p>You have No posts to view</p>
+            <p>Follow other users to show thier posts, also you can share your own posts</p>
+          </div> :
+         /* {currentPosts && currentPosts.length == 0 && // if there is no posts in home page  */
+          <div className='noHomePostsyet'>
+            <p>You have No posts to view</p>
+            <p>No One Posted for this Tag till now</p>
+          </div>
+        }
+
       </div>}
       <div className='TopRightDiv'>
         <p>Meeting Times</p>

@@ -38,12 +38,12 @@
 }
 
 .profileInfoName {
-    font-size: 25px;
-    font-weight: bolder;
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .profileInfoDesc {
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .profilerightBottom {

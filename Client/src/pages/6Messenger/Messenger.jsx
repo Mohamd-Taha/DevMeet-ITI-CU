@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useContext } from 'react';
-import ChatOnline from './chatOnline/chatOnline';
 import Conversation from './conversations/Conversation';
 import Message from './messages/Message';
 import axios from "axios";
@@ -20,37 +19,37 @@ const Messanger = () => {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("")
     const [arrivalMessage, setArrivalMessage] = useState(null)
-    const socket= useRef()
+    const socket = useRef()
     const scrollRef = useRef();
     const [userImg, setuserImg] = useState([])
 
-    useEffect(()=>{
-        socket.current=io("ws://localhost:8900")
-              socket.current.on("getMessage", data=>{
-                    setArrivalMessage({
-                        sender: data.senderId,
-                        text: data.text,
-                        createdAt: Date.now(),
-                    })
-                })
-        },[])
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900")
+        socket.current.on("getMessage", data => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            })
+        })
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
 
-arrivalMessage&&currentChat?.members.includes(arrivalMessage.sender)&&
-setMessages((prev)=>[...messages, arrivalMessage])
+        arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...messages, arrivalMessage])
 
-    },[arrivalMessage, currentChat])
+    }, [arrivalMessage, currentChat])
 
-  
+
 
     //array was with user
-useEffect(()=>{
-    socket.current.emit("addUser", user._id)
-    socket.current.on("getUsers", users=>{
-        console.log(users)
-    })
-},[])
+    useEffect(() => {
+        socket.current.emit("addUser", user._id)
+        socket.current.on("getUsers", users => {
+            console.log(users)
+        })
+    }, [])
 
 
     useEffect(() => {
@@ -104,16 +103,18 @@ useEffect(()=>{
         setCurrentChat(d)
     }
 
+    
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
+        if (newMessage.trim() === "") return;
+        e.preventDefault();
         const message = {
             conversationId: currentChat._id,
             sender: user._id,
             text: newMessage
         }
-        const receiverId = currentChat.members.find(member=>member!==user._id)
+        const receiverId = currentChat.members.find(member => member !== user._id)
         socket.current.emit("sendMessage", {
-            senderId:user._id, 
+            senderId: user._id,
             receiverId,
             text: newMessage,
         })
@@ -126,7 +127,7 @@ useEffect(()=>{
             }).catch(
                 err => {
                     console.log("err")
-                }) 
+                })
     }
 
     useEffect(() => {
@@ -137,7 +138,7 @@ useEffect(()=>{
         <div className='messanger'>
             <div className="chatMenu">
                 <div className="chatMenuWrapper">
-                    <input type="text" placeholder='Search for users...' className='chatMenuInput' />
+                    <h5 className='aboveUsersTitle'> Chat with DevMeet users...</h5>
                     {conversations.map(C => (
                         <div onClick={() => doThis(C)} style={{ width: '85%' }} >
                             <Conversation conversation={C} currentUser={user} />
@@ -157,21 +158,15 @@ useEffect(()=>{
                             )}
                         </div>
                         <div className="chatBoxBottom">
-                            <textarea className='chatMessageInput' placeholder='write you message...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                            <button className='chatSubmitButton'  onClick={handleSubmit}>SEND</button>
+                            <textarea className='chatMessageInput' placeholder='write your message...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
+                            <button className='chatSubmitButton' onClick={handleSubmit} >SEND</button>
                         </div>
-                    </> : <div className='noConversationText' >
-                        <span> Open a conversation to start a chat...</span>
-                    </div>
+                        </> : <div className='noConversationText' >
+                                <span> Open a conversation to start a chat...</span>
+                            </div>
                 }
                 </div>
-            </div>
-            {/* //(e) => setNewMessage(e.target.value) */}
-            {/* <div className="chatOnline"> */}
-            {/* <div className="chatOnlineWrapper"> */}
-            {/*  <ChatOnline />  <img className='postProfileImg'src={`http://localhost:7400/images/${img.userPicturePath}`}/> */}
-            {/* </div> */}
-            {/* </div> */}
+            </div> 
         </div>
     </>
     );

@@ -1,5 +1,6 @@
-import React , { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Follower from './Follower';
+import Following from './Following';
 import './rightbar.css'
 import axios from 'axios';
 
@@ -8,18 +9,24 @@ import axios from 'axios';
 
 const Rightbar = ({ profile, userProfile }) => {
 
-    const [followers,setFollowers]= useState();
+    const [followers, setFollowers] = useState();
+    const [followings, setFollowings] = useState();
 
     useEffect(() => {
         axios.get(`http://localhost:7400/user/followers/${userProfile._id}`, { withCredentials: true })
             .then((response) => { return response })
-            .then(({ data }) => {
-                console.log(data)
+            .then(({ data }) => { 
                 setFollowers(data);
             })
             .catch((err) => { console.log(err) })
-            console.log(followers);
-            console.log("0000000");
+
+        axios.get(`http://localhost:7400/user/following/${userProfile._id}`, { withCredentials: true })
+            .then((response) => { return response })
+            .then(({ data }) => { 
+                setFollowings(data);
+            })
+            .catch((err) => { console.log(err) })
+
     }, [userProfile])
 
 
@@ -37,33 +44,42 @@ const Rightbar = ({ profile, userProfile }) => {
                             <div>
                                 <p>Update your profile info...</p>
                             </div>
-                        } 
+                        }
 
-                        {userProfile.city && 
+                        {userProfile.city &&
                             <div className="rightbarInfoItem">
                                 <span className="rightbarInfoKey">Location:</span>
                                 <span className="rightbarInfoValue">{userProfile.city}</span>
                             </div>
                         }
 
-                        {userProfile.career &&  
+                        {userProfile.career &&
                             <div className="rightbarInfoItem">
                                 <span className="rightbarInfoKey">Title:</span>
                                 <span className="rightbarInfoValue">{userProfile.career}</span>
                             </div>
-                        } 
+                        }
                     </div>
 
-                <hr className='sidebarHr' />
+                    <hr className='sidebarHr' />
 
-                { followers && <h3 className='rightbarTitle'>{"("+followers.length+") "}Followers</h3>}
-                <div className="rightbarFollowings"> 
-                    {followers?.map((f) => ( 
-                        <Follower  key={f._id} follower={f} />
-                    ))} 
-                </div>
+                    {followers && <h3 className='rightbarTitle'>{"(" + followers.length + ") "}Followers</h3>}
+                    <div className="rightbarFollowings">
+                        {followers?.map((f) => (
+                            <Follower key={f._id} follower={f} />
+                        ))}
+                    </div>
 
-                <hr className='sidebarHr' />
+                    <hr className='sidebarHr' />
+
+                    {followings && <h3 className='rightbarTitle'>{"(" + followings.length + ") "}Followings</h3>}
+                    <div className="rightbarFollowings">
+                        {followings?.map((f) => (
+                            <Following key={f._id} following={f} />
+                        ))}
+                    </div>
+
+
 
                 </div>
             </div>

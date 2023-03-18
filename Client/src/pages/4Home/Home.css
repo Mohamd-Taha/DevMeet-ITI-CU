@@ -164,3 +164,16 @@
     border: none;
 }
 
+.noHomePostsyet{
+    width: 85%;
+    margin: 10%;
+    padding: 3%;
+    height: 10rem;
+    text-align:center;
+    font-weight: 700;
+    font-size: 15pt;
+    border-radius: 40px; 
+    font-family: 'raleway';
+    color:rgb(164, 160, 165);
+    background-color: #f2ebff;
+}

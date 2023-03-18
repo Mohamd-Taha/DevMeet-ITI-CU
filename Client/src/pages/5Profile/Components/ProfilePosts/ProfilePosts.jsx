@@ -123,6 +123,14 @@ useEffect(()=>{
         {profilePosts?.map((p) => (
           <Post key={p.id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} />
         ))}
+
+        { profilePosts && profilePosts.length==0 && // if the user has no posts to view in profile
+          <div className='noUserPostsyet'>  
+            <p>This User has no posts Yet</p>
+          </div>
+        }
+
+
       </div>
     </div>
   )

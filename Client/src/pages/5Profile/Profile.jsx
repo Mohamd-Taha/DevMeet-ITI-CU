@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./Profile.css"
 import NavBar from '../../Components/NavBar';
+import { NavLink } from "react-router-dom";
 // import Leftbar from "./Components/Leftbar/Leftbar";
 import ProfilePosts from "./Components/ProfilePosts/ProfilePosts";
 import Rightbar from "./Components/rightbar/Rightbar";
@@ -69,7 +70,6 @@ function Profile() {
 
     useEffect(() => {
         if (user && userProfile) {
-            console.log("********* inside usefffect checkfollowing")
             checkFollowing(user, userProfile)
         }
     }, [])
@@ -108,8 +108,12 @@ function Profile() {
                                 <img className='profileUserImg' src={`http://localhost:7400/images/${userProfile.profilePicture}`} alt="" />
                             </div>
 
-                            {user.user._id != userProfile._id && <Button style={{ backgroundColor: 'purple', translate: '-120%' }}
-                                variant="contained" id="UpdateProfile" onClick={AddConversation} > Message </Button>
+                            {user.user._id != userProfile._id && 
+                                <NavLink to={`/messenger`} state={{ user: user }}>
+                                    <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={AddConversation} > 
+                                        Message 
+                                    </Button>
+                                </NavLink>
                             }
 
 

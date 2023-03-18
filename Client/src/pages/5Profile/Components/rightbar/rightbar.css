@@ -31,9 +31,6 @@
 
 }
 
-.rightbarTitle {
-    margin-bottom: 20px;
-}
 
 .rightbarfriendList {
     padding: 0;
@@ -44,8 +41,8 @@
 
 .rightbarTitle {
     font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-weight: 700; 
+    margin-bottom: 20px;
 }
 
 .rightbarInfo {

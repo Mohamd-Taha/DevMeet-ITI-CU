@@ -1,25 +1,38 @@
 .messanger {
     /* height: calc(100vh- 70px); */
     display: flex;
-    margin: 100px;
+    margin: 50px;
     margin-top: 100px;
     background-color: #f2ebff;
-    border-radius: 20px;
-    box-shadow: 0px 0px 20px rgb(80, 0, 117);
+    border-radius: 25px;
+    box-shadow: 0px 0px 40px rgb(80, 0, 117);
 }
 
 .chatMenu {
     flex: 4;
-    height:525px
+    height:570px
 }
 
-.chatMenuInput { 
+/* .chatMenuInput { 
     width: 85%;
     padding: 15px;
     margin-bottom: 30px;
     font-weight: 600;
     border: none;
     border-bottom: 3px solid gray;
+    border-radius: 50px;
+} */
+
+
+
+.aboveUsersTitle { 
+    width: 85%;
+    padding: 15px;
+    margin-bottom: 30px;
+    font-weight: 800; 
+    color:purple;
+    font-family: 'raleway';
+    border-bottom: 3px solid rgb(121, 71, 128);
     border-radius: 50px;
 }
 
@@ -32,40 +45,51 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    width: 70%;
+    width: 97%;
 }
 
-.chatBoxTop {
-    height: 100%;
+.chatBoxTop { 
     width: auto;
-    overflow-y: scroll;
+    overflow-y: scroll; 
     padding-right: 10px;
-    height: 375px;
+    height: 430px;
     margin-top: 20px;
     border-radius: 50px;
     padding: 25px;
     background-color: rgb(199, 167, 230);
 }
 
-.chatBoxBottom {
-    margin-top: 15px;
+::-webkit-scrollbar {
+    display: none;
+}
+
+.chatBoxBottom { 
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center; 
 }
 
 .chatSubmitButton {
-    width: 60%;
-    height: 50%;
+    width: 15%;
+    height: auto;
     padding: 10px;
-    margin: 30px;
+    margin-left: 20px;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    background-color: rgb(87, 0, 128);
+    background-color: rgb(132, 0, 194);
     color: white;
-    font-size: larger;
-    font-weight: 900;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.chatSubmitButton:hover{
+    padding: 12px; 
+    background-color: rgb(99, 0, 145); 
+}
+
+.chatSubmitButton:active{
+    padding: 12px; 
+    background-color: rgb(82, 0, 121); 
 }
 
 .chatMessageInput {

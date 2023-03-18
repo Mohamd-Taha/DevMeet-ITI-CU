@@ -1,6 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "./conversation.css"
+
+
+
+
+
+
+
 const Conversation = ({ conversation, currentUser }) => {
     var counter = 0;
     const [user, setUser] = useState(null)
@@ -21,8 +28,12 @@ const Conversation = ({ conversation, currentUser }) => {
     return (
         //need to add profile picture
         <div className='conversation'>
-            <img className='conversationImg' src={`http://localhost:7400/images/${user?.profilePicture}`} alt="" />
-            <span className="conversationName">{user?.firstName+" "+user?.lastName}</span>
+            { 
+                user && <img className='conversationImg' src={`http://localhost:7400/images/${user?.profilePicture}`} alt="" />
+            }
+            {
+                user && <span className="conversationName">{user?.firstName+" "+user?.lastName}</span>
+            }
         </div>
     );
 };
