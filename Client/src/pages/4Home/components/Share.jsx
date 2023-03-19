@@ -53,7 +53,8 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
           return response
         })
         .then(({ data }) => {
-          sendNewPost(data)
+          sendNewPost(data) 
+          if(image) setImage(null);
         })
         .catch((err) => { console.log(err) })
     }
@@ -89,6 +90,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
                 <input hidden type="file" name="image1" accept="image/png, image/jpeg" onChange={(e) => { setImage(e.target.files[0]) }} />
               </IconButton>
               <span className='shareOptionText'>{t("Photo")} </span>
+              { image && <span className='PhotoUploadDN' >{t("Uploaded")}</span>}
             </div>
           </div>
 

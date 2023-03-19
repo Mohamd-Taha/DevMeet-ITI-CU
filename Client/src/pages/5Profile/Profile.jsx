@@ -34,7 +34,7 @@ function Profile() {
     })
 
     const checkFollowing = (user, userProfile) => {
-        console.log(user)
+        
         if (user?.user_id != userProfile?._id) {
             if (user.user.following.includes(userProfile._id)) {
                 console.log("true")
@@ -114,7 +114,7 @@ function Profile() {
                             <div className='TotalLikes'>  
                                 <h5 > Total Likes:</h5>
                                 <img className='TotalLikesSymb' src='/images/TotalLikesSymb.png'  alt="Likes" />
-                                <h5>{ user.user.likes } Likes</h5> 
+                                <h5>{ userProfile.likes } Likes</h5> 
                             </div>
                             
                             {/* <div className='BadgesContainer' >

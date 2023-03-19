@@ -222,12 +222,13 @@ useEffect(()=>{
       </div>
       {flag ? 
         <div className="filterDiv">
-          <lable className={activeButton === 0 ? "tagbuttons " : "activetagbuttons"} style={{ borderRight: "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
+          <lable className={activeButton === 0 ? "tagbuttons " : "activetagbuttons"} style={{ borderRight: "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>  {t("Recent Posts")}  </lable>
           <span>&nbsp;&nbsp;</span>
           <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons'} onClick={getTrendingPosts} >{t("Trending Posts")}</lable>
-        </div> :
+        </div> 
+        :
         <>
-          <div className="searchDiv">
+          <div className="searchDiv"> 
             <div className="SearchNav">
               <input className="buttonSearch" type="button" value="Found Users" />
               {/* <input className="buttonSearch" type="button" value="Posts" />
