@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 
-const Rightbar = ({ profile, userProfile }) => {
+const Rightbar = ({ profile, userProfile , user}) => {
 
     const [followers, setFollowers] = useState();
     const [followings, setFollowings] = useState();
@@ -40,11 +40,19 @@ const Rightbar = ({ profile, userProfile }) => {
                 <div className="rightbarWrapper">
                     <h4 className='rightbarTitle'>User information</h4>
                     <div className="rightbarInfo">
-                        {!userProfile.city && !userProfile.career &&
+                        {!userProfile.city && !userProfile.career && userProfile._id==user._id &&
                             <div>
                                 <p>Update your profile info...</p>
                             </div>
                         }
+
+                        {!userProfile.city && !userProfile.career && userProfile._id!=user._id &&
+                            <div>
+                                <p>This User hasn't updated his profile info yet</p>
+                            </div>
+                        }    
+
+
 
                         {userProfile.city &&
                             <div className="rightbarInfoItem">

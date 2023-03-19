@@ -20,6 +20,7 @@ const Homecomponent = () => {
   const [communities, setCommunities] = useState()
   const [search, setSearch] = useState()
   const [searchResults, setSearchResults] = useState()
+  // const [isDiv1Visible, setIsDiv1Visible] = useState(true);   // for notloaded posts divs
 
   const [activeButton, setActiveButton] = useState(null);  //for New / Trending 
   const handleButtonClick = (buttonIndex) => { //for New / Trending 
@@ -56,6 +57,15 @@ const Homecomponent = () => {
       })
       .catch((err) => { console.log(err) })
   }
+
+
+
+  // useEffect(() => {   //nopostsdiv
+  //   const div2 = document.getElementById("div2");
+  //   if (isDiv1Visible)   div2.style.display = "none";
+  //   else  div2.style.display = "block"; 
+  // }, [isDiv1Visible]);
+
 
   const getSharePost = (post) => {
 
@@ -123,6 +133,7 @@ let msg={
   }
 
   const getSearch = (data) => {
+    if (!data) return;
     setSearch(data);
     setFlag(false);
     console.log("************");
@@ -191,24 +202,30 @@ let msg={
       <div className='leftHomeDiv'>
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
-      {flag ? < div className='filterDiv'>
-        <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons'} style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
-        <span>&nbsp;&nbsp;</span>
-        <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons'} onClick={getTrendingPosts} >Trending Posts</lable>
-      </div> : <>
-        <div className='searchDiv'>
-          <div className='SearchNav'>
-            <input className='buttonSearch' type="button" value="Users" />
-            <input className='buttonSearch' type="button" value="Posts" />
-            <input className='buttonSearch' type="button" value="Communities" />
+      {flag ?
+        < div className='filterDiv'>
+          <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons'} style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
+          <span>&nbsp;&nbsp;</span>
+          <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons'} onClick={getTrendingPosts} >Trending Posts</lable>
+        </div> :
+        <>
+          <div className='searchDiv'>
+            <div className='SearchNav'>
+              <input className='buttonSearch' type="button" value="Found Users" />
+              {/* <input className='buttonSearch' type="button" value="Posts" />
+              <input className='buttonSearch' type="button" value="Communities" /> */}
+            </div>
+            {searchResults && <>
+              {searchResults?.map((c) => (
+                <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture} />
+              ))} </>}
+              { !searchResults && 
+                <div className='noHomePostsyet'>
+                  <p>No Matches Found</p> 
+                </div>
+              }
           </div>
-          {searchResults?.map((c) => (
-            <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture} />
-          ))}
-
-        </div>
-
-      </>
+        </>
       }
       {flag && <div className='shareDiv'>
         <Share user={user} sendNewPost={getSharePost} personalCheck='true'  ></Share>
@@ -218,15 +235,16 @@ let msg={
           <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} />
         ))}
 
-        {currentPosts && currentPosts.length == 0 &&  user.following.length!=0 ? // if there is no posts in home page 
-          <div className='noHomePostsyet'>
-            <p>You have No posts to view</p>
-            <p>Follow other users to show thier posts, also you can share your own posts</p>
-          </div> :
-         /* {currentPosts && currentPosts.length == 0 && // if there is no posts in home page  */
-          <div className='noHomePostsyet'>
+        {currentPosts && currentPosts.length == 0 &&   // if there is no posts in home page 
+          <div /*style={{ display: isDiv1Visible ? "block" : "none" }} */ className='noHomePostsyet'>
             <p>You have No posts to view</p>
             <p>No One Posted for this Tag till now</p>
+          </div>
+        }
+        {currentPosts && currentPosts.length == 0 && user.following.length == 0 && // if there is no posts in home page   
+          <div id="div2"/* style={{ display: !isDiv1Visible ? "block" : "none" }} */ className='noHomePostsyet'>
+            <p>You have No posts to view</p>
+            <p>Follow other users to show thier posts, also you can share your own posts</p>
           </div>
         }
 

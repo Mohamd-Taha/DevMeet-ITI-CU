@@ -94,7 +94,7 @@ function Profile() {
             .catch((err) => { console.log(err) })
 
     }
-
+    
     return (
         <>
             <NavBar />
@@ -102,11 +102,23 @@ function Profile() {
                 <div className="profile">
                     {/* < Leftbar /> */}
                     <div className="profileRight">
-                        <div className="profilerightTop">
+                        <div className="profileMainContainer">
                             <div className="profileCover">
                                 <img className='profileCoverImg' src={`http://localhost:7400/images/${userProfile.coverPicture}`} alt="" />
                                 <img className='profileUserImg' src={`http://localhost:7400/images/${userProfile.profilePicture}`} alt="" />
                             </div>
+
+
+                            <div className='TotalLikes'>  
+                                <h5 > Total Likes:</h5>
+                                <img className='TotalLikesSymb' src='/images/TotalLikesSymb.png'  alt="Likes" />
+                                <h5>{ user.user.likes } Likes</h5> 
+                            </div>
+                            
+                            {/* <div className='BadgesContainer' >
+                                <p>Badges</p>
+                            </div> */}
+
 
                             {user.user._id != userProfile._id && 
                                 <NavLink to={`/messenger`} state={{ user: user }}>
@@ -139,7 +151,7 @@ function Profile() {
 
                         <div className="profilerightBottom">
                             <ProfilePosts userProfile={userProfile} />
-                            <Rightbar profile userProfile={userProfile} />
+                            <Rightbar profile userProfile={userProfile}  user={user}/>
                         </div>
                     </div>
                 </div>}

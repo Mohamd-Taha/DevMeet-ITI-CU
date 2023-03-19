@@ -12,7 +12,9 @@ import SendIcon from '@mui/icons-material/Send';
 
 const NavBar = ({sendSearch}) => {
     const { dispatch } = useAuthContext()
-    const [search, setSearch]= useState()
+    const [search, setSearch]= useState() 
+
+
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
         axios.get('http://localhost:7400/logout', {
@@ -60,10 +62,10 @@ const NavBar = ({sendSearch}) => {
                 <div className="topbarCentre">
                     <div className="searchbar">
                         <Search className="searchIcon" />
-                        <input placeholder="Search..." className="searchInput " onChange={(e)=>{setSearch(e.target.value)}} />
+                        <input placeholder="Search Users..." className="searchInput "  onChange={(e)=>{setSearch(e.target.value)}} />
                         <span className="focus-bg"></span>
                         <div>
-                            <IconButton color="primary" aria-label="upload picture" component="label"onClick={()=>{sendSearch(search)}}>
+                            <IconButton color="primary" aria-label="upload picture" component="label" onClick={()=>{sendSearch(search)}}>
                                 <SendIcon htmlColor='purple' /> 
                             </IconButton>
                         </div>
