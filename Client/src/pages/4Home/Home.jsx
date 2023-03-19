@@ -13,12 +13,13 @@ import Search from "../11Search/Search";
 
 const Homecomponent = ({ socket }) => {
   let { user } = useAuthContext();
-  user = user.user;
-  const [currentPosts, setCurrentPosts] = useState();
-  const [flag, setFlag] = useState(true);
-  const [communities, setCommunities] = useState();
-  const [search, setSearch] = useState();
-  const [searchResults, setSearchResults] = useState();
+  user = user.user
+  const [currentPosts, setCurrentPosts] = useState()
+  const [flag, setFlag] = useState(true)
+  const [communities, setCommunities] = useState()
+  const [search, setSearch] = useState()
+  const [searchResults, setSearchResults] = useState()
+  // const [isDiv1Visible, setIsDiv1Visible] = useState(true);   // for notloaded posts divs
 
   const [activeButton, setActiveButton] = useState(null); //for New / Trending
   const handleButtonClick = (buttonIndex) => {
@@ -64,6 +65,15 @@ const Homecomponent = ({ socket }) => {
         console.log(err);
       });
   };
+
+
+
+  // useEffect(() => {   //nopostsdiv
+  //   const div2 = document.getElementById("div2");
+  //   if (isDiv1Visible)   div2.style.display = "none";
+  //   else  div2.style.display = "block"; 
+  // }, [isDiv1Visible]);
+
 
   const getSharePost = (post) => {
     
@@ -132,6 +142,7 @@ let msg={
   };
 
   const getSearch = (data) => {
+    if (!data) return;
     setSearch(data);
     setFlag(false);
     console.log("************");

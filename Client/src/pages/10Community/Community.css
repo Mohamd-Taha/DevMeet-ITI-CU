@@ -1,39 +1,208 @@
 .flex-container {
-    display: flex;
-    /* background-color: rgb(229, 30, 255); */
-    font-size: 10px;
+  display: flex;
+  /* background-color: rgb(229, 30, 255); */
+  font-size: 10px;
 
-    /* background-color: #f1f1f1; */
-  }
-  
-  .flex-container > div {
-    /* background-color: rgb(229, 30, 255); */
-    color: black;
-    width: 20%;
-    margin: 10px;
-    text-align: center;
-    line-height: 75px;
-    font-size: 20px;
-  }
+  /* background-color: #f1f1f1; */
+}
 
-  .moderators :hover{
-    color: gray;
+.flex-container>div {
+  /* background-color: rgb(229, 30, 255); */
+  color: black;
+  width: 20%;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 20px;
+}
 
-  }
+.moderators :hover {
+  color: gray;
 
-  .commName{
-    font-size: 2em;
-    font-weight: bolder;
-    margin-top: 5px;
-    margin-left: 10%;
-  }
+}
 
-  .center{
-    text-align: center;
-    display: block;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    width: 70%;
-    height: 200px;
-  }
+.commName {
+  font-size: 2em;
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-left: 10%;
+}
+
+.center {
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 70%;
+  height: 200px;
+}
+
+.fb-profile-block {
+  margin: auto;
+  position: relative;
+  width: 100%;
+}
+
+.cover-container {
+  background: #1E90FF;
+  background: -webkit-radial-gradient(bottom, #73D6F5 12%, #1E90FF);
+  background: radial-gradient(at bottom, #73D6F5 12%, #1E90FF)
+}
+
+.fb-profile-block-thumb {
+  display: block;
+  height: 315px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+}
+
+.fb-profile-block-menu {
+  border: 1px solid #d3d6db;
+  border-radius: 0 0 3px 3px;
+}
+
+.profile-img a {
+  bottom: 15px;
+  box-shadow: none;
+  display: block;
+  left: 15px;
+  padding: 1px;
+  position: absolute;
+  height: 160px;
+  width: 160px;
+  background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+  z-index: 9;
+}
+
+.profile-img img {
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
+  height: 158px;
+  padding: 5px;
+  width: 158px;
+}
+
+.profile-name {
+  bottom: 60px;
+  left: 200px;
+  position: absolute;
+}
+
+.profile-name h2 {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  max-width: 275px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.fb-profile-block-menu {
+  height: 44px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.block-menu {
+  clear: right;
+  padding-left: 205px;
+}
+
+.block-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+.block-menu ul li {
+  display: inline-block;
+}
+
+.block-menu ul li a {
+  border-right: 1px solid #e9eaed;
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  height: 42px;
+  line-height: 3.0;
+  padding: 0 17px;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: #4b4f56;
+  text-transform: capitalize;
+}
+
+.block-menu ul li:first-child a {
+  border-left: 1px solid #e9eaed;
+}
+
+.Community{
+  display: flex;
+}
+
+.CommunityRight {
+  flex: 8;
+}
+
+.CommunityCover {
+  height: 340px;
+  position: relative;
+}
+
+.CommunityCoverImg {
+  margin-top: 70px;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.CommunityContainer {
+  margin: auto;
+  width: 90%;
+  height: 100vh;
+  /* background-color: #4b4f56; */
+}
+
+.parent {
+  width: 90%;
+  margin: auto;
+  height: 100vh;
+  background-color: antiquewhite;
+}
+
+#id {
+  width: 200px;
+  height: 200px;
+}
+
+#textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+
+#topicdesign {
+  margin-bottom: 20px;
+}
+
+.button_gpName {
+  display: inline;
+}
+
+.joinbutton {
+  top: 50%;
+  background-color: rgb(177, 59, 177);
+  color: #fff;
+  border-radius: 10px
+}
