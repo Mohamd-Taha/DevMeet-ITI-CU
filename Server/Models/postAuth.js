@@ -37,7 +37,7 @@ var postsSchema = new mongoose.Schema({
   },
 
   comments: {
-    type: [mongoose.SchemaTypes.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
   personalCheck:{
