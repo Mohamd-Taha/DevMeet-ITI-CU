@@ -4,8 +4,10 @@ import ProfileShare from '../ProfileShare/ProfileShare'
 import Post from '../post/Post'
 import axios from 'axios';
 import { useAuthContext } from "../../../../hooks/useAuthContext";
+import { useTranslation } from 'react-i18next'
 
 const Feed = ({userProfile}) => {
+let [t,i18n]= useTranslation();
 const [profilePosts, setProfilePosts]=useState()
 let { user } = useAuthContext();
 user = user.user

@@ -17,6 +17,7 @@ import NotifyModal from "./Pages/7Notifications/NotifyModal";
 import Notifications from "./Pages/7Notifications/Notifications";
 import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfile";
+import "./Localization/i18n";
 
 
 

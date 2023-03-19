@@ -10,9 +10,10 @@ import NavBar from '../../Components/NavBar';
 import Footer from "../../Components/Footer";
 import HomeCommunities from './components/homeCommunities';
 import Search from '../11Search/Search';
+import { useTranslation } from 'react-i18next';
 
 const Homecomponent = () => {
-
+  let [t,i18n]= useTranslation();
   let { user } = useAuthContext();
   user = user.user
   const [currentPosts, setCurrentPosts] = useState()
@@ -206,7 +207,7 @@ let msg={
         < div className='filterDiv'>
           <lable className={activeButton === 0 ? 'tagbuttons ' : 'activetagbuttons'} style={{ "borderRight": "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
           <span>&nbsp;&nbsp;</span>
-          <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons'} onClick={getTrendingPosts} >Trending Posts</lable>
+          <lable className={activeButton === 1 ? 'tagbuttons ' : 'activetagbuttons'} onClick={getTrendingPosts} >{t("Trending Posts")}</lable>
         </div> :
         <>
           <div className='searchDiv'>
@@ -250,10 +251,10 @@ let msg={
 
       </div>}
       <div className='TopRightDiv'>
-        <p>Meeting Times</p>
+        <p>{t("Meeting Times")}</p>
       </div>
       <div className='BottomRightDiv'>
-        <p>Communities</p>
+        <p>{t("Communities")}</p>
         {communities?.map((c) => (
           <HomeCommunities key={c._id} community={c}></HomeCommunities>
         ))}

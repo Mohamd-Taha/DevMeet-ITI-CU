@@ -10,8 +10,10 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { Alert, Box, Button, Card, CardActions, CardContent, Container, Divider, FormControl, FormGroup, FormHelperText, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
+import { useTranslation } from 'react-i18next'
 
 function Profile() {
+    let [t,i18n]= useTranslation();
     const location = useLocation()
     const navigate = useNavigate();
     const [userProfile, setUserProfile] = useState();
@@ -123,7 +125,7 @@ function Profile() {
                             {user.user._id != userProfile._id && 
                                 <NavLink to={`/messenger`} state={{ user: user }}>
                                     <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={AddConversation} > 
-                                        Message 
+                                        {t("Message")} 
                                     </Button>
                                 </NavLink>
                             }
@@ -131,11 +133,11 @@ function Profile() {
 
 
                             {user.user._id == userProfile._id &&
-                                <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={handleProfile}> Update Profile</Button>
+                                <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={handleProfile}>{t("Update Profile")}</Button>
                             }
                             {user.user._id != userProfile._id && <Button style={{ backgroundColor: 'purple' }}
                                 variant="contained" color="primary"
-                                id="UpdateProfile" onClick={handleFollow}>{isFollowing ? <span style={{ color: 'gray' }}>Following</span> : "Follow"}</Button>
+                                id="UpdateProfile" onClick={handleFollow}>{isFollowing ? <span style={{ color: 'gray' }}>{t("Following")}</span> : <span>{t("Follow")}</span>}</Button>
                             }
                             {/* {user.user._id!=userProfile._id && <Button 
                                 variant="contained" 

@@ -12,6 +12,7 @@ import Footer from '../../Components/Footer';
 import './LandingPage.css'
 import { BrowserRouter,Routes,Route, Switch, Link ,NavLink} from 'react-router-dom';
 import Error404 from '../../Components/Error404'
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -20,6 +21,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 });
 
 function Landing () {
+    let [t,i18n]= useTranslation();
 
     const [landingPageData, setLandingPageData] = useState({});
     useEffect(() => {

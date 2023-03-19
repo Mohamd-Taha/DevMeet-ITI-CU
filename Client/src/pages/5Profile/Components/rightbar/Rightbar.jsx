@@ -3,6 +3,7 @@ import Follower from './Follower';
 import Following from './Following';
 import './rightbar.css'
 import axios from 'axios';
+import { useTranslation } from 'react-i18next'
 
 
 
@@ -11,6 +12,7 @@ const Rightbar = ({ profile, userProfile , user}) => {
 
     const [followers, setFollowers] = useState();
     const [followings, setFollowings] = useState();
+    let [t,i18n]= useTranslation();
 
     useEffect(() => {
         axios.get(`http://localhost:7400/user/followers/${userProfile._id}`, { withCredentials: true })
@@ -38,11 +40,11 @@ const Rightbar = ({ profile, userProfile , user}) => {
 
 
                 <div className="rightbarWrapper">
-                    <h4 className='rightbarTitle'>User information</h4>
+                    <h4 className='rightbarTitle'>{t("User information")}</h4>
                     <div className="rightbarInfo">
                         {!userProfile.city && !userProfile.career && userProfile._id==user._id &&
                             <div>
-                                <p>Update your profile info...</p>
+                                <p>{t("Update your profile info...")}</p>
                             </div>
                         }
 
@@ -56,14 +58,14 @@ const Rightbar = ({ profile, userProfile , user}) => {
 
                         {userProfile.city &&
                             <div className="rightbarInfoItem">
-                                <span className="rightbarInfoKey">Location:</span>
+                                <span className="rightbarInfoKey">{t("Location:")}</span>
                                 <span className="rightbarInfoValue">{userProfile.city}</span>
                             </div>
                         }
 
                         {userProfile.career &&
                             <div className="rightbarInfoItem">
-                                <span className="rightbarInfoKey">Title:</span>
+                                <span className="rightbarInfoKey">{t("Title:")}</span>
                                 <span className="rightbarInfoValue">{userProfile.career}</span>
                             </div>
                         }
@@ -71,7 +73,7 @@ const Rightbar = ({ profile, userProfile , user}) => {
 
                     <hr className='sidebarHr' />
 
-                    {followers && <h3 className='rightbarTitle'>{"(" + followers.length + ") "}Followers</h3>}
+                    {followers && <h3 className='rightbarTitle'>{"(" + followers.length + ") "}{t("Followers")}</h3>}
                     <div className="rightbarFollowings">
                         {followers?.map((f) => (
                             <Follower key={f._id} follower={f} />
@@ -80,7 +82,7 @@ const Rightbar = ({ profile, userProfile , user}) => {
 
                     <hr className='sidebarHr' />
 
-                    {followings && <h3 className='rightbarTitle'>{"(" + followings.length + ") "}Followings</h3>}
+                    {followings && <h3 className='rightbarTitle'>{"(" + followings.length + ") "}{t("Followings")}</h3>}
                     <div className="rightbarFollowings">
                         {followings?.map((f) => (
                             <Following key={f._id} following={f} />

@@ -7,8 +7,10 @@ import CodeIcon from '@mui/icons-material/Code';
 import Button from '@mui/material/Button';
 import axios from 'axios'
 import TagIcon from '@mui/icons-material/Tag';
+import { useTranslation } from 'react-i18next';
 
 export default function Sidebar({ getTagPosts }) {
+    let [t,i18n]= useTranslation();
     const [topUsers, setTopUsers] = useState()
     const filterTag = (event) => {
         const tag = event.target.innerText.replace(/\s/g, '');
@@ -53,7 +55,7 @@ export default function Sidebar({ getTagPosts }) {
             <div className="sidebarWrapper">
                 <ul className="sidebarList" >
                     <li > 
-                        <h2 className="sidebarListItemTextMAIN" >Trending Tags <RssFeed className='sidebarIcon' /></h2>
+                        <h2 className="sidebarListItemTextMAIN" >{t("Trending Tags")} <RssFeed className='sidebarIcon' /></h2>
                     </li>
                     {Tags.map((tag, index) => (
                         <li className="sidebarListItem" key={index} >
@@ -67,7 +69,7 @@ export default function Sidebar({ getTagPosts }) {
                 <hr className='sidebarHr' />
 
                 <ul className="sidebarFriendList"> 
-                        <h3 className="sidebarListItemTextMAIN" >Top Users <Group className='sidebarIcon'  /> </h3>
+                        <h3 className="sidebarListItemTextMAIN" >{t("Top Contributors")} <Group className='sidebarIcon'  /> </h3>
                     {topUsers?.map(u => (
                         <CloseFriend key={u._id} user={u} />
                     ))}

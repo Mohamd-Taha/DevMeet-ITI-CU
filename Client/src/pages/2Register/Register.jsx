@@ -10,8 +10,11 @@ import './Register.css'
 import PlainNav from '../../Components/PlainNav'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 const Register =  () => {
+    let [t,i18n]= useTranslation();
     const [firstName, setFirstName]=useState()
     const [lastName, setLastName]=useState()
     const [email, setEmail]=useState()
@@ -50,34 +53,34 @@ const Register =  () => {
         <Container component="main" maxWidth="xs"> 
             <Box sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
                 <img src="/assets/SiteLogo.png" height={100}/>
-                <h2 style={{ color: 'purple' , fontWeight:'900' , fontFamily:'raleway'}}>Register</h2>
+                <h2 style={{ color: 'purple' , fontWeight:'900' , fontFamily:'raleway'}}>{t("Register")}</h2>
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
-                            <TextField required fullWidth size="small" id="firstName" label="First Name" autoFocus name="firstName" autoComplete="given-name" onChange={(e)=>{setFirstName(e.target.value)}} />
+                            <TextField required fullWidth size="small" id="firstName" label={t("First Name")} autoFocus name="firstName" autoComplete="given-name" onChange={(e)=>{setFirstName(e.target.value)}} />
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField required fullWidth size="small" id="lastName" label="Last Name" name="lastName" autoComplete="family-name" onChange={(e)=>{setLastName(e.target.value)}} />
+                            <TextField required fullWidth size="small" id="lastName" label={t("Last Name")} name="lastName" autoComplete="family-name" onChange={(e)=>{setLastName(e.target.value)}} />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="email" label="Email Address" name="email" autoComplete="email"  type="email" onChange={(e)=>{setEmail(e.target.value)}} />
+                            <TextField required fullWidth size="small" id="email" label={t("Email Address")} name="email" autoComplete="email"  type="email" onChange={(e)=>{setEmail(e.target.value)}} />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="password" label="Password" name="password"  type="password"  onChange={(e)=>{setPassword(e.target.value)}}/>
+                            <TextField required fullWidth size="small" id="password" label={t("Password")} name="password"  type="password"  onChange={(e)=>{setPassword(e.target.value)}}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField required fullWidth size="small" id="ConfirmPassword" label="ConfirmPassword" name="ConfirmPassword" type="password"  onChange={(e)=>{setPassword2(e.target.value)}} />
+                            <TextField required fullWidth size="small" id="ConfirmPassword" label={t("Confirm Password")} name="ConfirmPassword" type="password"  onChange={(e)=>{setPassword2(e.target.value)}} />
                         </Grid>
                        {error && <div className='error'>
                              {error}
                         </div>}
                     </Grid>
                     <Box textAlign='center'>
-                        <Button type="submit"  variant="contained" style={{ backgroundColor: 'purple', width:'60%' , fontWeight:'bold', fontSize:'13pt'}} sx={{ mt: 3, mb: 2 }}> Register  </Button>
+                        <Button type="submit"  variant="contained" style={{ backgroundColor: 'purple', width:'60%' , fontWeight:'bold', fontSize:'13pt'}} sx={{ mt: 3, mb: 2 }}>{t("Register")} </Button>
                     </Box>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2" style={{color:'purple'}}> Already have an account? Login </Link>
+                            <NavLink to="/login" variant="body2" style={{color:'purple'}}> {t("Already have an account? Login")} </NavLink>
                         </Grid>
                     </Grid>
                 </Box>

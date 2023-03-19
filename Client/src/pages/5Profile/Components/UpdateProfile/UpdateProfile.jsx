@@ -11,6 +11,7 @@ import axios from 'axios';
 import NavBar from '../../../../Components/NavBar';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
+import { useTranslation } from 'react-i18next'
 
 
 function UpdateProfile() {
@@ -27,6 +28,7 @@ function UpdateProfile() {
   const [location, setLocation] = useState(user?.city)
   const [occupation, setOccupation] = useState(user?.career)
   const [success, setSuccess] = useState()
+  let [t,i18n]= useTranslation();
   console.log(user)
 
   const handleSubmit = (event) => {
@@ -50,7 +52,7 @@ function UpdateProfile() {
         localStorage.setItem('user', JSON.stringify(data))
         dispatch({ type: "Update", payload: data })
         console.log("done :D")
-        setSuccess("update success!")
+        i18n.language==="en"?setSuccess("update success!"):setSuccess("تم التعديل")
 
       })
       .catch((err) => { console.log(err) })
@@ -64,7 +66,7 @@ function UpdateProfile() {
             <CardContent>
               <Container maxWidth="sm">
                 <Typography variant="h3" color="text.primary" style={{ fontFamily: 'raleway', fontWeight: 'bolder', color: 'purple' , marginBottom:'30px'}} >
-                  Update Profile
+                 {t("Update Profile")}
                 </Typography>
                 {/* <Alert severity="error" aria-live="assertive"> </Alert> */}
 
@@ -72,34 +74,34 @@ function UpdateProfile() {
                   <FormGroup row={true} id="email-group" sx={{ marginTop: "1em" }}>
                     <FormControl fullWidth>
                       {/* <InputLabel htmlFor="firstNameUpdate" id="email-label" >First Name...</InputLabel> */}
-                      <Input id="firstNameUpdate" type="text" value={firstName} placeholder="First Name..." onChange={(e) => { setFirstName(e.target.value) }} />
-                      <FormHelperText id="email-helper-text">Update First name...</FormHelperText>
+                      <Input id="firstNameUpdate" type="text" value={firstName} placeholder={t("First Name...")} onChange={(e) => { setFirstName(e.target.value) }} />
+                      <FormHelperText id="email-helper-text">{t("Update First name...")}</FormHelperText>
                     </FormControl>
                   </FormGroup>
 
                   <FormGroup row={true} id="email-confirmation-group" >
                     <FormControl fullWidth>
                       {/* <InputLabel htmlFor="lastNameUpdate" id="email-confirmation-label">Last Name...</InputLabel> */}
-                      <Input id="e-confirmation" type="text" value={lastName} placeholder="Last Name..." onChange={(e) => { setLastName(e.target.value) }} />
-                      <FormHelperText id="lastNameUpdate">Update Last name...</FormHelperText>
+                      <Input id="e-confirmation" type="text" value={lastName} placeholder={t("Last Name...")} onChange={(e) => { setLastName(e.target.value) }} />
+                      <FormHelperText id="lastNameUpdate">{t("Update Last name...")}</FormHelperText>
                     </FormControl>
                   </FormGroup>
 
                   <FormGroup row={true} id="email-confirmation-group" >
                     <FormControl fullWidth>
                       {/* <InputLabel htmlFor="location" id="email-confirmation-label">Location...</InputLabel> */}
-                      <Input id="location" type="text" value={location} placeholder="Location..." onChange={(e) => { setLocation(e.target.value) }} />
-                      <FormHelperText id="email-confirmation-helper-text">Update Location...</FormHelperText>
+                      <Input id="location" type="text" value={location} placeholder={t("Location...")} onChange={(e) => { setLocation(e.target.value) }} />
+                      <FormHelperText id="email-confirmation-helper-text">{t("Update Location...")}</FormHelperText>
                     </FormControl> 
 
                     <FormControl fullWidth>
                         {/* <InputLabel htmlFor="Occupation" id="email-confirmation-label">Title...</InputLabel> */}
-                        <Input id="Occupation" type="text" value={occupation} placeholder="Title..." onChange={(e) => { setOccupation(e.target.value) }} />
-                        <FormHelperText id="Occupation">Update Title...</FormHelperText>
+                        <Input id="Occupation" type="text" value={occupation} placeholder={t("Title...")} onChange={(e) => { setOccupation(e.target.value) }} />
+                        <FormHelperText id="Occupation">{t("Update Title...")}</FormHelperText>
                       <FormControl fullWidth>
                         {/* <InputLabel htmlFor="Description" id="email-confirmation-label">Bio...</InputLabel> */}
-                        <Input id="Description" type="text" style={{ marginTop: "20px" }} placeholder="Bio..."value={description} onChange={(e) => { setDescription(e.target.value) }} />
-                        <FormHelperText id="Occupation">Update Bio...</FormHelperText>
+                        <Input id="Description" type="text" style={{ marginTop: "20px" }} placeholder={t("Bio...")}value={description} onChange={(e) => { setDescription(e.target.value) }} />
+                        <FormHelperText id="Occupation">{t("Update Bio...")}</FormHelperText>
                       </FormControl>
                     </FormControl> 
 
@@ -114,7 +116,7 @@ function UpdateProfile() {
                           }
                         }} />
                       </IconButton>
-                      <FormHelperText style={{ textAlign: "center" }} id="Occupation">Enter new Profile Picture?</FormHelperText>
+                      <FormHelperText style={{ textAlign: "center" }} id="Occupation">{t("Enter new Profile Picture?")}</FormHelperText>
                     </FormControl>
 
 
@@ -126,13 +128,13 @@ function UpdateProfile() {
                             if (file) { setCoverImage(file); }
                             }} />
                       </IconButton>
-                      <FormHelperText style={{ textAlign: "center" }} id="Occupation">Enter new Cover Picture?</FormHelperText>
+                      <FormHelperText style={{ textAlign: "center" }} id="Occupation">{t("Enter new Cover Picture?")}</FormHelperText>
                     </FormControl> 
                   </FormGroup>
                   
                   <FormGroup row={true} id="submit-group" sx={{ marginTop: "1em" }}>
                     <FormControl fullWidth>
-                      <Button  variant="contained" type="submit" style={{ backgroundColor: 'purple' }} id="submit-button">Save Changes</Button>
+                      <Button  variant="contained" type="submit" style={{ backgroundColor: 'purple' }} id="submit-button">{t("Save Changes")}</Button>
                       {success && <div className='successDiv'>{success}</div>}
                     </FormControl>
                   </FormGroup>

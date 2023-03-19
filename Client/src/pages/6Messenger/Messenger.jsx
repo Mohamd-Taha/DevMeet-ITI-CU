@@ -5,6 +5,7 @@ import Message from './messages/Message';
 import axios from "axios";
 import NavBar from '../../Components/NavBar';
 import { io } from "socket.io-client";
+import { useTranslation } from 'react-i18next'
 
 
 import "./Messanger.css"
@@ -22,6 +23,7 @@ const Messanger = () => {
     const socket = useRef()
     const scrollRef = useRef();
     const [userImg, setuserImg] = useState([])
+    let [t,i18n]= useTranslation();
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900")
@@ -159,10 +161,10 @@ const Messanger = () => {
                         </div>
                         <div className="chatBoxBottom">
                             <textarea className='chatMessageInput' placeholder='write your message...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                            <button className='chatSubmitButton' onClick={handleSubmit} >SEND</button>
+                            <button className='chatSubmitButton' onClick={handleSubmit} >{t("SEND")}</button>
                         </div>
                         </> : <div className='noConversationText' >
-                                <span> Open a conversation to start a chat...</span>
+                                <span>{t(" Open a conversation to start a chat...")}</span>
                             </div>
                 }
                 </div>

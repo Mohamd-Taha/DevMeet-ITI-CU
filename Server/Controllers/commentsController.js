@@ -29,7 +29,7 @@ const image1 =(req.files.image1)? req.files.image1[0].filename: null ;
             })
             await comment.save()
             const post = await Post.findById(postId);
-            post.comments.push(comment._Id);
+            post.comments.push(comment._id);
             await post.save();
             res.status(200).json(comment);
 }
@@ -37,8 +37,10 @@ const image1 =(req.files.image1)? req.files.image1[0].filename: null ;
  const deleteComment = async (req, res) => {
  const id = req.params.id;
  const comment = await Comment.findById(id);
+ const post = await Post.findById(comment.postId)
  Authorize(req.cookies.jwt, comment.userId)
   try {
+     await post.updateOne({ $pull: { comments: id } });
       await comment.deleteOne();
       res.status(200).json("Comment deleted successfully");
   } catch (error) {

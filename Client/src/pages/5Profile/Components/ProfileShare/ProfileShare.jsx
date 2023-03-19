@@ -17,6 +17,7 @@ import PermMediaIcon from '@mui/icons-material/PermMedia';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next'
 
 
 
@@ -33,7 +34,7 @@ const Tags = ['JavaScript', 'TypeScript', 'React', 'CSS', 'HTML', 'Angular', 'No
 const Share = ({ user, sendNewPost, personalCheck }) => {
 
 
-
+     let [t,i18n]= useTranslation();
     const [description, setDescription] = useState()
     const [image, setImage] = useState()
     const [error, setError] = useState()
@@ -96,7 +97,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
                                 <PermMediaIcon htmlColor='tomato' className='shareIcon' />
                                 <input hidden type="file" name="image1" accept="image/png, image/jpeg" onChange={(e) => { setImage(e.target.files[0]) }} />
                             </IconButton>
-                            <span className='shareOptionText'>Photo </span>
+                            <span className='shareOptionText'>{t("Photo")} </span>
                         </div>
                     </div>
 
@@ -104,7 +105,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
                         <div className="shareOption">
                             <LocalOfferIcon htmlColor='blue' />
                             <FormControl sx={{ width: '250px' }} size="small" >
-                                <InputLabel id="demo-multiple-checkbox-label">Tags"max:3"</InputLabel>
+                                <InputLabel id="demo-multiple-checkbox-label">{t("Tags max:3")}</InputLabel>
                                 <Select labelId="demo-multiple-checkbox-label" id="demo-multiple-checkbox" multiple value={TagName} onChange={handleChange} input={<OutlinedInput label="Tag" />} renderValue={(selected) => selected.join(', ')} MenuProps={MenuProps} >
                                     {Tags.map((tag) => (
                                         <MenuItem key={tag} value={tag} >
@@ -118,7 +119,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
                         </div>
                     </div>
 
-                    <Button variant="contained" style={{ backgroundColor: 'purple' }} onClick={makePost} size="small">Share</Button>
+                    <Button variant="contained" style={{ backgroundColor: 'purple' }} onClick={makePost} size="small">{t("Share")}</Button>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ import { fontWeight } from '@mui/system';
 import Comments from './Comments';
 import axios from 'axios';
 import { format } from "timeago.js"
-
+import { useTranslation } from 'react-i18next'
 
 
 
@@ -39,12 +39,14 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
   const [newComment, setNewComment] = useState();       //for new comment
   const [isVisible, setIsVisible] = useState(false);                 // for comments div visibilty
   const ToggleShowComments = () => { setIsVisible(!isVisible); };    // for comments div visibilty 
-  const [isLiked, setIsLiked] = useState(post.likes.get(userId));    // for like animation    
+  const [isLiked, setIsLiked] = useState(post.likes.get(userId));    // for like animation 
+    let [t,i18n]= useTranslation();   
   
   
 
 
   const likeHandler = async () => {
+    setIsLiked(!isLiked)
     await axios.patch(`http://localhost:7400/likes/${post._id}`, { userId }, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
@@ -53,7 +55,6 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
         data.likes = MapObject
         console.log(data)
         sendNewPost(data) 
-        setIsLiked(!isLiked)
       })
       .catch((err) => { console.log(err) })
   }
@@ -142,7 +143,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
             <div className="postTopRight">
               {
                 !post.tags[0] ? 
-                <span className="TagsCorner" style={{color:'gray'}}> Not Taged </span> :  
+                <span className="TagsCorner" style={{color:'gray'}}> {t("Not Taged")} </span> :  
                 <span className="TagsCorner"> {"#"+post.tags.join(", #")}</span>
               } 
                             
@@ -163,19 +164,19 @@ const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
           <div className="postBottom">
             <div className="postBottomLeft" onClick={likeHandler} > 
               {isLiked ? <FavoriteIcon htmlColor='#f25268' style={{marginRight:'5px'}} /> : <FavoriteBorderIcon htmlColor='red' style={{marginRight:'5px'}} />}
-              <span className="postLikeCounter" style={{ fontWeight: 'bold' }} > {post.likes.size}  Likes </span>
+              <span className="postLikeCounter" style={{ fontWeight: 'bold' }} > {post.likes.size}{t("Likes")} </span>
             </div>
             <div className="postBottomRight">
               <IconButton color="primary" component="label" onClick={ToggleShowComments} >
                 {isVisible ? <VisibilityIcon htmlColor='#5890FF' /> : <VisibilityOffIcon htmlColor='gray' />}
-                <span className="postCommenttext ms-2 " style={{ fontWeight: 'bold' , color:'black' }} onClick={commentGet}> {commentCount} Comments</span>
+                <span className="postCommenttext ms-2 " style={{ fontWeight: 'bold' , color:'black' }} onClick={commentGet}> {commentCount} {t("Comments")}</span>
               </IconButton>
             </div>
           </div>
 
           <div className='commentsDiv'>
             {error && <div style={{ color: 'red', fontWeight: 'bolder' }}> {error}</div>}
-            <TextField id="commentInput" required placeholder="Write your comment..." size="small" style={{ width: '93%' }} onChange={(e) => { setComment(e.target.value) }} />
+            <TextField id="commentInput" required placeholder={t("Write your comment...")} size="small" style={{ width: '93%' }} onChange={(e) => { setComment(e.target.value) }} />
             <IconButton component="label" >
               <InsertCommentIcon htmlColor='purple' /> <input hidden type="button" value="submit" onClick={commentPost} />
             </IconButton>
