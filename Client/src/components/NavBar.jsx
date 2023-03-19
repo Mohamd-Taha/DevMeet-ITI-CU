@@ -11,7 +11,8 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 const NavBar = ({sendSearch}) => {
-    const { dispatch } = useAuthContext()
+    const { dispatch, user } = useAuthContext();
+    let userInfo = user.user;
     const [search, setSearch]= useState()
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
@@ -40,7 +41,7 @@ const NavBar = ({sendSearch}) => {
                         <NavLink to="/" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Home </NavLink>
                     </li>
                     <li className="navLnk" >
-                        <NavLink to="/notifications" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Notifications </NavLink>
+                        <NavLink to={`/notifications/${userInfo._id}`} className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Notifications </NavLink>
                     </li>
                     <li className="navLnk" >
                         <NavLink to="/messenger" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Messenger </NavLink>

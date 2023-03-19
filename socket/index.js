@@ -20,7 +20,7 @@ return users.find(user=>user.userId === userId)
 }
 
 io.on("connection", (socket) => {
-console.log(`user ${socket.id} connected`)
+console.log(`user ${socket.id} connected FROM PORT 8900`)
 //after every connection take user and socket id
 io.emit("welcome", "hello this is socket server")
 socket.on("addUser", userId=>{
