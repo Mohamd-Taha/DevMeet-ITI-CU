@@ -19,6 +19,9 @@ import Meetups from "./Pages/8Meetups/Meetups";
 import Search from "./Pages/11Search/Search";
 import Error404 from "./Components/Error404";
 import Community from "./Pages/10Community/Community";
+import CommunitySearch from "./Pages/10Community/components/communitySearch";
+import addCommunity from "./Pages/10Community/components/addCommunity";
+import CreateCommunity from "./Pages/10Community/createCommunity/createCommunity";
 import NotifyModal from "./Pages/7Notifications/NotifyModal";
 import Notifications from "./Pages/7Notifications/Notifications";
 import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
@@ -75,6 +78,7 @@ function App() {
         <Route path="meetups" element={<Meetups />}></Route>{" "}
         {/* "meetups/:meetupID" */}
         <Route path="/community/:id" element={<Community />}></Route>
+        <Route path="/communitysearch" element={<CommunitySearch/>}></Route>
         <Route
           path="notifications"
           element={<Notifications socket={socket} />}
@@ -82,6 +86,8 @@ function App() {
         {/* <Route path="notifications/:id" element={<NotifyModal />}></Route> */}
         <Route path="notifications/:userId" element={<Notifications socket={socket} />}></Route>
         <Route path="componentSearch" element={<ComponentSearch />}></Route>
+        {/* <Route path="addNewCommunity" element={<addCommunity/>}></Route> */}
+        <Route path="addNewCommunity" element={<CreateCommunity/>}></Route>
         <Route path="*" element={<Error404></Error404>}></Route>
       </Routes>
     </BrowserRouter>

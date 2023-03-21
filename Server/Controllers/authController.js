@@ -141,6 +141,12 @@ var searchUser= async (req, res)=>{
     res.json(ussersArray);
     
 }
+//not finally completed
+var searchFollowers=async (req,res)=>{
+    var {userId,followerName}=req.body;
+    var ussersArray=await userAuth.find({_id:userId,followers:{} });
+
+}
 
 
 

@@ -1,0 +1,32 @@
+.container{
+   display: flex;
+   width: 100%;
+   height: 100vh;
+   align-self: center;
+  justify-content: center;
+}
+.row{
+    background-color: #f2ebff;
+    box-shadow: 0 0 5px 2px purple;
+    align-self: center;
+    justify-content: center;
+    border-radius: 15px 50px;
+    margin: auto;
+    border: gray 1px solid;  
+}
+.textarea{
+    resize: none;
+    width: 30%;
+    height: 30%;
+}
+.input{
+    width: 200px;
+}
+.mybuttonsubmit{
+    background-color: purple;
+    color: #fff;
+    border-radius: 10px;
+}
+.text-center{
+    text-align: center;
+}

@@ -10,12 +10,14 @@ import NavBar from "../../Components/NavBar";
 import Footer from "../../Components/Footer";
 import HomeCommunities from "./components/homeCommunities";
 import Search from "../11Search/Search";
+import { Button } from "reactstrap";
 
 const Homecomponent = ({ socket }) => {
   let { user } = useAuthContext();
   user = user.user
   const [currentPosts, setCurrentPosts] = useState()
-  const [flag, setFlag] = useState(true)
+  const [flag, setFlag] = useState(true);
+
   const [communities, setCommunities] = useState()
   const [search, setSearch] = useState()
   const [searchResults, setSearchResults] = useState()
@@ -75,7 +77,7 @@ const Homecomponent = ({ socket }) => {
 
 
   const getSharePost = (post) => {
-    
+
     let reci = user.followers.map((e) => {
       return { id: e, isRead: "false" };
     });
@@ -99,7 +101,7 @@ const Homecomponent = ({ socket }) => {
     socket.emit("notify", msg);
 
     axios.post("http://localhost:7400/notification", { ...msg })
-    .then((res) => { console.log("notify added succefully"); });
+      .then((res) => { console.log("notify added succefully"); });
 
     /***
      * handle logic of notifications
@@ -148,8 +150,8 @@ let msg={
     try {
       const searchQuery = search.split(" ");
       axios.post(`http://localhost:7400/search`, { firstName: searchQuery[0], lastName: searchQuery[1] },
-          { withCredentials: true }
-        )
+        { withCredentials: true }
+      )
         .then((response) => {
           return response;
         })
@@ -160,19 +162,19 @@ let msg={
         .catch((err) => {
           console.log(err);
         });
-    } catch {}
+    } catch { }
   };
-useEffect(()=>{
-  socket.emit("joinUser", user);
-})
+  useEffect(() => {
+    socket.emit("joinUser", user);
+  })
   useEffect(() => {
     getNewPosts();
-  },[]);
+  }, []);
 
   //get all communities from this user
   useEffect(() => {
-    axios.post(`http://localhost:7400/communities/getAcomm`, 
-    {
+    axios.post(`http://localhost:7400/communities/getAcomm`,
+      {
         userId: user._id,
       })
       .then((response) => {
@@ -217,12 +219,13 @@ useEffect(()=>{
       <div className="leftHomeDiv">
         <Sidebar getTagPosts={getTagPosts}></Sidebar>
       </div>
-      {flag ? 
+      {/* 1st option */}
+      {flag ?
         <div className="filterDiv">
           <lable className={activeButton === 0 ? "tagbuttons " : "activetagbuttons"} style={{ borderRight: "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
           <span>&nbsp;&nbsp;</span>
           <lable className={activeButton === 1 ? "tagbuttons " : "activetagbuttons"} onClick={getTrendingPosts} >Trending Posts</lable>
-        </div> : 
+        </div> :
         <>
           <div className="searchDiv">
             <div className="SearchNav">
@@ -232,47 +235,66 @@ useEffect(()=>{
             </div>
             {searchResults && <>
               {searchResults?.map((c) => (
-                <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture}/>
+                <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture} />
               ))} </>}
-              { !searchResults && 
-                <div className="noHomePostsyet">
-                  <p>No Matches Found</p> 
-                </div>
-              }
+            {!searchResults &&
+              <div className="noHomePostsyet">
+                <p>No Matches Found</p>
+              </div>
+            }
           </div>
         </>
       }
-      {flag && <div className="shareDiv">
-          <Share user={user} sendNewPost={getSharePost} personalCheck="true"></Share>
-        </div>}
-      {flag && <div className="PostsDiv">
-          {currentPosts?.map((p) => (
-            <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} socket={socket}/>
-          ))}
+      {/* end of 1st option */}
 
-          {currentPosts && currentPosts.length == 0 &&  
-             // if there is no posts in home page
-            <div /*style={{ display: isDiv1Visible ? "block" : "none" }} */ className='noHomePostsyet'>
-              <p>You have No posts to view</p>
-              <p>No One Posted for this Tag till now</p>
-            </div>
-          } 
-            {currentPosts && currentPosts.length == 0 && user.following.length == 0 && // if there is no posts in home page 
-            <div id="div2"/* style={{ display: !isDiv1Visible ? "block" : "none" }} */ className="noHomePostsyet">
-              <p>You have No posts to view</p>
-              <p>Follow other users to show thier posts, also you can share your own posts</p>
-            </div>
-          }
-        </div>
+      {/* start of 2st option */}
+      {flag && <div className="shareDiv">
+        <Share user={user} sendNewPost={getSharePost} personalCheck="true"></Share>
+      </div>}
+      {/* end of 2nd option */}
+
+      {/* start of 3rd option */}
+      {flag && <div className="PostsDiv">
+        {currentPosts?.map((p) => (
+          <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} socket={socket} />
+        ))}
+
+        {currentPosts && currentPosts.length == 0 &&
+          // if there is no posts in home page
+          <div /*style={{ display: isDiv1Visible ? "block" : "none" }} */ className='noHomePostsyet'>
+            <p>You have No posts to view</p>
+            <p>No One Posted for this Tag till now</p>
+          </div>
+        }
+        {currentPosts && currentPosts.length == 0 && user.following.length == 0 && // if there is no posts in home page 
+          <div id="div2"/* style={{ display: !isDiv1Visible ? "block" : "none" }} */ className="noHomePostsyet">
+            <p>You have No posts to view</p>
+            <p>Follow other users to show thier posts, also you can share your own posts</p>
+          </div>
+        }
+      </div>
       }
+      {/* end of 2st option */}
+
       <div className="TopRightDiv">
         <p>Meeting Times</p>
       </div>
       <div className="BottomRightDiv">
-        <p>Communities</p>
+        <p><strong>Communities</strong></p>
         {communities?.map((c) => (
-          <HomeCommunities key={c._id} community={c}></HomeCommunities>
+          <div key={c._id} className="border border-warning mx-2 mb-2 rounded">
+            <HomeCommunities community={c}></HomeCommunities>
+          </div>
         ))}
+        <div>
+          <img style={{ width: "38px", height: "auto" }} src={`http://localhost:7400/images/addcommunity.png`}></img>
+          <link to='/addNewCommunity'>
+            <Button style={{ backgroundColor: "#68377f", }} >
+              Create New Community
+            </Button>
+          </link>
+
+        </div>
       </div>
       {/* <Footer /> */}
     </div>
