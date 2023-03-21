@@ -16,7 +16,9 @@ import Register from "./Pages/2Register/Register.jsx";
 import Home from "./Pages/4Home/Home";
 import Profile from "./Pages/5Profile/Profile";
 import Messanger from "./Pages/6Messenger/Messenger";
-import Meetups from "./Pages/8Meetups/Meetups";
+import Meetups from './Pages/8Meetups/Meetups'
+import MeetupRoom from "./Pages/9MeetupRoom/MeetupRoom";
+
 import Search from "./Pages/11Search/Search";
 import Error404 from "./Components/Error404";
 import Community from "./Pages/10Community/Community";
@@ -45,13 +47,9 @@ function App() {
             !user ? <Landing></Landing> : <Navigate to="/home"></Navigate>
           }
         ></Route>
-        <Route
-          path="/Aboutus"
-          element={<AboutUs></AboutUs>}
+        <Route path="/Aboutus" element={<AboutUs></AboutUs>}
         ></Route>
-        <Route
-          path="/login"
-          element={!user ? <Login></Login> : <Navigate to="/home"></Navigate>}
+        <Route path="/login" element={!user ? <Login></Login> : <Navigate to="/home"></Navigate>}
         ></Route>
         <Route
           path="/register"
@@ -59,27 +57,22 @@ function App() {
             !user ? <Register></Register> : <Navigate to="/home"></Navigate>
           }
         ></Route>
-        
-        <Route
-          path="/home"
-          element={
+
+        <Route path="/home" element={
             user ? <Home socket={socket} /> : <Navigate to="/login"></Navigate>
           }
         ></Route>
-        <Route
-          path="/search"
-          element={user ? <Search /> : <Navigate to="/login"></Navigate>}
+        <Route path="/search" element={user ? <Search /> : <Navigate to="/login"></Navigate>}
         ></Route>
-        <Route
-          path="profile"
-          element={user ? <Profile /> : <Navigate to="/login"></Navigate>}
+        <Route path="profile" element={user ? <Profile /> : <Navigate to="/login"></Navigate>}
         ></Route>{" "}
         {/* "profile/:userID" */}
         <Route path="messenger" element={<Messanger />}></Route>
         <Route path="/updateProfile" element={<UpdateProfile />}></Route>
         {/* <Route path="notifications" element={<Notifications/>}></Route> */}
-        <Route path="meetups" element={<Meetups />}></Route>{" "}
-        {/* "meetups/:meetupID" */}
+        <Route path="meetups" element={<Meetups/>}></Route>   
+        <Route path="/meetup/:roomId" element={<MeetupRoom/>}></Route>
+        
         <Route path="/community/:id" element={<Community />}></Route>
         <Route
           path="notifications"

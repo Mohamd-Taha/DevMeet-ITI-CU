@@ -1,0 +1,28 @@
+ .room-page-parent {
+    margin-top: 3%;
+     display: flex;
+     justify-content: center;
+     width: 100vw;
+     height: 100vh;
+ }
+
+ .room-page-child {
+     align-self: center;
+     /* background-color: aqua; */
+     width: 70%;
+     height: 90%;
+ }
+
+ .inviteDiv {
+     background-color: #f2ebff;
+     border-radius: 15px 50px 30px 5px;
+     height: 20vh;
+     width: 10vw;
+     border: 1px purple solid;
+     text-align: center;
+ }
+
+ .buttonId {
+     background-color: purple;
+     color: white;
+ }

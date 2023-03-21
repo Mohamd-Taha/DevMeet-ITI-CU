@@ -20,12 +20,15 @@ const PlainNavBar = () => {
                     </NavLink>
                 </div>
                 
-                <button style={{ backgroundColor: '#8B008B', color: 'white',marginTop:'5px', padding: '7px 14px', borderRadius: '5px 0 0 5px', border: 'none', fontSize: '15px', fontWeight: 'bold' }} onClick={() => { i18n.changeLanguage("ar") }}>
+
+                {i18n.language === "en" && <button  style={{ backgroundColor: '#8B008B', color: 'white',marginTop:'5px', padding: '7px 14px', borderRadius: '5px 0 0 5px', border: 'none', fontSize: '15px', fontWeight: 'bold' }} onClick={() => { i18n.changeLanguage("ar") }}>
                     AR
-                </button>
-                <button style={{ backgroundColor: 'white', color: '#8B008B',marginTop:'5px', padding: '7px 14px', borderRadius: '0 5px 5px 0', border: 'none', fontSize: '15px', fontWeight: 'bold' }} onClick={() => { i18n.changeLanguage("en") }}>
+                </button>}
+                {i18n.language === "ar" && <button  style={{ backgroundColor: '#8B008B', color: 'white',marginTop:'5px', padding: '7px 14px', borderRadius: '5px 0 0 5px', border: 'none', fontSize: '15px', fontWeight: 'bold' }} onClick={() => { i18n.changeLanguage("ar") }}>
                     EN
-                </button>
+                </button>}
+
+
                 
 
                 <ul className=" navbarNNNav navtoright unordlist">
