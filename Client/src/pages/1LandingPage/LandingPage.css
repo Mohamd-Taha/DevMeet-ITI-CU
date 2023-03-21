@@ -144,7 +144,8 @@ body {
 } 
 
 .parag {   /* any tag of <p> */
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .unordlist {
@@ -186,17 +187,7 @@ body {
   border-radius: 0;
   margin: 9px 20px 0;
 }
-#menu.navbar-default .navbarNNNav > li > a:after {
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 0;
-  height: 5px;
-  background: linear-gradient(to right, #6a1ea8 0%, #8500c7 100%);
-  content: "";
-  transition: width 0.3s;
-}
+
 #menu.navbar-default .navbarNNNav > li > a:hover:after {
   width: 100%;
 }
@@ -327,6 +318,7 @@ header .intro-text {
 #features {
   background: #f6f6f6;
   padding-top: 100px;  
+  padding-bottom: 100px;  
 }
 #features i.fa {
   font-size: 38px;
@@ -401,6 +393,7 @@ header .intro-text {
 /* Team Section */
 #team {
   padding: 50px 0;
+  background: #f6f6f6; 
   /* display: flex;
   flex-direction: row;
   justify-content: space-between; */
@@ -501,3 +494,17 @@ header .intro-text {
   margin-bottom: 10px;
   display: block;
 } 
+
+
+
+
+.aboutusarticle{
+  padding: 10px 10px 0px 50px;
+  font-family: 'raleway';
+  font-size: 20px;
+  font-weight: 800;
+  color:#530062;
+}
+
+
+

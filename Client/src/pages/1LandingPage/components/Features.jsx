@@ -2,7 +2,7 @@ import React from "react";
 
 let Features = (props) => {
   return (
-    <div id="features" className="txtCenter">
+    <div id="features" className="txtCenter" style={{backgroundColor:'white'}}>
       <div className="Maincontainer">
         <div className="myrow">
           <div className="colmd10 colmdofst1 section-title">

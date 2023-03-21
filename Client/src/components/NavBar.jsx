@@ -30,82 +30,75 @@ const NavBar = ({ sendSearch }) => {
     }
     return (
         <nav id="menu" className=" navbar-default navbarFIXtop">
-            <div className=" ">
-                <div className="navbarHHeader">
-                    <NavLink to="/home"  >
-                        <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a>
-                        <img src="/assets/SiteLogo.png" height="50px" alt="pic" />
-                    </NavLink>
-                </div>
-
-                <ul className=" navbarNNNav navtoright unordlist">
-
-                    <li className="navLnk" > 
-                        <div style={{ display: 'flex' }}>
-                            {
-                            i18n.language === "en" && 
-                            <Button style={{ marginTop:'10px' , marginRight:'50px', backgroundColor: 'whitesmoke' , color:'purple ', fontWeight:'800'}} variant="contained"  size='small'   onClick={() => { i18n.changeLanguage("ar") }}  > 
-                                العربية
-                            </Button> 
-                            }
-                            {
-                            i18n.language === "ar" &&  
-                            <Button style={{ marginTop:'10px' , marginRight:'280px', backgroundColor: 'purple', fontWeight:'800' }} variant="contained"  size='small'   onClick={() => { i18n.changeLanguage("en") }}  > 
-                                EN  
-                            </Button>
-                            }
-                        </div> 
-                    </li>
-
-
-                    <li className="navLnk" >
-                        <NavLink to="/" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Home")} </NavLink>
-                    </li>
-                    <li className="navLnk" >
-                        <NavLink to={`/notifications/${userInfo._id}`} className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Notifications")}  </NavLink>
-                    </li>
-                    <li className="navLnk" >
-                        <NavLink to="/messenger" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Messenger")}</NavLink>
-                    </li>
-                    <li className="navLnk" >
-                        <NavLink to="/meetups" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Meetups")} </NavLink>
-                    </li>
-                    <li className="navLnk" >
-                        <NavLink to="/profile" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Profile")} </NavLink>
-                    </li>
-                    <button className="myBotton myBotton-custom logsginin_btns ancr  navancr navancrA " onClick={LogOut} >
-                        {t("Logout")}
-                    </button>
-                </ul>
-
-
-
-                {/* SEARCH BAR */}
-                <div className="topbarCentre">
-                    <div className="searchbar">
-                        <Search className="searchIcon" />
-                        <input placeholder={t("Search...")} className="searchInput " onChange={(e) => { setSearch(e.target.value) }} />
-                        <span className="focus-bg"></span>
-                        <div>
-                            <IconButton color="primary" aria-label="upload picture" component="label" onClick={() => { sendSearch(search) }}>
-                                <SendIcon htmlColor='purple' />
-                            </IconButton>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 
-                <Box component="form" sx={{ '& .MuiTextField-root': {  marginLeft:'60px' ,width: '20ch' }, }} noValidate autoComplete="off" >   
-                    <TextField id="standard-search" label="Search"  type="search" variant="standard" />          
-                </Box>  
-                */}
-
+            <div className="navbarHHeader">
+                <NavLink to="/home"  >
+                    <a className="naVbrand page-scroll ancr navancr ">  DevMeet </a>
+                    <img src="/assets/SiteLogo.png" height="50px" />
+                </NavLink>
             </div>
 
+            <ul className=" navbarNNNav navtoright unordlist">
 
-            {/* <div>
-            <NavLink   style={({isActive })=>({color:isActive?"red":"yellow"})} > hi </NavLink>
-            </div> */}
+                <li className="navLnk" >
+                    <div style={{ display: 'flex' }}>
+                        {
+                            i18n.language === "en" &&
+                            <Button style={{ marginTop: '10px', marginRight: '50px', backgroundColor: 'whitesmoke', color: 'purple ', fontWeight: '800' }} variant="contained" size='small' onClick={() => { i18n.changeLanguage("ar") }}  >
+                                العربية
+                            </Button>
+                        }
+                        {
+                            i18n.language === "ar" &&
+                            <Button style={{ marginTop: '10px', marginRight: '280px', backgroundColor: 'purple', fontWeight: '800' }} variant="contained" size='small' onClick={() => { i18n.changeLanguage("en") }}  >
+                                EN
+                            </Button>
+                        }
+                    </div>
+                </li>
+
+
+                <li className="navLnk" >
+                    <NavLink to="/" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Home")} </NavLink>
+                </li>
+                <li className="navLnk" >
+                    <NavLink to={`/notifications/${userInfo._id}`} className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Notifications")}  </NavLink>
+                </li>
+                <li className="navLnk" >
+                    <NavLink to="/messenger" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Messenger")}</NavLink>
+                </li>
+                <li className="navLnk" >
+                    <NavLink to="/meetups" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Meetups")} </NavLink>
+                </li>
+                <li className="navLnk" >
+                    <NavLink to="/profile" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > {t("Profile")} </NavLink>
+                </li>
+                <button className="myBotton myBotton-custom logsginin_btns ancr  navancr navancrA " onClick={LogOut} >
+                    {t("Logout")}
+                </button>
+            </ul>
+
+
+
+            {/* SEARCH BAR */}
+            <div className="topbarCentre">
+                <div className="searchbar">
+                    <Search className="searchIcon" />
+                    <input placeholder={t("Search...")} className="searchInput " onChange={(e) => { setSearch(e.target.value) }} />
+                    <span className="focus-bg"></span>
+                    <div>
+                        <IconButton color="primary" aria-label="upload picture" component="label" onClick={() => { sendSearch(search) }}>
+                            <SendIcon htmlColor='purple' />
+                        </IconButton>
+                    </div>
+                </div>
+            </div>
+
+            {/* 
+            <Box component="form" sx={{ '& .MuiTextField-root': {  marginLeft:'60px' ,width: '20ch' }, }} noValidate autoComplete="off" >   
+                <TextField id="standard-search" label="Search"  type="search" variant="standard" />          
+            </Box>  
+            */}
+
 
 
             {/* <div className="topbarIcons">

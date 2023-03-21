@@ -54,7 +54,7 @@ let [t,i18n]= useTranslation();
             <Grid container component="main" sx={{ height: '100vh' }} >
                 <Grid item xs={false} sm={2} md={7} sx={{ backgroundImage: `url(${'/assets/PurpleImg.jpg'})`, backgroundSize: 'cover' }}>
                     <Typography variant="h2" style={{ position: 'absolute', color: 'whitesmoke', top: '30%', left: '40%', transform: 'translate(-70%, -20%)', fontWeight: '900', fontFamily: 'raleway' , width:"50%"  }}>
-                       {t("Make the most of your professinal life")}
+                        {t("Make the most of your professinal life")}
                     </Typography>
                     <Typography variant="h4" style={{ position: 'absolute', color: 'white', top: '50%', left: '40%', transform: 'translate(-55%, -20%)', fontWeight: '650', fontFamily: 'raleway' }}>
                         {t("Login and stay connected")}

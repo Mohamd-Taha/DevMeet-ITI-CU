@@ -1,33 +1,38 @@
 import { useState } from "react";
 
-// import emailjs from "emailjs-com";
+import emailjs from "emailjs-com";
 import React from "react";
 
-const initialState = { name: "",  email: "", message: ""};
+// const initialState = { name: '',  email: '', message: ''};
 
 let Contact = (props) => {
-  const [{ name, email, message }, setState] = useState(initialState);
+  const [{ name, email, message }, setState] = useState({ name: '',  email: '', message: ''});
+  const [isSent,setisSent]= useState(false);
+
+  const sentSuccess = () =>{ setisSent(true)};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
+    setisSent(false);
   };
-  const clearState = () => setState({ ...initialState });
+  const clearState = () => setState({ name: '',  email: '', message: '' });
 
   const handleSubmit = (e) => {
     console.log("handelsbmt");
-    // e.preventDefault();
-    // console.log(name, email, message);
-    // emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target, "YOUR_USER_ID")
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //       clearState();
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //     }
-    //   );
+    e.preventDefault();
+    console.log(name, email, message);
+    emailjs.sendForm("service_6fc73ba", "template_l15076e", e.target, "kExWEhB6b7qfaC7Iq")
+      .then(
+        (result) => {
+          console.log(result.text);
+          clearState();
+          sentSuccess();
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
   return (
     <div>
@@ -62,6 +67,9 @@ let Contact = (props) => {
                 <button type="submit" className="myBotton myBotton-custom myBotton-lg">
                   Send Message
                 </button>
+                {
+                  { name, email, message } && isSent && <h4 style={{color:'#12ee4b', fontSize:'20px' }}>Your Message sent successfully </h4>
+                }
               </form>
             </div>
           </div>

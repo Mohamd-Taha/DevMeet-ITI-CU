@@ -13,7 +13,7 @@ let Team = (props) => {
           {props.data ? props.data.map((d, i) => ( 
                 <div key={`${d.name}-${i}`} className="colmd3 colsm6 team"> 
                   <div className="thumbnail"> 
-                    <img src={d.img} alt="." className="team-img" />
+                    <img src={d.img} alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
                     <div className="caption">
                       <h4 className="font-h4" >{d.name}</h4>
                       <p className="parag" >{d.job}</p>

@@ -2,9 +2,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';  // for icons in landing
 import React , { useState, useEffect } from "react";
 import Header   from "./components/Header";
 import Intro    from "./components/Intro";
-import Features from "./components/Features";
-import AboutUs  from "./components/AboutUs";
-import Team     from "./components/Team";
+import ConferenceVid  from "./components/ConferenceVid";
+import Features from "./components/Features"; 
+import ZoomVid  from "./components/ZoomVid";
 import Contact  from "./components/contact";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
@@ -32,9 +32,9 @@ function Landing () {
     <>
         <Header/>
         <Intro />
-        <Features data={landingPageData.Features} />
-        <AboutUs data={landingPageData.About} />
-        <Team data={landingPageData.Team} /> 
+        <ConferenceVid />
+        <Features data={landingPageData.Features} /> 
+        <ZoomVid />
         <Contact data={landingPageData.Contact} />
         <Footer/>
     </>

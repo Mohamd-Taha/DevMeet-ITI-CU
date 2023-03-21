@@ -1,42 +1,42 @@
 {
   "About": {
-    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "paragraph": "Welcome to DevMeet, the social media platform for developers. At DevMeet, we believe that developers need a place to connect, collaborate, and learn from each other. That's why we've created a community where developers can meet, post, and ask technical and non-technical questions, and interact with each other",
     "Why": [
-      "Lorem ipsum dolor",
-      "Tempor incididunt",
-      "Lorem ipsum dolor",
-      "Incididunt ut labore"
+      "Quality ",
+      "Reliability",
+      "Experience",
+      "Good Customer service"
     ],
     "Why2": [
-      "Aliquip ex ea commodo",
-      "Lorem ipsum dolor",
-      "Exercitation ullamco",
-      "Lorem ipsum dolor"
+      "Easy of use",
+      "Innovation ",
+      "24/7 Availability",
+      "Cost-effectiveness"
     ]
   },  
   "Team": [
     {
-      "img": "images/LandingPageimgs/TM.png",
+      "img": "images/TeamMembers/Omar.jfif",
       "name": "Omar Khaled",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "images/LandingPageimgs//TM.png",
+      "img": "images/TeamMembers/Basmala.jfif",
       "name": "Basmala Mamdouh",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "images/LandingPageimgs//TM.png",
+      "img": "images/TeamMembers/Abdelrahman.PNG",
       "name": "Abdelrahman Mohamed",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "images/LandingPageimgs//TM.png",
+      "img": "images/TeamMembers/Eman.jpeg",
       "name": "Eman Mohamed",
       "job": "MEARN stack Developer"
     },
     {
-      "img": "images/LandingPageimgs//TM.png",
+      "img": "images/TeamMembers/Taha.jpeg",
       "name": "Mohamed Taha",
       "job": "MEARN stack Developer"
     }
@@ -51,14 +51,14 @@
   },
   "Features": [
     {
-      "icon": "fa fa-comments",
-      "title": "Chatting",
-      "text": "Developers can be connected to each other in chat rooms"
+      "icon": "fa fa-bullhorn",
+      "title": "Post & Ask Questions ",
+      "text": " Post your question on the platform and you will gladly get the help "
     },
     {
-      "icon": "fa fa-bullhorn",
-      "title": "Ask Questions ",
-      "text": " Ask your question on the platform and you will gladly help you "
+      "icon": "fa fa-laptop-code",
+      "title": "Interact and Comment",
+      "text": "You can help the others if you have the solution for thier issues"
     },
     {
       "icon": "fa fa-users",
@@ -66,9 +66,9 @@
       "text": "Meet & Disscuss a lot of topics and negotiate with others using Zoom meetings"
     },
     {
-      "icon": "fa fa-laptop-code",
-      "title": "Get Your Mentor",
-      "text": "You can ask an experienced developer to be your Mentor"
+      "icon": "fa fa-comments ",
+      "title": "Chatting",
+      "text": "Developers can be connected to each other in chat rooms"
     },
     {
       "icon": "fa fa-diagram-project",

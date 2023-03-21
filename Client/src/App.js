@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
+import AboutUs from "./Pages/1AboutUs/AboutUs";
 import Landing from "./Pages/1LandingPage/Landing.jsx";
 import Login from "./Pages/3Login/Login.jsx";
 import Register from "./Pages/2Register/Register.jsx";
@@ -43,6 +44,10 @@ function App() {
           element={
             !user ? <Landing></Landing> : <Navigate to="/home"></Navigate>
           }
+        ></Route>
+        <Route
+          path="/Aboutus"
+          element={<AboutUs></AboutUs>}
         ></Route>
         <Route
           path="/login"
