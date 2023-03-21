@@ -15,6 +15,12 @@ router.get("/login", authController.DisplayLogin)
 //render register page
 router.get("/register", authController.DisplayRegister)
 */
+//forgot password
+router.post("/forgotpassword", authController.forgotPassword)
+
+//reset password 
+// router.get("/reset-password/:id/:token", authController)
+
 //logout user
 router.get("/logout", authController.LogoutUser)
 //search user

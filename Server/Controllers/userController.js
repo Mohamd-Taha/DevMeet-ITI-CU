@@ -32,8 +32,9 @@ const getUserByLikes = async (req, res) => {
 
 const getUserFollowing = async (req, res) => {
   const { id } = req.params;
-  const user = await userAuth.findById(id).select("-password")
+
   try {
+    const user = await userAuth.findById(id).select("-password")
     const formattedFollowing = await userAuth.find({ _id: { $in: user.following } }).select("-password")
 
     res.status(200).json(formattedFollowing);
@@ -46,8 +47,8 @@ const getUserFollowing = async (req, res) => {
 
 const getUserFollowers = async (req, res) => {
   const { id } = req.params;
-  const user = await userAuth.findById(id)
   try {
+    const user = await userAuth.findById(id)
     const formattedFollowers = await userAuth.find({ _id: { $in: user.followers } }).select("-password")
     res.status(200).json(formattedFollowers);
   }
@@ -57,10 +58,15 @@ const getUserFollowers = async (req, res) => {
 }
 //GET USER COMMUNITIES
 const getUserCommunities = async (req, res) => {
+  try{
   const { id } = req.body;
   const UserId = id
   const User = await userAuth.findOne({ _id: UserId })
   res.status(200).json(User.Communities)
+  }
+  catch(err){
+     res.status(404).json({ message: err.message})
+  }
 
 }
 
@@ -76,16 +82,10 @@ const getUserMeetups = async (req, res) => {
 // add and remove follows
 
 const addRemoveFollow = async (req,res)=>{
-console.log(req.params)
+try{
  const {id, followId} = req.params
- console.log(id)
- console.log(followId)
  const user= await userAuth.findById(id).select("-password")
  const followuser=await userAuth.findById(followId).select("-password")
- console.log("followuser:")
- console.log(followuser)
- console.log(user)
- console.log(followuser)
 if((user && followuser) && (id!=followId)){
 if(user.following.includes(followuser._id)){
 const index = user.following.indexOf(followId);
@@ -96,10 +96,6 @@ const followIndex = followuser.followers.indexOf(id);
 if (followIndex !== -1) {
   followuser.followers.splice(followIndex, 1);
 }
-console.log('After filter:')
-console.log(user.following) 
-console.log(followuser.followers)
-console.log("unfollowed")
 }
 else{
  console.log("true")
@@ -119,6 +115,10 @@ else{
   else {
     res.status(404).json("invalid user")
   }
+}
+catch(err){
+   res.status(404).json({ message: err.message})
+}
 }
 
 //Update User

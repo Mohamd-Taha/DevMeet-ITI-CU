@@ -1,5 +1,6 @@
 const Ajv = require("ajv");
 var ajv = new Ajv();
+const validator = require("validator")
 
 const UserValidator={
 type:"object",

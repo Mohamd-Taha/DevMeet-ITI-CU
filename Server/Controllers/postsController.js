@@ -235,23 +235,34 @@ const getFollowPosts = async (req, res) => {
 
 //POST
 const getPostComments = async (req, res) => {
+  try{
   const { postId } = req.params;
   const comment = await Comment.find({ postId: postId }).sort({
     createdAt: -1,
   });
   res.status(200).json(comment);
+}
+catch(err){
+   res.status(404).json({ message: err.message})
+}
 };
 
 const searchPosts = async (req, res) => {
+  try{
   const { desc } = req.body;
   const post = await Post.find({ description: { $regex: desc } }).sort({
     description: 1,
     createdAt: -1,
   });
   res.status(200).json(post);
+}
+catch(err){
+   res.status(404).json({ message: err.message})
+}
 };
 
 const getFollowPostsByTop = async (req, res) => {
+  try{
   console.log("intop");
   const { userId } = req.params;
   const currentUserPosts = await Post.find({ userId: userId });
@@ -284,9 +295,14 @@ const getFollowPostsByTop = async (req, res) => {
   // .sort((a,b)=>{
   //     return b.createdAt - a.createdAt; //sort by date in descending
   // }
+}
+catch(err){
+   res.status(404).json({ message: err.message})
+}
 };
 
 const getTopPostsbyTags = async (req, res) => {
+  try{
   const { tag } = req.params;
   console.log("*****************tags");
   const trendingPosts = await Post.aggregate([
@@ -313,6 +329,10 @@ const getTopPostsbyTags = async (req, res) => {
   ]);
   console.log(trendingPosts);
   res.status(200).json(trendingPosts);
+}
+catch(err){
+   res.status(404).json({ message: err.message})
+}
 };
 
 module.exports = {

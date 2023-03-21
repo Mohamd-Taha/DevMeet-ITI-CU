@@ -1,13 +1,14 @@
 import React from "react";
-
-let Team = () => {
+import { useTranslation } from 'react-i18next';
+let Team = (props) => {
+     let [t,i18n]= useTranslation();
   return (
     <div id="team" className="txtCenter">
       <div className="Maincontainer">
         <div className="colMD8 colmdofst2 section-title">
-          <h2 className="font-h2">Meet the Team</h2>
-          <p className="parag" >We are Students @ITP - Information Technology Institute </p>
-          <h4 className="font-h4" >Full Stack Web Develeopment using MEARN track</h4>
+          <h2 className="font-h2">{t("Meet the Team")}</h2>
+          <p className="parag" >{t("We are Students @ITP - Information Technology Institute")} </p>
+          <h4 className="font-h4" >{t("Full Stack Web Develeopment using MEARN track")}</h4>
         </div>
         <div id="myrow">  
 

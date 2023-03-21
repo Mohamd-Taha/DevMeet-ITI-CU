@@ -7,6 +7,9 @@ const zoomMeetingSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
+  userId:{
+    type:[mongoose.Schema.Types.ObjectId]
+  },
   start_time: { 
     type: Date, 
     required: true 

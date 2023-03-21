@@ -3,6 +3,7 @@ const userAuth= require("../Models/userAuthModel");
 const UserValidator = require("../Utils/userValidator");
 const  jwt = require('jsonwebtoken');
 const path = require("path")
+const nodemailer = require('nodemailer');
 //require('dotenv').config();
 const loginValidator = require("../Utils/loginValidator")
 const maxAge = 3*24*60*60 //expiration data for cookies
@@ -26,7 +27,11 @@ var RegisterNewUser = async (req, res)=>{
  newUser={...newUser,profilePicture:img1,coverPicture:img2};
  console.log(newUser)
  var userValidator= UserValidator(newUser);
+
  try{
+ if(newUser.password.length<5){
+    throw Error ("Password must be at least 5 characters")
+ }
  if(userValidator){
 console.log("true")
  let foundUser = await userAuth.find({email:newUser.email}).exec();
@@ -53,7 +58,7 @@ console.log("true")
 
 }
 else{
-    throw Error("You entered invalid information ajv error")
+    throw Error("You entered invalid information")
 }
  }
 catch(error){
@@ -70,9 +75,9 @@ try{
 if(LoginValidator){
     console.log("true")
     //check if user exists
-    var foundUser = await userAuth.find({email:LoginUser.email}).exec();
+    var foundUser = await userAuth.find({email:LoginUser.email})
     console.log(foundUser)
-    if(!foundUser){
+    if(foundUser.length==0){
     console.log('error thrown')
     throw Error ("Email or password is invalid")
     }
@@ -93,10 +98,11 @@ res.status(201).json({user: foundUser[0]})
 
 }
 else{
-     throw Error ("enter valid Email or password")
+     throw Error ("Email or password is invalid")
 }
 }
 catch(error){
+console.log('inside error')
 res.status(400).json({error: error.message})
 }
 
@@ -106,6 +112,35 @@ res.status(400).json({error: error.message})
 var LogoutUser = (req, res)=>{
 res.cookie('jwt', '', {maxAge: 1})
 return res.send("log out succesful")
+}
+
+
+var forgotPassword = async (req,res)=>{
+const {email} = req.body;
+let foundUser = await userAuth.findOne({email:email}).exec();
+try{
+if(!foundUser){
+throw Error("User doesn't exist")
+}
+const secret= "thisissecret" + foundUser.password
+const payload ={
+    email: foundUser.email,
+    id: foundUser._id
+}
+const token = jwt.sign(payload, secret, {expiresIn: '15m'})
+const link= `http://localhost:3000/reset-password/${foundUser._id}/${token}`
+console.log(foundUser.email)
+sendEmail(foundUser.email, link)
+console.log(link)
+res.status(200).send("mail has been sent")
+}
+catch(err){
+    console.log(err)
+}
+}
+
+var resetPassword = async(req, res)=>{
+    const{id, token} = req.params
 }
 
 
@@ -131,6 +166,7 @@ var getAGroupMessages=(req,res)=>{
 // result is the fName,Lname,city,career,Picture
 
 var searchUser= async (req, res)=>{
+    try{
     var {firstName,lastName}=req.body;
     if(firstName&&lastName){
     var ussersArray=await userAuth.find({firstName:{ $regex : new RegExp(firstName, "i") },lastName: {$regex : new RegExp(lastName,"i") }});
@@ -139,9 +175,71 @@ var searchUser= async (req, res)=>{
     var ussersArray=await userAuth.find({firstName:{ $regex : new RegExp(firstName, "i") }});
     }
     res.json(ussersArray);
+}
+catch(err){
+     res.status(404).json({ message: err.message})
+}
     
 }
 
+
+function sendEmail(recipient_email, link ) {
+  return new Promise((resolve, reject) => {
+    var transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user:"devmeet2023@outlook.com",
+        pass:"devmeet23"
+      },
+    });
+
+    console.log(recipient_email, "+++++++++")
+
+    const mail_configs = {
+      from: "devmeet2023@outlook.com",
+      to: recipient_email,
+      subject: "DEVMEET PASSWORD RECOVERY",
+      html: `<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - OTP Email Template</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+  <div style="margin:50px auto;width:70%;padding:20px 0">
+    <div style="border-bottom:1px solid #eee">
+      <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">DEVMEET</a>
+    </div>
+    <p style="font-size:1.1em">Hi,</p>
+    <p>Thank you for choosing DEVMEET. Use the following OTP to complete your Password Recovery Procedure. OTP is valid for 15 minutes</p>
+    <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${link}</h2>
+    <p style="font-size:0.9em;">Regards,<br />Koding 101</p>
+    <hr style="border:none;border-top:1px solid #eee" />
+    <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+      <p>Koding 101 Inc</p>
+      <p>1600 Amphitheatre Parkway</p>
+      <p>California</p>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>`,
+    };
+    transporter.sendMail(mail_configs, function (error, info) {
+      if (error) {
+        console.log(error);
+        return reject({ message: `An error has occured` });
+      }
+      return resolve({ message: "Email sent succesfuly" });
+    });
+  });
+}
 
 
 
@@ -175,4 +273,4 @@ var searchUser= async (req, res)=>{
 
 
 
-module.exports= {RegisterNewUser, LoginUser, LogoutUser, searchUser};
+module.exports= {RegisterNewUser, LoginUser, LogoutUser, searchUser, forgotPassword};
