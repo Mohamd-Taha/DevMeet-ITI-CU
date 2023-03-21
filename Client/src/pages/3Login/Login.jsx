@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import React, { useRef, useEffect, useState } from 'react';
 import { useAuthContext } from "../../hooks/useAuthContext";
+import axios from "axios";
 
 
 
@@ -23,6 +24,7 @@ let [t,i18n]= useTranslation();
     let [password, setPassWord] = useState('')
     let [error, setError] = useState('')
     let { dispatch } = useAuthContext()
+    let [success, setSuccess] = useState('')
 
 
     const LoginServer = async (e) => {
@@ -48,6 +50,22 @@ let [t,i18n]= useTranslation();
         }
     }
 
+    const ForgotPassword= async ()=>{
+         setSuccess(null) 
+         setError(null)
+        axios.post(`http://localhost:7400/forgotpassword/`, {email}, { withCredentials: true, })
+        .then((response) => {
+          console.log(response)
+        })
+        .then(({ data }) => {
+            setSuccess("Link has been sent your email")
+            console.log(success)
+            console.log(data)
+        })
+        .catch((err) => {setError(err)})
+    }
+
+
     return (
         <div>
             <PlainNav></PlainNav>
@@ -72,10 +90,11 @@ let [t,i18n]= useTranslation();
                             <Box textAlign='center'>
                                 <Button type="submit" variant="contained" style={{ backgroundColor: 'purple', width: '60%', fontWeight: 'bold', fontSize: '13pt' }} sx={{ mt: 3, mb: 2 }} onClick={LoginServer} >{ t("Login") } </Button>
                                 {error && <div style={{color:'red'}}>{error}</div>}
+                                {success && <div style={{color:'green'}}>{success}</div>}
                             </Box>
                             <Grid container>
                                 {/* <Grid item xs>
-                                    <Link href="#" variant="body2" style={{color:'purple'}} > Forgot password? </Link>
+                                    <Link href="#" onClick={ForgotPassword} variant="body2" style={{color:'purple'}} > Forgot password? </Link>
                                 </Grid> */}
                                 <Grid item>
                                     <NavLink to={"/register"} variant="body2" style={{ color: 'purple' }}> {t("Don't have an account? Register")}  

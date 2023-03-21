@@ -20,7 +20,6 @@ function UpdateProfile() {
   user = user.user
   Object.freeze(user)
   const [profileImage, setProfileImage] = useState(user?.profilePicture)
-  console.log(profileImage)
   const [coverImage, setCoverImage] = useState(user?.coverPicture)
   const [description, setDescription] = useState(user?.desc)
   const [firstName, setFirstName] = useState(user?.firstName)
@@ -29,7 +28,6 @@ function UpdateProfile() {
   const [occupation, setOccupation] = useState(user?.career)
   const [success, setSuccess] = useState()
   let [t,i18n]= useTranslation();
-  console.log(user)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -45,7 +43,6 @@ function UpdateProfile() {
     axios.put(`http://localhost:7400/user/${user._id}`, formData, { withCredentials: true, })
 
       .then((response) => {
-        console.log(response)
         return response
       })
       .then(({ data }) => {
@@ -110,7 +107,6 @@ function UpdateProfile() {
                         <AccountBoxIcon htmlColor='#7e3e9c' className='ProfileIcon' />
                         <input hidden type="file" name="image1" accept="image/png, image/jpeg" onChange={(e) => {
                           let file = e.target.files[0];
-                          console.log(file)
                           if (file) {
                             setProfileImage(file);
                           }

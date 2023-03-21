@@ -39,7 +39,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
     const [image, setImage] = useState()
     const [error, setError] = useState()
     const [TagName, setTagName] = useState([]);
-    const [placeholder, setPlaceholder] = useState(`What's on your mind ${user.firstName}?`)
+    const [placeholder, setPlaceholder] = useState(user.firstName)
 
     const makePost = () => {
         setError(null)
@@ -88,7 +88,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
                 <div className="shareTop">
                     <img className='shareProfileImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
                     {error && <div style={{ color: 'red', fontWeight: 'bolder' }}> {error}</div>}
-                    <input placeholder={placeholder} required id="shareTextbox" className='shareInput' onChange={(e) => { setDescription(e.target.value) }} />
+                    <input placeholder={ t("What's on your mind", {placeholder})} required id="shareTextbox" className='shareInput' onChange={(e) => { setDescription(e.target.value) }} />
                 </div>
                 <hr className='shareHr' />
                 <div className="shareBottom">

@@ -17,6 +17,9 @@ function Profile() {
     const location = useLocation()
     const navigate = useNavigate();
     const [userProfile, setUserProfile] = useState();
+    const [isFollowing, setIsFollowing] = useState();
+    const [updatedUser, setUpdatedUser] = useState()
+    console.log(isFollowing)
 
     const { state } = location
     let { user } = useAuthContext()
@@ -25,6 +28,7 @@ function Profile() {
     useEffect(() => {
         if (state) {
             setUserProfile(state.user)
+            console.log(userProfile._id)
             Object.freeze(user)
         }
         else {
@@ -33,16 +37,23 @@ function Profile() {
         }
     })
 
-    const checkFollowing = (user, userProfile) => {
-        
-        if (user?.user_id != userProfile?._id) {
-            if (user.user.following.includes(userProfile._id)) {
-                console.log("true")
-                return true
-            }
-        }
+    const checkFollowing = async (user, userProfile) => {
+        console.log('entered check following')
+    try {
+    const response = await axios.get(`http://localhost:7400/user/${user.user._id}`);
+    const data = response.data;
+    console.log(data);
+    setUpdatedUser(data);
+    if (user?.user_id !== userProfile?._id && updatedUser?.following.includes(userProfile._id)) {
+      console.log('true');
+      setIsFollowing(true);
+    } else {
+      setIsFollowing(false);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 
-        return false
     }
 
 
@@ -62,19 +73,15 @@ function Profile() {
     }
 
 
-    const [isFollowing, setIsFollowing] = useState(checkFollowing(user, userProfile));
-    console.log(isFollowing)
-
-
 
 
 
 
     useEffect(() => {
-        if (user && userProfile) {
+        if(user&&userProfile){
             checkFollowing(user, userProfile)
         }
-    }, [])
+    }, [userProfile])
 
     const handleProfile = () => {
         navigate('/updateProfile');
@@ -89,9 +96,9 @@ function Profile() {
                 return response
             })
             .then(({ data }) => {
-                setUserProfile({ ...userProfile, following: data })
                 console.log("followed")
                 setIsFollowing(!isFollowing)
+                setUserProfile({ ...userProfile})
             })
             .catch((err) => { console.log(err) })
 
