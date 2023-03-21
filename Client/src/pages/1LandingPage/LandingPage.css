@@ -508,3 +508,8 @@ header .intro-text {
 
 
 
+@media screen and (max-width:1000px){
+  .navLnk{
+      display: none;
+  }
+}

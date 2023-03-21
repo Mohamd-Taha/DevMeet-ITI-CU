@@ -10,13 +10,18 @@ const Meetups = () => {
     const navigate = useNavigate();
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        if(roomcode && roomcode.length==13 && typeof roomcode!= 'number'){
         // alert("your Room id is  "+roomcode)
         navigate(`/meetup/${roomcode}`)
+        }
+        else{
+            alert ("Enter a valid Zoom Meeting ID , It must be number of 13 digit")
+        }
     }
-    const setRoomCodeRandom=()=>{
+    const setRoomCodeRandom = () => {
         setRoomCode(Date.now())
 
-// myalert()
+        // myalert()
     }
     // const myalert=()=>{
 
@@ -26,31 +31,29 @@ const Meetups = () => {
             <NavBar />
             <div className='container-fluid'>
                 <div className="row mt-5">
-                <div className="col-3 topusersize mt-5">
-                <div className="row mt-5">
-                    
-                    <h5> Top Users</h5>
-                   
+                    <div className="col-3 topusersize mt-5">
+                        <div className="row mt-5">
+
+                            <h5> Top Users</h5>
+
+                        </div>
                     </div>
-         </div>
                     <div className=" col-5">
                         <div className="row ">
                             <div className='parent_jRoom'>
                                 <div className='jRoom'>
                                     <div className='mycenterdiv'>
-                                    <form onSubmit={handleFormSubmit} className='form'>
-                                    {/* <div>Enter id or personal link name</div> */}
-                                    {/* <input type="text" class="my_form-control" value={roomcode} onChange={e=>setRoomCode(e.target.value)}  placeholder='Enter id or personal link name' required /> */}
-                                    {/* <br /> */}
-                                    <input type='submit' className='joinbutton mb-2' value="Create Meeting" onClick={setRoomCodeRandom}/>
-                                   <h3>Or</h3>
-                                    {/* <br /> */}
-                                    {/* <br /> */}
-                                     <div>Join Meeting</div> 
-                                 <input type="text" className="my_form-control mt-2" placeholder='Please Enter Meeting Id' value={roomcode} onChange={e=>setRoomCode(e.target.value)} />
-                                 <br />
-                                 <input type='submit' className='joinbutton2 mt-2' value="join" />
-                                    </form></div>
+                                        <form onSubmit={handleFormSubmit} className='form'>
+                                            {/* <div>Enter id or personal link name</div> */}
+                                            {/* <input type="text" class="my_form-control" value={roomcode} onChange={e=>setRoomCode(e.target.value)}  placeholder='Enter id or personal link name' required /> */}
+                                            <input type='submit' className='joinbutton mb-2' value="Create Meeting" onClick={setRoomCodeRandom} />
+                                            <h3>Or</h3>
+                                            <div>Join Meeting</div>
+                                            <input type="text" className="my_form-control mt-2" placeholder='Please Enter Meeting ID' value={roomcode} onChange={e => setRoomCode(e.target.value)} />
+                                            <br />
+                                            <input type='submit' className='joinbutton2 mt-2' value="join" />
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div></div>
@@ -95,7 +98,7 @@ const Meetups = () => {
                     </div>
 
                 </div>
-              
+
             </div>
             {/* <MeetupRoom myRoom={roomcode}/> */}
         </>

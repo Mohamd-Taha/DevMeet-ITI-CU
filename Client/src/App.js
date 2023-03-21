@@ -22,7 +22,7 @@ import MeetupRoom from "./Pages/9MeetupRoom/MeetupRoom";
 import Search from "./Pages/11Search/Search";
 import Error404 from "./Components/Error404";
 import Community from "./Pages/10Community/Community";
-import NotifyModal from "./Pages/7Notifications/NotifyModal";
+// import NotifyModal from "./Pages/7Notifications/NotifyModal";
 import Notifications from "./Pages/7Notifications/Notifications";
 import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfile";
@@ -41,55 +41,29 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            !user ? <Landing></Landing> : <Navigate to="/home"></Navigate>
-          }
-        ></Route>
-        <Route path="/Aboutus" element={<AboutUs></AboutUs>}
-        ></Route>
-        <Route path="/login" element={!user ? <Login></Login> : <Navigate to="/home"></Navigate>}
-        ></Route>
-        <Route
-          path="/register"
-          element={
-            !user ? <Register></Register> : <Navigate to="/home"></Navigate>
-          }
-        ></Route>
+        <Route path="/" element={ !user ? <Landing></Landing> : <Navigate to="/home"></Navigate> }></Route>
+        <Route path="/Aboutus" element={<AboutUs></AboutUs>}></Route>
+        <Route path="/login" element={!user ? <Login></Login> : <Navigate to="/home"></Navigate>}></Route>
+        <Route path="/register" element={ !user ? <Register></Register> : <Navigate to="/home"></Navigate> } ></Route>
 
-        <Route path="/home" element={
-            user ? <Home socket={socket} /> : <Navigate to="/login"></Navigate>
-          }
-        ></Route>
-        <Route path="/search" element={user ? <Search /> : <Navigate to="/login"></Navigate>}
-        ></Route>
-        <Route path="profile" element={user ? <Profile /> : <Navigate to="/login"></Navigate>}
-        ></Route>{" "}
-        {/* "profile/:userID" */}
-        <Route path="messenger" element={<Messanger />}></Route>
+        <Route path="profile" element={user ? <Profile /> : <Navigate to="/login"></Navigate>} ></Route> 
         <Route path="/updateProfile" element={<UpdateProfile />}></Route>
-        {/* <Route path="notifications" element={<Notifications/>}></Route> */}
-        <Route path="meetups" element={<Meetups/>}></Route>   
-        <Route path="/meetup/:roomId" element={<MeetupRoom/>}></Route>
-        
-        <Route path="/community/:id" element={<Community />}></Route>
-        <Route
-          path="notifications"
-          element={<Notifications socket={socket} />}
-        ></Route>
-        {/* <Route path="notifications/:id" element={<NotifyModal />}></Route> */}
-        <Route path="notifications/:userId" element={<Notifications socket={socket} />}></Route>
+        <Route path="/home" element={  user ? <Home socket={socket} /> : <Navigate to="/login"></Navigate> } ></Route>
+        <Route path="/search" element={user ? <Search /> : <Navigate to="/login"></Navigate>} ></Route>
         <Route path="componentSearch" element={<ComponentSearch />}></Route>
+        <Route path="messenger" element={<Messanger />}></Route>
+        <Route path="meetups" element={<Meetups/>}></Route>   
+        <Route path="/meetup/:roomId" element={<MeetupRoom/>}></Route> 
+        <Route path="/community/:id" element={<Community />}></Route>
+        <Route path="notifications" element={<Notifications socket={socket} />} ></Route>
+        <Route path="notifications/:userId" element={<Notifications socket={socket} />}></Route>
+        {/* <Route path="notifications/:id" element={<NotifyModal />}></Route> */}
+        {/* <Route path="notifications" element={<Notifications/>}></Route> */}
         <Route path="*" element={<Error404></Error404>}></Route>
       </Routes>
     </BrowserRouter>
 
-    //  <div>
-    //   {/* <Landing/>   */}
-    //   {/* <Profile/> */}
-    //   {/* <Home/> */}
-    // </div>
+
   );
 }
 export default App;

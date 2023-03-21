@@ -5,7 +5,7 @@ import React from "react";
 
 // const initialState = { name: '',  email: '', message: ''};
 
-let Contact = (props) => {
+let Contact = ( ) => {
   const [{ name, email, message }, setState] = useState({ name: '',  email: '', message: ''});
   const [isSent,setisSent]= useState(false);
 
@@ -80,7 +80,7 @@ let Contact = (props) => {
                 <span>
                   <i className="fa fa-map-marker"></i> Address
                 </span>
-                {props.data ? props.data.address : "loading"}
+                1234 Cairo Univ st. Giza, Egypt, Giza 12345 
               </p>
             </div>
             <div className="contact-item">
@@ -88,7 +88,7 @@ let Contact = (props) => {
                 <span>
                   <i className="fa fa-phone"></i> Phone
                 </span> 
-                {props.data ? props.data.phone : "loading"}
+                +20 1123 456 789
               </p>
             </div>
             <div className="contact-item">
@@ -96,7 +96,7 @@ let Contact = (props) => {
                 <span>
                   <i className="fa fa-envelope"></i> Email
                 </span> 
-                {props.data ? props.data.email : "loading"}
+                Devmeet2023@gmail.com
               </p>
             </div>
           </div> 
