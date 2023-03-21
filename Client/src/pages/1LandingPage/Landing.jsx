@@ -5,12 +5,10 @@ import Intro    from "./components/Intro";
 import ConferenceVid  from "./components/ConferenceVid";
 import Features from "./components/Features"; 
 import ZoomVid  from "./components/ZoomVid";
-import Contact  from "./components/contact";
-import JsonData from "./data/data.json";
+import Contact  from "./components/contact"; 
 import SmoothScroll from "smooth-scroll";
 import Footer from '../../Components/Footer';
-import './LandingPage.css'
-import { BrowserRouter,Routes,Route, Switch, Link ,NavLink} from 'react-router-dom';
+import './LandingPage.css' 
 import Error404 from '../../Components/Error404'
 import { useTranslation } from 'react-i18next';
 
@@ -23,19 +21,15 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 function Landing () {
     let [t,i18n]= useTranslation();
 
-    const [landingPageData, setLandingPageData] = useState({});
-    useEffect(() => {
-        setLandingPageData(JsonData);
-    }, []);
 
     return (
     <>
         <Header/>
         <Intro />
         <ConferenceVid />
-        <Features data={landingPageData.Features} /> 
+        <Features /> 
         <ZoomVid />
-        <Contact data={landingPageData.Contact} />
+        <Contact/>
         <Footer/>
     </>
     );

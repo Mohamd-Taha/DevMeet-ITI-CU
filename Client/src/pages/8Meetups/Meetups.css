@@ -1,90 +1,114 @@
-.M-container{
-    margin:5%;
-    border-color: aqua;
+.M-container {
+  margin: 5%;
+  border-color: aqua;
 }
 
-  .myevent{
+.myevent {
   background-color: antiquewhite;
-    margin: 2px;
-    width: 30%;
-    height: 100px;
-    border-bottom: 1px black solid;
-  }
-  .eventNo{
- margin-top: 2px;
- margin-bottom: 2px;
- margin-left: 2px;
- text-align: center;
-   background-color: aquamarine;
-    width: 50px;
-    border-radius: 5px;
-  }
-  .bg-light{
-background-color: aqua;
-  }
-  .parent_jRoom{
-    height: 100vh ;
-    width: 35vw;
-    display: flex;
-    justify-content: center;
-    /* justify-self: center; */
-  }
-  .jRoom{
-    background-color: #f2ebff;
-    box-shadow: 0 0 5px 2px purple;
-    width: 70%;
-    height: 50% ;
-     /* justify-self: center;  */
-    margin-top: 20vh;
-    text-align: center;
-   /* justify-self: center; */
-  }
-  .joinbutton {
-    background-color: purple;
-    color: #fff;
-    width: 30%;
-    height: 70px;
-    border-radius: 10px;
-    /* margin-top: 5px; */
-  }
-  .my_form-control{
-    width: 80%;
-    border-radius: 5px;
-    margin: auto;
-  }
- .mybackground{
+  margin: 2px;
+  width: 30%;
+  height: 100px;
+  border-bottom: 1px black solid;
+}
+
+.eventNo {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+  text-align: center;
+  background-color: aquamarine;
+  width: 50px;
+  border-radius: 5px;
+}
+
+.bg-light {
+  background-color: aqua;
+}
+
+.parent_jRoom {
+  height: 100vh;
+  width: 35vw;
+  display: flex;
+  justify-content: center;
+  /* justify-self: center; */
+}
+
+.jRoom {
+  background-color: #f2ebff;
+  box-shadow: 0 0 5px 2px purple;
+  width: 70%;
+  height: 50%;
+  /* justify-self: center;  */
+  margin-top: 20vh;
+  text-align: center;
+  /* justify-self: center; */
+}
+
+.joinbutton {
+  background-color: purple;
+  color: #fff;
+  width: 30%;
+  height: 70px;
+  border-radius: 10px;
+  /* margin-top: 5px; */
+}
+
+.my_form-control {
+  width: 80%;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.mybackground {
   background-color: rgba(128, 0, 128, 0.7);
   border: gray 1px solid;
   height: 12vh;
   font-size: large;
- }
- .myeventdiv{
-height: fit-content;
- /* background-color: rgba(230, 227, 227,0.5); */
- background-color: #f2ebff;
- font-size: large;
- height: 12vh;
- }
- .mycenterdiv{
+}
+
+.myeventdiv {
+  height: fit-content;
+  /* background-color: rgba(230, 227, 227,0.5); */
+  background-color: #f2ebff;
+  font-size: large;
+  height: 12vh;
+}
+
+.mycenterdiv {
   margin-top: 15vh;
- }
- .mymargin{
+}
+
+.mymargin {
   margin-top: 20px;
 
- }
- .topusersize{
+}
+
+.topusersize {
   /* margin-top: 200px; */
   height: fit-content;
   font-size: large;
   height: 12vh;
   border: 1px red solid;
- /* margin-left: 5px; */
- padding-left: 5px;
- }
- .joinbutton2{
-    background-color: purple;
-    color: #fff;
-    width: 20%;
-    height: 35px;
-    border-radius: 10px;
- }
+  /* margin-left: 5px; */
+  padding-left: 5px;
+}
+
+.joinbutton2 {
+  background-color: purple;
+  color: #fff;
+  width: 20%;
+  height: 35px;
+  border-radius: 10px;
+}
+
+
+
+.joinbutton2:hover{
+  font-weight: bold;
+  background-color: rgb(161, 0, 161);
+}
+
+.joinbutton:hover{
+  font-weight: bold;
+  background-color: rgb(161, 0, 161);
+}

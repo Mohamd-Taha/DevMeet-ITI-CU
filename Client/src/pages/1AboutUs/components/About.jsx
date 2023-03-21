@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 
 
 
-let AboutUs = (props) => {
+let About = (props) => {
   return (
     <div id="about" style={{paddingTop:'150px'}}>
       <div className="Maincontainer">
@@ -14,23 +14,28 @@ let AboutUs = (props) => {
           <div className="colXS12 colmd6">
             <div className="about-text">
               <h2 className="font-h2" >About Us</h2>
-              <p className="parag"  >{props.data ? props.data.paragraph : "loading..."}</p>
+              <p className="parag"  >
+                Welcome to DevMeet, the social media platform for developers. At DevMeet, 
+                we believe that developers need a place to connect, collaborate, and learn from 
+                each other. That's why we've created a community where developers can meet, post, 
+                and ask technical and non-technical questions, and interact with each other
+              </p>
               <h3 className="font-h3" style={{paddingTop:'20px'}}>Why Choose Us?</h3>
               <div className="list-style">
                 <div className="collg6 colsm6 colXS12">
-                  <ul>
-                    {props.data
-                      ? props.data.Why.map((d, i) => (
-                          <li key={`${d}-${i}`}>{d}</li>
-                        ))
-                      : "loading"}
+                  <ul> 
+                    <li>Quality</li>
+                    <li>Reliability</li>
+                    <li>Experience</li>
+                    <li>Good Customer service</li>
                   </ul>
                 </div>
                 <div className="collg6 colsm6 colXS12">
                   <ul>
-                    {props.data ? props.data.Why2.map((d, i) => (
-                          <li key={`${d}-${i}`}> {d}</li>
-                        )) : "loading"}
+                    <li>Easy of use</li>
+                    <li>Innovation</li>
+                    <li>24/7 Availability</li>
+                    <li>Cost-effectiveness</li>
                   </ul>
                 </div>
               </div>
@@ -76,4 +81,4 @@ let AboutUs = (props) => {
 
 
 
-export default AboutUs;
+export default About;

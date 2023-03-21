@@ -1,6 +1,6 @@
 import React from "react";
 
-let Team = (props) => {
+let Team = () => {
   return (
     <div id="team" className="txtCenter">
       <div className="Maincontainer">
@@ -9,19 +9,55 @@ let Team = (props) => {
           <p className="parag" >We are Students @ITP - Information Technology Institute </p>
           <h4 className="font-h4" >Full Stack Web Develeopment using MEARN track</h4>
         </div>
-        <div id="myrow"> 
-          {props.data ? props.data.map((d, i) => ( 
-                <div key={`${d.name}-${i}`} className="colmd3 colsm6 team"> 
+        <div id="myrow">  
+
+                <div className="colmd3 colsm6 team"> 
                   <div className="thumbnail"> 
-                    <img src={d.img} alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
+                    <img src="images/TeamMembers/Omar.jfif" alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
                     <div className="caption">
-                      <h4 className="font-h4" >{d.name}</h4>
-                      <p className="parag" >{d.job}</p>
+                      <h4 className="font-h4" >Omar Khaled</h4>
+                      <p className="parag" >MEARN stack Developer</p>
                     </div>
                   </div>
                 </div>
-              ))
-            : "loading"}
+                <div  className="colmd3 colsm6 team"> 
+                  <div className="thumbnail"> 
+                    <img src="images/TeamMembers/Basmala.jfif" alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
+                    <div className="caption">
+                      <h4 className="font-h4" >Basmala Mamdouh</h4>
+                      <p className="parag" >MEARN stack Developer</p>
+                    </div>
+                  </div>
+                </div>
+                <div  className="colmd3 colsm6 team"> 
+                  <div className="thumbnail"> 
+                    <img src="images/TeamMembers/Abdelrahman.png" alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
+                    <div className="caption">
+                      <h4 className="font-h4" >Abdelrahman Mohamed</h4>
+                      <p className="parag" >MEARN stack Developer</p>
+                    </div>
+                  </div>
+                </div>
+                <div  className="colmd3 colsm6 team"> 
+                  <div className="thumbnail"> 
+                    <img src="images/TeamMembers/Eman.jpeg" alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
+                    <div className="caption">
+                      <h4 className="font-h4" >Eman Mohamed</h4>
+                      <p className="parag" >MEARN stack Developer</p>
+                    </div>
+                  </div>
+                </div>
+                <div  className="colmd3 colsm6 team"> 
+                  <div className="thumbnail"> 
+                    <img src="images/TeamMembers/Taha.jpeg" alt="." className="team-img" style={{height:'250px' , width:'auto'}}/>
+                    <div className="caption">
+                      <h4 className="font-h4" >Mohamed Taha</h4>
+                      <p className="parag" >MEARN stack Developer</p>
+                    </div>
+                  </div>
+                </div>
+
+
         </div>
       </div>
     </div>
