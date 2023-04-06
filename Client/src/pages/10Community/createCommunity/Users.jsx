@@ -10,14 +10,15 @@ const Users = (props) => {
   const { data, addSelected } = props;
   const [tag, setTag] = useState([]);
   // const [registeredUser, setRegiteredUser] = useState([])
-  const onsearch = (data) => {
+
+  const onselect = (selected) => {
     console.log("****************")
     console.log({ tag })
     console.log({ data })
     // setTag([...tag, data.firstName + " " + data.lastName])
-    setTag([{ fN: data.firstName, lN: data.lastName, pP: data.profilePicture }, ...tag])
+    setTag([{ fN: selected.firstName, lN: selected.lastName, pP: selected.profilePicture }, ...tag])
     // setRegiteredUser([data._id, ...registeredUser])
-    addSelected(data._id)
+    addSelected(selected._id)
 
   }
   useEffect(() => {
@@ -33,7 +34,10 @@ const Users = (props) => {
           id="input-group-dropdown-1"
         >
           {data.map((std) => <div key={std._id} >
-            <Dropdown.Item href="#" onClick={() => onsearch(std)} > {std.firstName} {std.lastName} </Dropdown.Item>
+            <Dropdown.Item href="#" onClick={() => onselect(std)} >
+              <img style={{ width: "30px", height: "auto" }} src={`http://localhost:7400/images/${std.profilePicture}`}></img>
+              {std.firstName} {std.lastName}
+            </Dropdown.Item>
           </div>)}
         </DropdownButton>
         <Form.Control aria-label="Text input with dropdown button" />
@@ -42,7 +46,7 @@ const Users = (props) => {
       <div className="d-flex flex-row ml-1">
         <h4>Members:</h4>
         {tag.map((e) => (
-          <div className="border rounded p-1 m-1 border-primary">
+          <div key={e.firstName + e.lastName} className="border rounded p-1 m-1 border-primary">
             <img style={{ width: "30px", height: "auto" }} src={`http://localhost:7400/images/${e.pP}`}></img>
             {e.fN} {e.lN}
             <Button color="danger">x</Button>

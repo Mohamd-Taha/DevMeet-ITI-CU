@@ -8,9 +8,12 @@ var createCommunity = async (req, res) => {
     // var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,registeredNumber:registNo,posts:posts} = req.body;
 
     var { communityName,adminId:admin, communityDescription, AdminName: aName,registeredUsers,registeredNumber,communityTopic } = req.body;
+    registeredUsers=JSON.parse(registeredUsers)
     // handle pics returning from multer
-    image1 = (req.files) ? req.files.image1[0].filename : "CommunityCover.png";
-    image2 = (req.files) ? req.files.image2[0].filename : "CommunityIcon.png";
+    console.log("print registered users")
+    console.log(registeredUsers)
+    image1 = (req.files.image1) ? req.files.image1[0].filename : "CommunityCover.png";
+    image2 = (req.files.image2) ? req.files.image2[0].filename : "CommunityIcon.png";
 
     console.log("start fun")
     var obk = { adminId: admin, adminName: aName }
@@ -111,7 +114,13 @@ var getCommunityByid = async (req, res) => {
 var addPostToCommunity = async (req, res) => {
     //inputs are communityID & postId
     var { postId, CommunityId } = req.body;
-    let newComm = communityModel.findById(CommunityId);
+    console.log("******************************")
+    console.log({postId})
+    console.log("******************************")
+    console.log({CommunityId})
+    console.log("******************************")
+    let newComm = await communityModel.findById(CommunityId);
+    console.log(newComm)
     newComm.posts.push(postId);
     newComm.save();
     res.json({ status: "DONE" })
@@ -136,6 +145,8 @@ var searchByCommunityName=async (req,res)=>{
     
     res.json(comm);
 }
+
+
 
 
 
@@ -183,5 +194,6 @@ var getCommunityAdminbyId=async (req,res)=>{
 
 module.exports = {
     createCommunity, registerToCommunity, getACommunitiesByuserId,
-    tryImage, getCommunityByid, requestToJoin, getCommunities,searchByCommunityName
+    tryImage, getCommunityByid, requestToJoin, getCommunities
+    ,searchByCommunityName,addPostToCommunity
 }

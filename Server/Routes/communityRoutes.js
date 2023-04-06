@@ -11,6 +11,7 @@ Router.get('/getCommunityByid',communityController.getCommunityByid)
 Router.get('/get',communityController.getCommunities)
 Router.get('/requestToJoin',communityController.requestToJoin)
 Router.get('/searchbyname',communityController.searchByCommunityName)
+Router.post('/addposttocommunity',communityController.addPostToCommunity)
 
 // Router.post('/deleteUserFromCommunity',communityController.deleteUserFromCommunity)
 

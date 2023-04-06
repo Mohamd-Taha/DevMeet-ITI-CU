@@ -4,43 +4,47 @@ import { useEffect, useState } from "react";
 import { fontSize } from '@mui/system';
 import { Block } from '@mui/icons-material';
 import axios from 'axios';
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
-const CommunitySearch = () => {
+
+const CommunitySearch = ({ comm }) => {
+    let { user } = useAuthContext();
+    user = user.user
     //{ community, userId } component props
-    let userId = "6414c0799c6e5ce227dafc";
+    //let userId = "6414c0799c6e5ce227dafc";
     const [joined, setJoined] = useState(false)
     const [flag, setFlag] = useState(false)
-
+    // const [displayFlag, setDisplayFlag] = useState(false)
     let joinedOrNot;
 
-    let comm = {
-        communityName: "ITI Organization",
-        communityAdmin: {
-            adminId: "640de48d4699705215d4e701"
-        },
-        communityDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-        ,
-        commiunityIcon: "CommunityIcon.png",
-        commiunityCover: "egyptphones.png",
-        registeredUsers: [
-            "640e0a3ed0c672be0e671db8",
-            "640fa1b4975e1079f7ddd1bd",
-            "64134f0ad03d8e9718c6495b",
-            "6414c0799c6e5ce227dafc27",
-            "64161f16f33803128e2a93fa",
-            "64161f36f33803128e2a9408"
-        ],
-        communityTopic: "Programming Languages"
-        ,
-        registeredNumber: 6,
-        meetups: [],
-        posts: [],
-        joinRequests: [],
-        _id: "64185c278b1025aa1d94dec4",
-        createdAt: "2023-03-20T13:14:15.530Z",
-        updatedAt: "2023-03-20T13:14:15.530Z",
-        __v: 0
-    }
+    // let comm = {
+    //     communityName: "ITI Organization",
+    //     communityAdmin: {
+    //         adminId: "640de48d4699705215d4e701"
+    //     },
+    //     communityDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
+    //     ,
+    //     commiunityIcon: "CommunityIcon.png",
+    //     commiunityCover: "egyptphones.png",
+    //     registeredUsers: [
+    //         "640e0a3ed0c672be0e671db8",
+    //         "640fa1b4975e1079f7ddd1bd",
+    //         "64134f0ad03d8e9718c6495b",
+    //         "6414c0799c6e5ce227dafc27",
+    //         "64161f16f33803128e2a93fa",
+    //         "64161f36f33803128e2a9408"
+    //     ],
+    //     communityTopic: "Programming Languages"
+    //     ,
+    //     registeredNumber: 6,
+    //     meetups: [],
+    //     posts: [],
+    //     joinRequests: [],
+    //     _id: "64185c278b1025aa1d94dec4",
+    //     createdAt: "2023-03-20T13:14:15.530Z",
+    //     updatedAt: "2023-03-20T13:14:15.530Z",
+    //     __v: 0
+    // }
 
 
 
@@ -52,6 +56,7 @@ const CommunitySearch = () => {
         console.log(`joined value is  ${joined}`)
 
     }
+
     var requestToJoin = (userId) => {
         axios.posts('http://localhost:7400/communities/requestToJoin', {
             userId: userId,
@@ -60,8 +65,9 @@ const CommunitySearch = () => {
     }
 
     useEffect(() => {
-        console.log("inside community search component")
-        checkIFloined(userId);
+        checkIFloined(user._id);
+        console.log(`user id : ${user._id}`)
+        console.log(comm)
         setFlag(true)
     }, [])
 
@@ -69,15 +75,18 @@ const CommunitySearch = () => {
 
 
     return (
-        <div>
+        <div className='border rounded mb-2 border-primary ' >
             <Card
                 style={{
-                    width: '40rem'
+                    // width: '40rem'
+                    width: '100%',
+
                 }}
             >
                 <img
                     alt="Sample"
                     src={`http://localhost:7400/images/${comm.commiunityCover}`}
+                    style={{ height: "200px", width: "auto" }}
                 />
                 <CardBody>
                     <CardTitle tag="h5" style={{ fontSize: "2em" }}>

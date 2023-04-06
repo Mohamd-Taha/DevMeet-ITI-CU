@@ -13,12 +13,9 @@ import "./Community.css"
 import NavBar from "../../Components/NavBar";
 const Community = () => {
     let { user } = useAuthContext();
-    
+
     user = user.user;
-
-    const { idParam } = useParams();
-    // const idParam = '640cfa5e56cb738eda3b521c'
-
+    const { id } = useParams();
     const [imageSrc, serImageSrc] = useState("communityCover");
     const [community, setCommunity] = useState({});
     const [currentPosts, setCurrentPosts] = useState([]);
@@ -48,11 +45,16 @@ const Community = () => {
         axios
             .get("http://localhost:7400/communities/getCommunityByid", {
                 params: {
-                    id: idParam,
+                    id: id,
                 },
             })
             .then((res) => {
+                console.log(res.data)
                 setCommunity(res.data);
+                for (let i = 0; i < res.data.posts.length; i++) {
+                    let MapObject = new Map(Object.entries(res.data.posts[i].likes));
+                    res.data.posts[i].likes = MapObject;
+                }
                 setCurrentPosts(res.data.posts);
 
                 console.log(community);
@@ -74,6 +76,13 @@ const Community = () => {
     //     console.log("mounting component")
 
     // }, [imageSrc])
+    const getLikedPost = () => {
+
+    }
+
+    const DeletePost = () => {
+
+    }
 
     return (
         //first outline dev
@@ -127,7 +136,9 @@ const Community = () => {
                                 ></Share>
                             </div>
                             <div>
-                                <post></post>
+                                {currentPosts?.map((p) => (
+                                    <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} />
+                                ))}
                             </div>
                         </div>
                     </div>

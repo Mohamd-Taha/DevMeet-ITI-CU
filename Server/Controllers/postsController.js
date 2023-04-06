@@ -14,7 +14,7 @@ const Authorize = (Token, userId) => {
   }
 };
 const createPost = async (req, res) => {
-  const { userId, description, picturePath, tags, personal, communityId } =
+  const { userId, description, picturePath, tags, personalCheck, communityId } =
     req.body;
   console.log(tags);
   const tagsArray = tags.split(",");
@@ -26,6 +26,7 @@ const createPost = async (req, res) => {
   console.log(req.files);
   //edit to add profilePicture
   const image1 = req.files.image1 ? req.files.image1[0].filename : null;
+
   //  console.log(img1)
   //  newUser={...newUser,profilePicture:img1,coverPicture:img2};
   //const user = await User.findById(userId);
@@ -40,7 +41,7 @@ const createPost = async (req, res) => {
     userPicturePath: user.profilePicture,
     likes: {},
     tags: [...tagsArray],
-    personal,
+    personalCheck,
   };
   console.log(PostObj);
   const newPost = new Post(PostObj);

@@ -11,6 +11,11 @@ import Footer from "../../Components/Footer";
 import HomeCommunities from "./components/homeCommunities";
 import Search from "../11Search/Search";
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
+import CommunitySearch from "../10Community/components/communitySearch";
+import CreateCommunity from "../10Community/createCommunity/createCommunity";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+
 
 const Homecomponent = ({ socket }) => {
   let { user } = useAuthContext();
@@ -21,6 +26,9 @@ const Homecomponent = ({ socket }) => {
   const [communities, setCommunities] = useState()
   const [search, setSearch] = useState()
   const [searchResults, setSearchResults] = useState()
+  const [communitySearchResult, setCommunitySearchResult] = useState([])
+  const [searchFlag, setSearchFlag] = useState()
+  const [crtCmtyFlag, setCrtCmtyFlag] = useState(false)
   // const [isDiv1Visible, setIsDiv1Visible] = useState(true);   // for notloaded posts divs
 
   const [activeButton, setActiveButton] = useState(null);  //for New / Trending
@@ -145,6 +153,7 @@ let msg={
     if (!data) return;
     setSearch(data);
     setFlag(false);
+    setSearchFlag(false)
     console.log("************");
     console.log(search);
     try {
@@ -164,12 +173,32 @@ let msg={
         });
     } catch { }
   };
+  const searchCommunity = () => {
+    let searchWord = search;
+    axios.get('http://localhost:7400/communities/searchbyname',
+      { params: { communityName: searchWord } }
+    ).then((res) => {
+      console.log(res.data)
+      setCommunitySearchResult(res.data);
+    }
+    ).catch((err) => {
+      console.log(err)
+    })
+    setSearchFlag(true)
+
+  }
   useEffect(() => {
     socket.emit("joinUser", user);
   })
   useEffect(() => {
     getNewPosts();
   }, []);
+
+  const setcommunityFlag = () => {
+    setCrtCmtyFlag(true)
+    setFlag(false)
+
+  }
 
   //get all communities from this user
   useEffect(() => {
@@ -229,22 +258,33 @@ let msg={
         <>
           <div className="searchDiv">
             <div className="SearchNav">
-              <input className="buttonSearch" type="button" value="Found Users" />
-              {/* <input className="buttonSearch" type="button" value="Posts" />
-              <input className="buttonSearch" type="button" value="Communities" /> */}
+              <input className="buttonSearch" type="button" value="Found Users" onClick={() => { setSearchFlag(false) }} />
+              {/* /* <input className="buttonSearch" type="button" value="Posts" /> */}
+              <input className="buttonSearch" type="button" value="Communities" onClick={searchCommunity} /> */
             </div>
-            {searchResults && <>
+            {searchResults && !searchFlag && <>
               {searchResults?.map((c) => (
                 <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture} />
               ))} </>}
-            {!searchResults &&
+            {!searchResults && !searchFlag &&
               <div className="noHomePostsyet">
                 <p>No Matches Found</p>
               </div>
             }
+            {communitySearchResult && searchFlag && <>
+              {communitySearchResult?.map((c) => (
+                <CommunitySearch comm={c} />
+              ))} </>
+            }
           </div>
+
+
         </>
       }
+      {/* {crtCmtyFlag ?
+        <CreateCommunity />
+        : <></>
+      } */}
       {/* end of 1st option */}
 
       {/* start of 2st option */}
@@ -276,6 +316,7 @@ let msg={
       }
       {/* end of 2st option */}
 
+
       <div className="TopRightDiv">
         <p>Meeting Times</p>
       </div>
@@ -288,11 +329,12 @@ let msg={
         ))}
         <div>
           <img style={{ width: "38px", height: "auto" }} src={`http://localhost:7400/images/addcommunity.png`}></img>
-          <link to='/addNewCommunity'>
-            <Button style={{ backgroundColor: "#68377f", }} >
+          <Link to="/addnewcommunity">
+            <Button style={{ backgroundColor: "#68377f", }}  >
+
               Create New Community
             </Button>
-          </link>
+          </Link>
 
         </div>
       </div>

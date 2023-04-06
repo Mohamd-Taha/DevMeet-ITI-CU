@@ -38,6 +38,9 @@ function App() {
   }, []);
 
   return (
+
+    <>
+    <div>TOP of APP.JS</div>
     <BrowserRouter>
       <Routes>
         <Route
@@ -87,10 +90,11 @@ function App() {
         <Route path="notifications/:userId" element={<Notifications socket={socket} />}></Route>
         <Route path="componentSearch" element={<ComponentSearch />}></Route>
         {/* <Route path="addNewCommunity" element={<addCommunity/>}></Route> */}
-        <Route path="addNewCommunity" element={<CreateCommunity/>}></Route>
+        <Route path="/addnewcommunity" element={<CreateCommunity/>}></Route>
         <Route path="*" element={<Error404></Error404>}></Route>
       </Routes>
     </BrowserRouter>
+    </>
 
     //  <div>
     //   {/* <Landing/>   */}
