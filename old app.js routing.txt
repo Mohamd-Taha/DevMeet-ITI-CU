@@ -1,0 +1,61 @@
+<>
+    <div>TOP of APP.JS</div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            !user ? <Landing></Landing> : <Navigate to="/home"></Navigate>
+          }
+        ></Route>
+        <Route
+          path="/login"
+          element={!user ? <Login></Login> : <Navigate to="/home"></Navigate>}
+        ></Route>
+        <Route
+          path="/register"
+          element={
+            !user ? <Register></Register> : <Navigate to="/home"></Navigate>
+          }
+        ></Route>
+        
+        <Route
+          path="/home"
+          element={
+            user ? <Home socket={socket} /> : <Navigate to="/login"></Navigate>
+          }
+        ></Route>
+        <Route
+          path="/search"
+          element={user ? <Search /> : <Navigate to="/login"></Navigate>}
+        ></Route>
+        <Route
+          path="profile"
+          element={user ? <Profile /> : <Navigate to="/login"></Navigate>}
+        ></Route>{" "}
+        {/* "profile/:userID" */}
+        <Route path="messenger" element={<Messanger />}></Route>
+        <Route path="/updateProfile" element={<UpdateProfile />}></Route>
+        {/* <Route path="notifications" element={<Notifications/>}></Route> */}
+        <Route path="meetups" element={<Meetups />}></Route>{" "}
+        {/* "meetups/:meetupID" */}
+        <Route path="/community/:id" element={<Community />}></Route>
+        <Route path="/communitysearch" element={<CommunitySearch/>}></Route>
+        <Route
+          path="notifications"
+          element={<Notifications socket={socket} />}
+        ></Route>
+        {/* <Route path="notifications/:id" element={<NotifyModal />}></Route> */}
+        <Route path="notifications/:userId" element={<Notifications socket={socket} />}></Route>
+        <Route path="componentSearch" element={<ComponentSearch />}></Route>
+        {/* <Route path="addNewCommunity" element={<addCommunity/>}></Route> */}
+        <Route path="/addnewcommunity" element={<CreateCommunity/>}></Route>
+
+        {/* will be nested route for Home Page */}
+        <Route path="/posts" element={<Posts socket={socket}/>}></Route>
+        <Route path="/usrcommsrch/:searchtext" element={<UserCommunitySearch />}></Route>
+
+        <Route path="*" element={<Error404></Error404>}></Route>
+      </Routes>
+    </BrowserRouter>
+    </>

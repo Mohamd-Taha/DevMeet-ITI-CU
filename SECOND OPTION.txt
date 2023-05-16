@@ -1,0 +1,3 @@
+{flag && <div className="shareDiv">
+        <Share user={user} sendNewPost={getSharePost} personalCheck="true"></Share>
+      </div>}

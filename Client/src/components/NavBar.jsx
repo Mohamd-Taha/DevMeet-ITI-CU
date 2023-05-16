@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Person, Chat, Notifications } from "@mui/icons-material"
 import { BrowserRouter, Routes, Route, Switch, Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useAuthContext'; 
+import { useAuthContext } from '../hooks/useAuthContext';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import './MainComponentsSTYLES.css'
@@ -10,10 +10,10 @@ import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/Send';
 
 
-const NavBar = ({sendSearch}) => {
+const NavBar = ({ sendSearch }) => {
     const { dispatch, user } = useAuthContext();
     let userInfo = user.user;
-    const [search, setSearch]= useState()
+    const [search, setSearch] = useState()
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
         axios.get('http://localhost:7400/logout', {
@@ -30,10 +30,10 @@ const NavBar = ({sendSearch}) => {
         <nav id="menu" className=" navbar-default navbarFIXtop">
             <div className=" ">
                 <div className="navbarHHeader">
-                <NavLink to="/home"  >
-                    <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a>                 
-                    <img src="/assets/SiteLogo.png" height="50px" alt="pic" />
-                </NavLink>
+                    <NavLink to="/home"  >
+                        <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a>
+                        <img src="/assets/SiteLogo.png" height="50px" alt="pic" />
+                    </NavLink>
                 </div>
 
                 <ul className=" navbarNNNav navtoright unordlist">
@@ -61,14 +61,18 @@ const NavBar = ({sendSearch}) => {
                 <div className="topbarCentre">
                     <div className="searchbar">
                         <Search className="searchIcon" />
-                        <input placeholder="Search Users..." className="searchInput "  onChange={(e)=>{setSearch(e.target.value)}} />
+                        <input placeholder="Search Users..." className="searchInput " onChange={(e) => { setSearch(e.target.value) }} />
                         <span className="focus-bg"></span>
                         <div>
-                            <IconButton color="primary" aria-label="upload picture" component="label" onClick={()=>{sendSearch(search)}}>
-                                <SendIcon htmlColor='purple' /> 
-                            </IconButton>
+                            <Link to='/Home/search'>
+                                <IconButton color="primary" aria-label="upload picture" component="label" onClick={() => { sendSearch(search) }}>
+                                    <SendIcon htmlColor='purple' />
+                                </IconButton>
+                            </Link>
                         </div>
+
                     </div>
+
                 </div>
 
                 {/* <Box component="form" sx={{ '& .MuiTextField-root': {  marginLeft:'60px' ,width: '20ch' }, }} noValidate autoComplete="off" >   

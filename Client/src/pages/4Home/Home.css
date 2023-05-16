@@ -6,8 +6,8 @@
 }
 
 .filterDiv {
-    grid-column-start: 8;
-    grid-column-end: 20;
+    /* grid-column-start: 8;
+    grid-column-end: 20; */
     grid-row-start: 6;
     grid-row-end: 8;
     text-align: center;
@@ -56,6 +56,12 @@
     grid-row-start: 5;
     grid-row-end: 50;
 }
+.center{
+    
+    grid-column-start: 8;
+    grid-column-end: 20;
+    grid-row-start: 5;
+}
 
 .leftHomeDiv a { 
     display: block; 
@@ -85,7 +91,7 @@
 }
 
 .shareDiv {
-    grid-column-start: 8;
+    grid-column-start: 2;
     grid-column-end: 20;
     grid-row-start: 10;
 }

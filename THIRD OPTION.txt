@@ -1,0 +1,20 @@
+{flag && <div className="PostsDiv">
+        {currentPosts?.map((p) => (
+          <Post key={p._id} post={p} userId={user._id} sendNewPost={getLikedPost} refreshPosts={DeletePost} socket={socket} />
+        ))}
+
+        {currentPosts && currentPosts.length == 0 &&
+          // if there is no posts in home page
+          <div /*style={{ display: isDiv1Visible ? "block" : "none" }} */ className='noHomePostsyet'>
+            <p>You have No posts to view</p>
+            <p>No One Posted for this Tag till now</p>
+          </div>
+        }
+        {currentPosts && currentPosts.length == 0 && user.following.length == 0 && // if there is no posts in home page 
+          <div id="div2"/* style={{ display: !isDiv1Visible ? "block" : "none" }} */ className="noHomePostsyet">
+            <p>You have No posts to view</p>
+            <p>Follow other users to show thier posts, also you can share your own posts</p>
+          </div>
+        }
+      </div>
+      }

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
+  createBrowserRouter, 
+  createRoutesFromElements,
+  RouterProvider,
   BrowserRouter,
   Route,
   Routes,
@@ -8,6 +11,11 @@ import {
   NavLink,
 } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
+import { Link } from 'react-router-dom';
+import router2 from "./Routing/router";
+import Posts from "./Pages/4Home/routing components/posts";
+import UserCommunitySearch from "./Pages/4Home/routing components/usersCommunitySearch";
+
 
 import Landing from "./Pages/1LandingPage/Landing.jsx";
 import Login from "./Pages/3Login/Login.jsx";
@@ -26,6 +34,7 @@ import NotifyModal from "./Pages/7Notifications/NotifyModal";
 import Notifications from "./Pages/7Notifications/Notifications";
 import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfile";
+
 import { io } from "socket.io-client";
 
 function App() {
@@ -37,13 +46,12 @@ function App() {
     console.log(socket);
   }, []);
 
-  return (
 
-    <>
-    <div>TOP of APP.JS</div>
-    <BrowserRouter>
-      <Routes>
-        <Route
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/">
+       <Route
           path="/"
           element={
             !user ? <Landing></Landing> : <Navigate to="/home"></Navigate>
@@ -65,7 +73,12 @@ function App() {
           element={
             user ? <Home socket={socket} /> : <Navigate to="/login"></Navigate>
           }
-        ></Route>
+        >
+          {/* nested route for Home page */}
+          <Route index element={<Posts socket={socket}/>}/>
+          <Route path="search" element={<UserCommunitySearch/>}/>
+
+        </Route>
         <Route
           path="/search"
           element={user ? <Search /> : <Navigate to="/login"></Navigate>}
@@ -91,10 +104,25 @@ function App() {
         <Route path="componentSearch" element={<ComponentSearch />}></Route>
         {/* <Route path="addNewCommunity" element={<addCommunity/>}></Route> */}
         <Route path="/addnewcommunity" element={<CreateCommunity/>}></Route>
+
+        {/* will be nested route for Home Page */}
+        <Route path="/posts" element={<Posts socket={socket}/>}></Route>
+        <Route path="/usrcommsrch/:searchtext" element={<UserCommunitySearch />}></Route>
+
         <Route path="*" element={<Error404></Error404>}></Route>
-      </Routes>
-    </BrowserRouter>
-    </>
+      </Route>
+    )
+  )
+
+  return (
+
+    <div>
+
+      {/* need to handle many things related to socket var and useAuthContext i.e should i put the socket varable in routing file */}
+      <RouterProvider router={router}/>
+
+
+    </div>
 
     //  <div>
     //   {/* <Landing/>   */}
