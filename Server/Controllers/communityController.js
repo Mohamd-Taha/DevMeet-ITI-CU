@@ -7,17 +7,25 @@ var createCommunity = async (req, res) => {
     //this line blow was used only to tes
     // var { communityName: name, communityAdmin: admin, communityDescription: desc ,AdminName:aName,registeredNumber:registNo,posts:posts} = req.body;
 
-    var { communityName: name, adminId: admin, communityDescription: desc, AdminName: aName } = req.body;
+    var { communityName,adminId:admin, communityDescription, AdminName: aName,registeredUsers,registeredNumber,communityTopic } = req.body;
+    registeredUsers=JSON.parse(registeredUsers)
     // handle pics returning from multer
+    console.log("print registered users")
+    console.log(registeredUsers)
     image1 = (req.files.image1) ? req.files.image1[0].filename : "CommunityCover.png";
     image2 = (req.files.image2) ? req.files.image2[0].filename : "CommunityIcon.png";
 
     console.log("start fun")
     var obk = { adminId: admin, adminName: aName }
     var commModel = new communityModel({
-        communityName: name, communityAdmin: obk,
-        communityDescription: desc, commiunityIcon: image2,
-        commiunityCover:image1
+        communityName: communityName,
+         communityAdmin: obk,
+        communityDescription: communityDescription,
+         commiunityIcon: image2,
+        commiunityCover:image1,
+        registeredUsers:registeredUsers,
+        registeredNumber:registeredNumber,
+        communityTopic:communityTopic
     });
 
     await commModel.save();
@@ -106,7 +114,13 @@ var getCommunityByid = async (req, res) => {
 var addPostToCommunity = async (req, res) => {
     //inputs are communityID & postId
     var { postId, CommunityId } = req.body;
-    let newComm = communityModel.findById(CommunityId);
+    console.log("******************************")
+    console.log({postId})
+    console.log("******************************")
+    console.log({CommunityId})
+    console.log("******************************")
+    let newComm = await communityModel.findById(CommunityId);
+    console.log(newComm)
     newComm.posts.push(postId);
     newComm.save();
     res.json({ status: "DONE" })
@@ -123,6 +137,17 @@ var requestToJoin = async (req, res) => {
     console.log(comm);
 
 }
+
+var searchByCommunityName=async (req,res)=>{
+    let commName=req.query.communityName;
+    // let comm=await communityModel.find({communityName:commName})
+    let comm=await communityModel.find({ communityName: { $regex:commName, $options: "i" } });
+    
+    res.json(comm);
+}
+
+
+
 
 
 // var deleteUserFromCommunity =(req,res)=>{
@@ -170,4 +195,5 @@ var getCommunityAdminbyId=async (req,res)=>{
 module.exports = {
     createCommunity, registerToCommunity, getACommunitiesByuserId,
     tryImage, getCommunityByid, requestToJoin, getCommunities
+    ,searchByCommunityName,addPostToCommunity
 }

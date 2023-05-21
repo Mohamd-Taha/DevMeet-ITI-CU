@@ -8,7 +8,7 @@ import "./conversation.css"
 
 
 
-const Conversation = ({ conversation, currentUser }) => {
+const Conversation = ({ conversation, currentUser, selectedChat }) => {
     var counter = 0;
     const [user, setUser] = useState(null)
     useEffect(() => {
@@ -27,12 +27,12 @@ const Conversation = ({ conversation, currentUser }) => {
     }, [currentUser, conversation])
     return (
         //need to add profile picture
-        <div className='conversation'>
-            { 
+        <div className='conversation' style={selectedChat ? { borderRadius: "15px", backgroundColor: "#c7a7e6" } : {}}>
+            {
                 user && <img className='conversationImg' src={`http://localhost:7400/images/${user?.profilePicture}`} alt="" />
             }
             {
-                user && <span className="conversationName">{user?.firstName+" "+user?.lastName}</span>
+                user && <span className="conversationName">{user?.firstName + " " + user?.lastName}</span>
             }
         </div>
     );

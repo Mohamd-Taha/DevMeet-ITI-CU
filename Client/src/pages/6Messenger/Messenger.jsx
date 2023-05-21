@@ -14,7 +14,6 @@ const Messanger = () => {
     let user = JSON.parse(localStorage.getItem('user'))
     user = user.user
     var count = 0;
-    var my;
     const [conversations, setConversation] = useState([])
     const [currentChat, setCurrentChat] = useState(null)
     const [messages, setMessages] = useState([])
@@ -23,51 +22,20 @@ const Messanger = () => {
     const socket = useRef()
     const scrollRef = useRef();
     const [userImg, setuserImg] = useState([])
-    let [t,i18n]= useTranslation();
+    let [t, i18n] = useTranslation();
+    const [converstaionFlag, setConversationFlag] = useState(false);
+    const [selectedChat, setSelectedChat] = useState();
+    const [userImage, setUserImage] = useState();
+    const [recieverImage, setRecieverImage] = useState();
 
-    useEffect(() => {
-        socket.current = io("ws://localhost:8900")
-        socket.current.on("getMessage", data => {
-            setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now(),
-            })
-        })
-    }, [])
-
+    //Component Update 
     useEffect(() => {
 
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...messages, arrivalMessage])
 
-    }, [arrivalMessage, currentChat])
-
-
-
-    //array was with user
-    useEffect(() => {
-        socket.current.emit("addUser", user._id)
-        socket.current.on("getUsers", users => {
-            console.log(users)
-        })
-    }, [])
-
-
-    useEffect(() => {
-        const getConversations = async () => {
-            try {
-                const res = await axios.get("http://localhost:7400/api/conversations/" + user._id)
-                setConversation(res.data);
-                console.log(res);
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        getConversations();
-    }, [])
-
-
+    }
+        , [arrivalMessage, currentChat])
 
     useEffect(() => {
         const getUser = async () => {
@@ -82,7 +50,15 @@ const Messanger = () => {
 
         // console.log(currentChat._id)
         getUser()
-    }, [currentChat])
+    },
+        [currentChat])
+
+    useEffect(() => {
+        setConversationFlag(true)
+        console.log(conversations)
+    }
+        , [conversations])
+
     useEffect(() => {
         const getImgUser = async () => {
             await axios.get("http://localhost:7400/user/" + user?._id).then(res => {
@@ -99,13 +75,65 @@ const Messanger = () => {
 
         // console.log(currentChat._id)
         getImgUser()
-    }, [user._id])
+    }
+        , [user._id])
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ bahavior: "smooth" })
+    }, [messages])
+
+
+    //Mounting Functions
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900")
+        socket.current.on("getMessage", data => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            })
+        })
+        console.log("from mounting function 1")
+
+
+    }
+        , [])
+
+    useEffect(() => {
+        socket.current.emit("addUser", user._id)
+        socket.current.on("getUsers", users => {
+            console.log(users)
+        })
+        console.log("from mounting function 2")
+    }
+        , [])
+
+
+    useEffect(() => {
+        const getConversations = async () => {
+            try {
+                const res = await axios.get("http://localhost:7400/api/conversations/" + user._id)
+                setConversation(res.data);
+                console.log(res);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getConversations();
+        console.log("from mounting function 3")
+    }, [])
+
+
 
     const doThis = (d) => {
         setCurrentChat(d)
+        changeChat(d._id)
+
+    }
+    const changeChat = (newChatId) => {
+        setSelectedChat(newChatId);
     }
 
-    
     const handleSubmit = async (e) => {
         if (newMessage.trim() === "") return;
         e.preventDefault();
@@ -132,45 +160,70 @@ const Messanger = () => {
                 })
     }
 
+    const getUserImage = async () => {
+        try {
+            const res = await axios.get(`http://localhost:7400/images/${user?.profilePicture}`)
+            setUserImage(res.data)
+            console.log("userImage is downloaded")
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
     useEffect(() => {
-        scrollRef.current?.scrollIntoView({ bahavior: "smooth" })
-    }, [messages])
-    return (<>
-        <NavBar></NavBar>
-        <div className='messanger'>
-            <div className="chatMenu">
-                <div className="chatMenuWrapper">
-                    <h5 className='aboveUsersTitle'> Chat with DevMeet users...</h5>
-                    {conversations.map(C => (
-                        <div onClick={() => doThis(C)} style={{ width: '85%' }} >
-                            <Conversation conversation={C} currentUser={user} />
+        const getUserImage = async () => {
+
+            const res = await axios.get(`http://localhost:7400/images/${user?.profilePicture}`)
+            console.log(res.data)
+            setUserImage(res.data)
+            console.log("userImage is downloaded")
+        }
+    }
+        , [])
+
+
+    return (
+        <>
+
+            <NavBar style={{ zIndex: '100' }} ></NavBar >
+
+            <div className='messanger'>
+                <div className="chatMenu">
+                    <div className="chatMenuWrapper">
+                        <h5 className='aboveUsersTitle'> Chat with DevMeet users...</h5>
+                        {converstaionFlag && conversations.map(C => (
+                            <div onClick={() => doThis(C)} style={{ width: '85%' }} key={C._id} >
+                                <Conversation conversation={C} currentUser={user} selectedChat={selectedChat == C._id} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="chatBox">
+                    <div className="chatBoxWrapper"> {
+                        currentChat ? <>
+                            <div className="chatBoxTop">
+                                {messages.map((m) => (
+                                    <div ref={scrollRef}>
+                                        <Message message={m} own={m.sender === user._id} user={user} />
+                                    </div>
+                                )
+                                )}
+                            </div>
+                            <div className="chatBoxBottom">
+                                <textarea className='chatMessageInput' placeholder='write your message...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
+                                <button className='chatSubmitButton' onClick={handleSubmit} >{t("SEND")}</button>
+                            </div>
+                        </> : <div className='noConversationText' >
+                            <span>{t(" Open a conversation to start a chat...")}</span>
                         </div>
-                    ))}
+                    }
+                    </div>
                 </div>
             </div>
-            <div className="chatBox">
-                <div className="chatBoxWrapper"> {
-                    currentChat ? <>
-                        <div className="chatBoxTop">
-                            {messages.map((m) => (
-                                <div ref={scrollRef}>
-                                    <Message message={m} own={m.sender === user._id} user={user} />
-                                </div>
-                            )
-                            )}
-                        </div>
-                        <div className="chatBoxBottom">
-                            <textarea className='chatMessageInput' placeholder='write your message...' onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                            <button className='chatSubmitButton' onClick={handleSubmit} >{t("SEND")}</button>
-                        </div>
-                        </> : <div className='noConversationText' >
-                                <span>{t(" Open a conversation to start a chat...")}</span>
-                            </div>
-                }
-                </div>
-            </div> 
-        </div>
-    </>
+
+            {/* </div> */}
+            {/* </> */}
+        </>
     );
 }
 

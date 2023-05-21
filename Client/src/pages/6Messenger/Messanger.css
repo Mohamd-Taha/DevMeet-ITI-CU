@@ -1,11 +1,12 @@
+/*
 .messanger {
-    /* height: calc(100vh- 70px); */
+    // height: calc(100vh- 70px); 
     display: flex;
-    margin: 50px;
+    margin:50px;
     margin-top: 100px;
     background-color: #f2ebff;
     border-radius: 25px;
-    box-shadow: 0px 0px 40px rgb(80, 0, 117);
+    box-shadow: 0px 0px 40px  rgb(80, 0, 117);
 }
 
 .chatMenu {
@@ -13,15 +14,15 @@
     height:570px
 }
 
-/* .chatMenuInput { 
-    width: 85%;
-    padding: 15px;
-    margin-bottom: 30px;
-    font-weight: 600;
-    border: none;
-    border-bottom: 3px solid gray;
-    border-radius: 50px;
-} */
+// .chatMenuInput { 
+//    width: 85%;
+//    padding: 15px;
+//    margin-bottom: 30px;
+//    font-weight: 600;
+//    border: none;
+//    border-bottom: 3px solid gray;
+//    border-radius: 50px;
+//} 
 
 
 
@@ -36,9 +37,19 @@
     border-radius: 50px;
 }
 
+
 .chatBox {
     flex: 7;
-}
+ }
+
+@media (max-width: 567) {
+    .chatBox {
+      flex: none;
+      width: 100%;
+    }
+  }
+
+
 
 .chatBoxWrapper {
     display: flex;
@@ -49,7 +60,7 @@
 }
 
 .chatBoxTop { 
-    width: auto;
+    width: auto;    
     overflow-y: scroll; 
     padding-right: 10px;
     height: 430px;
@@ -111,13 +122,13 @@
 .chatBoxWrapper,
 .chatOnlineWrapper { 
     padding: 10px;
-    /* background-color: violet; */
+    // background-color: violet; 
     height: 100%;
     overflow-y: scroll;
 }
 
 .noConversationText {
-    /* position: absolute; */
+     position: absolute; 
     top: 15%;
     font-size: 30pt;
     color: rgb(122, 104, 124);
@@ -131,3 +142,167 @@
 ::-webkit-scrollbar {
     width: 0em;
 }
+
+*/
+
+.messanger {
+    display: flex;
+    margin: 50px;
+    margin-top: 100px;
+    background-color: #f2ebff;
+    border-radius: 25px;
+    box-shadow: 0px 0px 40px rgb(80, 0, 117);
+  }
+  
+  .chatMenu {
+    flex: 4;
+    height: 570px;
+  }
+  
+  .aboveUsersTitle {
+    width: 85%;
+    padding: 15px;
+    margin-bottom: 30px;
+    font-weight: 800;
+    color: purple;
+    font-family: 'raleway';
+    border-bottom: 3px solid rgb(121, 71, 128);
+    border-radius: 50px;
+  }
+  
+  .chatBox {
+    flex: 7;
+  }
+  
+  .chatBoxWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 97%;
+  }
+  
+  .chatBoxTop {
+    width: auto;
+    overflow-y: scroll;
+    padding-right: 10px;
+    height: 430px;
+    margin-top: 20px;
+    border-radius: 50px;
+    padding: 25px;
+    background-color: rgb(199, 167, 230);
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .chatBoxBottom {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chatSubmitButton {
+    width: 15%;
+    height: auto;
+    padding: 10px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(132, 0, 194);
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+  }
+  
+  .chatSubmitButton:hover {
+    padding: 12px;
+    background-color: rgb(99, 0, 145);
+  }
+  
+  .chatSubmitButton:active {
+    padding: 12px;
+    background-color: rgb(82, 0, 121);
+  }
+  
+  .chatMessageInput {
+    width: 80%;
+    height: 90px;
+    padding: 15px;
+    resize: none;
+    border-radius: 10px;
+  }
+  
+  .chatOnline {
+    flex: 3;
+  }
+  
+  .chatMenuWrapper,
+  .chatBoxWrapper,
+  .chatOnlineWrapper {
+    padding: 10px;
+    height: 100%;
+    overflow-y: scroll;
+    
+  }
+  
+  .noConversationText {
+    position: absolute;
+    top: 15%;
+    font-size: 30px;
+    color: rgb(122, 104, 124);
+    cursor: default;
+    font-family: 'raleway';
+    opacity: 25%;
+    width: 85%;
+    font-weight: 900;
+  }
+  
+  /* Media queries */
+  
+  @media (max-width: 768px) {
+    .messanger {
+      flex-direction: column;
+      margin: 20px;
+      margin-top: 80px;
+    }
+  
+    .chatMenu {
+      height: auto;
+      flex: none;
+      width: 100%;
+    }
+  
+    .chatBox {
+      flex: none;
+      width: 100%;
+    }
+  
+    .chatBoxTop {
+      height: 300px;
+    }
+  
+    .chatMessageInput {
+      height: 70px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .aboveUsersTitle {
+      font-size: 24px;
+    }
+  
+    .chatSubmitButton {
+      width: 30%;
+      font-size: 20px;
+      padding: 8px;
+      margin-left: 10px;
+    }
+  
+    .chatMessageInput {
+      width: 70%;
+      height: 60px;
+      font-size: 16px;
+    }
+  }

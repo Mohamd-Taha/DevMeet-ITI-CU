@@ -10,7 +10,10 @@ var communitySchema = new mongoose.Schema({
         type: String,
         Required: true,
         minLength: 5,
-        maxLength: 20
+        maxLength: 30
+    },
+    communityTopic:{
+        type:String
     },
 
     communityAdmin:
@@ -29,7 +32,9 @@ var communitySchema = new mongoose.Schema({
     communityDescription: {
         type: String,
         Required: true,
-        minLength: 10
+        minLength: 10,
+        maxLength: 300
+
     },
 
     commiunityIcon: {
@@ -43,7 +48,7 @@ var communitySchema = new mongoose.Schema({
 
     },
     registeredUsers:
-        { type: [mongoose.SchemaTypes.ObjectId], ref: "DevMeetUsers" }
+        { type: [mongoose.SchemaTypes.ObjectId], ref: "users" }
     ,
     registeredNumber: { type: Number,default:1 },
 

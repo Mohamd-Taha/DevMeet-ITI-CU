@@ -11,11 +11,13 @@ import SendIcon from '@mui/icons-material/Send';
 import { useTranslation } from 'react-i18next';
 import { Button } from "@mui/material";
 
+
 const NavBar = ({ sendSearch }) => {
-    const { user, dispatch } = useAuthContext()
+    const { dispatch, user } = useAuthContext();
+    let userInfo = user.user;
     const [search, setSearch] = useState()
     let [t, i18n] = useTranslation();
-    let userInfo = user.user;
+
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
         axios.get('http://localhost:7400/logout', {
@@ -35,6 +37,57 @@ const NavBar = ({ sendSearch }) => {
                     <a className="naVbrand page-scroll ancr navancr ">  DevMeet </a>
                     <img src="/assets/SiteLogo.png" height="50px" />
                 </NavLink>
+                {/* <div className=" "> */}
+                {/* <div className="navbarHHeader"> */}
+                {/* <NavLink to="/home"  > */}
+                {/* <a className="naVbrand page-scroll ancr navancr " href="#page-top">  DevMeet </a> */}
+                {/* <img src="/assets/SiteLogo.png" height="50px" alt="pic" /> */}
+                {/* </NavLink> */}
+                {/* </div> */}
+
+                {/* <ul className=" navbarNNNav navtoright unordlist"> */}
+                {/* <li className="navLnk" > */}
+                {/* <NavLink to="/" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Home </NavLink> */}
+                {/* </li> */}
+                {/* <li className="navLnk" > */}
+                {/* <NavLink to={`/notifications/${userInfo._id}`} className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Notifications </NavLink> */}
+                {/* </li> */}
+                {/* <li className="navLnk" > */}
+                {/* <NavLink to="/messenger" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Messenger </NavLink> */}
+                {/* </li> */}
+                {/* <li className="navLnk" > */}
+                {/* <NavLink to="/meetups" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Meetups </NavLink> */}
+                {/* </li> */}
+                {/* <li className="navLnk" > */}
+                {/* <NavLink to="/profile" className="ancr navancr navancrA" style={({ isActive }) => ({ color: isActive ? "#7925c7 " : "" })} > Profile </NavLink> */}
+                {/* </li> */}
+                {/* <button className="myBotton myBotton-custom logsginin_btns ancr  navancr navancrA " onClick={LogOut} > */}
+                {/* Logout */}
+                {/* </button> */}
+                {/* </ul> */}
+                {/* SEARCH BAR */}
+
+                {/* <div className="topbarCentre"> */}
+                {/* <div className="searchbar"> */}
+                {/* <Search className="searchIcon" /> */}
+                {/* <input placeholder="Search Users..." className="searchInput " onChange={(e) => { setSearch(e.target.value) }} /> */}
+                {/* <span className="focus-bg"></span> */}
+                {/* <div> */}
+                {/* <Link to='/Home/search'> */}
+                {/* <IconButton color="primary" aria-label="upload picture" component="label" onClick={() => { sendSearch(search) }}> */}
+                {/* <SendIcon htmlColor='purple' /> */}
+                {/* </IconButton> */}
+                {/* </Link> */}
+                {/* </div> */}
+
+                {/* </div> */}
+
+                {/* </div> */}
+
+                {/* <Box component="form" sx={{ '& .MuiTextField-root': {  marginLeft:'60px' ,width: '20ch' }, }} noValidate autoComplete="off" >   
+                <TextField id="standard-search" label="Search"  type="search" variant="standard" />          
+            </Box>  */}
+
             </div>
 
             <ul className=" navbarNNNav navtoright unordlist">

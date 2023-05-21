@@ -1,0 +1,33 @@
+{flag ?
+        <div className="filterDiv">
+          <lable className={activeButton === 0 ? "tagbuttons " : "activetagbuttons"} style={{ borderRight: "0.5px solid rgb(174, 174, 175)" }} onClick={getNewPosts}>Recent Posts</lable>
+          <span>&nbsp;&nbsp;</span>
+          <lable className={activeButton === 1 ? "tagbuttons " : "activetagbuttons"} onClick={getTrendingPosts} >Trending Posts</lable>
+        </div> :
+        <>
+          <div className="searchDiv">
+            <div className="SearchNav">
+              <input className="buttonSearch" type="button" value="Found Users" onClick={() => { setSearchFlag(false) }} />
+              {/* /* <input className="buttonSearch" type="button" value="Posts" /> */}
+              <input className="buttonSearch" type="button" value="Communities" onClick={searchCommunity} /> */
+            </div>
+            {searchResults && !searchFlag && <>
+              {searchResults?.map((c) => (
+                <Search key={c._id} user={c} firstName={c.firstName} lastName={c.lastName} userPicturePath={c.profilePicture} />
+
+              ))} </>}
+            {!searchResults && !searchFlag &&
+              <div className="noHomePostsyet">
+                <p>No Matches Found</p>
+              </div>
+            }
+            {communitySearchResult && searchFlag && <>
+              {communitySearchResult?.map((c) => (
+                <CommunitySearch comm={c} />
+              ))} </>
+            }
+          </div>
+
+
+        </>
+      }

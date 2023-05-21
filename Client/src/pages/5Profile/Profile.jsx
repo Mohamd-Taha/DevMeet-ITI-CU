@@ -13,7 +13,7 @@ import { Alert, Box, Button, Card, CardActions, CardContent, Container, Divider,
 import { useTranslation } from 'react-i18next'
 
 function Profile() {
-    let [t,i18n]= useTranslation();
+    let [t, i18n] = useTranslation();
     const location = useLocation()
     const navigate = useNavigate();
     const [userProfile, setUserProfile] = useState();
@@ -39,20 +39,20 @@ function Profile() {
 
     const checkFollowing = async (user, userProfile) => {
         console.log('entered check following')
-    try {
-    const response = await axios.get(`http://localhost:7400/user/${user.user._id}`);
-    const data = response.data;
-    console.log(data);
-    setUpdatedUser(data);
-    if (user?.user_id !== userProfile?._id && updatedUser?.following.includes(userProfile._id)) {
-      console.log('true');
-      setIsFollowing(true);
-    } else {
-      setIsFollowing(false);
-    }
-  } catch (err) {
-    console.log(err);
-  }
+        try {
+            const response = await axios.get(`http://localhost:7400/user/${user.user._id}`);
+            const data = response.data;
+            console.log(data);
+            setUpdatedUser(data);
+            if (user?.user_id !== userProfile?._id && updatedUser?.following.includes(userProfile._id)) {
+                console.log('true');
+                setIsFollowing(true);
+            } else {
+                setIsFollowing(false);
+            }
+        } catch (err) {
+            console.log(err);
+        }
 
     }
 
@@ -78,7 +78,7 @@ function Profile() {
 
 
     useEffect(() => {
-        if(user&&userProfile){
+        if (user && userProfile) {
             checkFollowing(user, userProfile)
         }
     }, [userProfile])
@@ -98,12 +98,12 @@ function Profile() {
             .then(({ data }) => {
                 console.log("followed")
                 setIsFollowing(!isFollowing)
-                setUserProfile({ ...userProfile})
+                setUserProfile({ ...userProfile })
             })
             .catch((err) => { console.log(err) })
 
     }
-    
+
     return (
         <>
             <NavBar />
@@ -118,21 +118,21 @@ function Profile() {
                             </div>
 
 
-                            <div className='TotalLikes'>  
-                                <h5 > Total Likes:</h5>
-                                <img className='TotalLikesSymb' src='/images/TotalLikesSymb.png'  alt="Likes" />
-                                <h5>{ userProfile.likes } Likes</h5> 
+                            <div className='TotalLikes'>
+                                <h5 > {t("Total Likes")}:</h5>
+                                <img className='TotalLikesSymb' src='/images/TotalLikesSymb.png' alt="Likes" />
+                                <h5>{userProfile.likes} Likes</h5>
                             </div>
-                            
+
                             {/* <div className='BadgesContainer' >
                                 <p>Badges</p>
                             </div> */}
 
 
-                            {user.user._id != userProfile._id && 
+                            {user.user._id != userProfile._id &&
                                 <NavLink to={`/messenger`} state={{ user: user }}>
-                                    <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={AddConversation} > 
-                                        {t("Message")} 
+                                    <Button style={{ backgroundColor: 'purple', translate: '-120%' }} variant="contained" id="UpdateProfile" onClick={AddConversation} >
+                                        {t("Message")}
                                     </Button>
                                 </NavLink>
                             }
@@ -160,7 +160,7 @@ function Profile() {
 
                         <div className="profilerightBottom">
                             <ProfilePosts userProfile={userProfile} />
-                            <Rightbar profile userProfile={userProfile}  user={user}/>
+                            <Rightbar profile userProfile={userProfile} user={user} />
                         </div>
                     </div>
                 </div>}

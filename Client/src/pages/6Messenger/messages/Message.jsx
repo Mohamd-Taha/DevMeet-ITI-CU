@@ -3,36 +3,39 @@ import "./message.css"
 import { format } from "timeago.js"
 import axios from "axios";
 
-function Message({ message, own, user }) {
+function Message({ message, own, user, userimage }) {
 
- const [receiver, setReceiver] = useState()
- console.log(message.sender)
- console.log(receiver)
-    useEffect( ()=>{
-         const getReceiver = async () => {
+    const [receiver, setReceiver] = useState()
+    console.log(message.sender)
+    console.log(receiver)
+
+    useEffect(() => {
+        const getReceiver = async () => {
             try {
-        const res = await axios.get("http://localhost:7400/user/" + message.sender)
+                const res = await axios.get("http://localhost:7400/user/" + message.sender)
                 setReceiver(res.data)
             }
-            catch(err){
+            catch (err) {
                 console.log(err)
             }
         }
         if (message.sender !== user._id) {
-      getReceiver();
+            getReceiver();
+        }
     }
-            },[message.sender!=user._id])
-          
-            
-    
+        , [message.sender != user._id])
+
+
+
 
     return (
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
-                <img className='messageImg' src={own?`http://localhost:7400/images/${user?.profilePicture}`:`http://localhost:7400/images/${receiver?.profilePicture}`} alt="you" />
+                <img className='messageImg' src={own ? `http://localhost:7400/images/${user?.profilePicture}` : `http://localhost:7400/images/${receiver?.profilePicture}`} alt="you" />
+                {/* <img className='messageImg' src={own ? userimage.url : `http://localhost:7400/images/${receiver?.profilePicture}`} alt="you" /> */}
                 <p className='messageText'>{message.text}</p>
             </div>
-                <span  className="messageBottom"  > {format(message.createdAt)} </span>
+            <span className="messageBottom"  > {format(message.createdAt)} </span>
         </div>
     );
 }

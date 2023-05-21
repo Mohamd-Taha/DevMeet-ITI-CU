@@ -3,6 +3,9 @@
     padding-top:10px;
     padding-left:275px;
 }
+.navbar-default{
+    top:0px;
+}
 .searchbar {
     width: 25%;
     height: 35px; 

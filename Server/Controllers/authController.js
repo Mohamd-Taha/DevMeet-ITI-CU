@@ -181,6 +181,12 @@ catch(err){
 }
     
 }
+//not finally completed
+var searchFollowers=async (req,res)=>{
+    var {userId,followerName}=req.body;
+    var ussersArray=await userAuth.find({_id:userId,followers:{} });
+
+}
 
 
 function sendEmail(recipient_email, link ) {

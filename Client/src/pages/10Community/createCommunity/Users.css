@@ -1,0 +1,13 @@
+.tag{
+    /* background-color:#9b6cbd; */
+    /* background-color: lightgray; */
+    background-color: rgba(128, 0, 128,0.7);
+    width: 20%;
+    height: 30%;
+    text-align: center;
+    border-radius: 5%;
+    color: black;
+}
+div:empty {
+    display:none;
+  }
