@@ -10,6 +10,8 @@ import "./createCommunity.css"
 import Users from './Users';
 import axios from 'axios';
 import NavBar from '../../../Components/NavBar';
+import { useTranslation } from 'react-i18next';
+
 const CreateCommunity = () => {
   let communityId;
   let { user } = useAuthContext();
@@ -19,7 +21,13 @@ const CreateCommunity = () => {
     adminId: user._id,
     adminName: user.firstName + " " + user.lastName
   }
-
+  let [t, i18n] = useTranslation();
+  let classBasedOnLang;
+  if (i18n.language === "ar") {
+    classBasedOnLang = "rtl"
+  }
+  else
+    classBasedOnLang = "ltl"
   // it was a try to make one state holding all values but it fails cuz of i can't get e.target.name
   const [state, setState] = useState({
     communityName: "",
@@ -173,19 +181,26 @@ const CreateCommunity = () => {
         <div className="container mt-5 ">
 
           <div className='row mt-5'>
-            <h3 className='text-center' >Create Community</h3>
+            <h3 className='text-center' >{t("Create Community")}</h3>
             <form action="">
-              <h5>Community Name</h5>
+              <h5 dir={classBasedOnLang}>{t("Community Name")}</h5>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Control className='space' type="text" value={commName} title='communityName'
                   onChange={(e) => { setCommName(e.target.value) }}
                   placeholder="please enter your Community Name" />
               </Form.Group>
-              <h5>Topic:</h5>
+              <h5 dir={classBasedOnLang}>{t("Topic")}:</h5>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Control className='space' type="text" value={commTopic} onChange={(e) => { setCommTopic(e.target.value) }} placeholder="please enter the topic of your community" />
               </Form.Group>
-              <h5>Description</h5>
+              {/* <div>
+                {i18n.language === "ar" ? (
+                  <h5 dir="rtl">{t("Description")}</h5>
+                ) : (
+                  <h5>{t("Description")}</h5>
+                )}
+              </div> */}
+              <h5 dir={classBasedOnLang}>{t("Description")}</h5>
 
               <Form>
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlTextarea1" >
@@ -194,7 +209,7 @@ const CreateCommunity = () => {
               </Form>
               <Form.Group controlId="formFile" className="mb-3">
 
-                <h5 className='text-left'>Community Cover</h5>
+                <h5 dir={classBasedOnLang} className='text-left'>{t("Community Cover")}</h5>
                 <Form.Control type="file" value={commCover} onChange={(e) => {
                   let file1 = e.target.files[0];
                   if (file1) {
@@ -203,7 +218,7 @@ const CreateCommunity = () => {
                 }} />
               </Form.Group>
               <Form.Group controlId="formFile" className="mb-3">
-                <h5>Community Icon</h5>
+                <h5 dir={classBasedOnLang}>{t("Community Icon")}</h5>
                 <Form.Control type="file" value={commIcon} onChange={(e) => {
                   let file = e.target.files[0];
                   if (file) {

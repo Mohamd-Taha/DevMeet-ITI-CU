@@ -141,5 +141,13 @@
     "join":"الانضمام",
     "Events":"الاحداث",
     "event starts":"يبدأ الحدث",
-    "Total Likes":"اجمالى الاعجابات"
+    "Total Likes":"اجمالى الاعجابات",
+    "Create Community":"انشاء مجموعه",
+    "Community Name":"اسم المجموعه",
+    "Topic":"الموضوع",
+    "Description":"الوصف",
+    "Community Cover":"غلاف المجموعه",
+    "Community Icon":"ايقونه المجموعه",
+    "Invite Member Name":"دعوه بعض الاعضاء"
+    
   }

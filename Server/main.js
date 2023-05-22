@@ -18,6 +18,8 @@ const server = require("http").createServer(app);
 const conversationroute = require("./Routes/conversations");
 const messageroute = require("./Routes/messages");
 
+dotenv.config();
+
 
 //added to maintain omar code at models
 const mongoose = require("mongoose");
@@ -40,6 +42,12 @@ io.on("connection", (socket) => {
   console.log(`connection socket id is${socket.id}   --FROM PORT 7400`);
   notifySocket(socket, io);
 });
+
+//Deployement requestie
+if (process.env.NODE_ENV == "development") {
+  console.log("FROM .ENV FILE");
+  console.log = function () {};
+}
 
 //multer Storage Engine
 const storage = multer.diskStorage({
@@ -83,7 +91,6 @@ app.use(
 );
 app.use(morgan("tiny"));
 app.use(cors({ origin: true, credentials: true }));
-dotenv.config();
 
 //Routes constants
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
