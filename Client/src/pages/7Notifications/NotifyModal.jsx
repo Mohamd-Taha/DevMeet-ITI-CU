@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import Avatar from './Avatar'
 import moment from 'moment'
 import axios from 'axios';
-import {useParams}from "react-router-dom";
-     
+import { useParams } from "react-router-dom";
+
 //import { useAuthContext } from "../../hooks/useAuthContext";
 
 
@@ -20,11 +20,11 @@ const NotifyModal = () => {
     //let { user } = useAuthContext()
     //NEEDED : take userID FORM AUTHENCICATION/TOKEN AUTOMATICALLY
     // let user={_id:"60261ccf416a1ed478d7357a"}
-    let user=id;
+    let user = id;
 
     useEffect(() => {
 
-        axios.get(`http://localhost:7400/notifications`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/notifications`, {
             params: { id: user }
         }).then(res => {
             setnotify(res.data.notifies)
@@ -33,19 +33,19 @@ const NotifyModal = () => {
         })
 
     },
-    [])
+        [])
 
     //need auth state
-    var handleIsRead = (msg,index) => {
+    var handleIsRead = (msg, index) => {
 
-        let data=notify;
-        var selectedNotfiy=notify[index];
-        selectedNotfiy.isRead='true';
-        data[index]=selectedNotfiy;
+        let data = notify;
+        var selectedNotfiy = notify[index];
+        selectedNotfiy.isRead = 'true';
+        data[index] = selectedNotfiy;
         setnotify(data);
         console.log("handleIsRead")
 
-        axios.patch(`http://localhost:7400/isReadNotification/${msg._id}`).then(res=>{
+        axios.patch(`${process.env.REACT_APP_API_URL}/isReadNotification/${msg._id}`).then(res => {
             console.log("done")
         })
 
@@ -55,12 +55,12 @@ const NotifyModal = () => {
         console.log("handleDeleteAll")
 
     }
-    // var getNotifies = axios.get(`http://localhost:7400/notifications`, {
+    // var getNotifies = axios.get(`${process.env.REACT_APP_API_URL}/notifications`, {
     //     params: { id: user._id }
     // })
 
     //need req.user._id
-    
+
 
 
 
@@ -139,9 +139,9 @@ const NotifyModal = () => {
                     notify.map((msg, index) => (
                         // satart
                         <div key={index} className="px-2 mb-3" >
-                            <Link  className="d-flex text-dark align-items-center"
-                                onClick={() => handleIsRead(msg,index)}>
-                                    {/* take this and access backend server and retrive an image */}
+                            <Link className="d-flex text-dark align-items-center"
+                                onClick={() => handleIsRead(msg, index)}>
+                                {/* take this and access backend server and retrive an image */}
                                 {/* <Avatar src={msg.user.profilePicture} size="big-avatar" /> */}
 
                                 <div className="mx-1 flex-fill">

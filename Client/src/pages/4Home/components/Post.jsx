@@ -43,13 +43,13 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
     setIsVisible(!isVisible);
   }; // for comments div visibilty
   const [isLiked, setIsLiked] = useState(post.likes.get(userId)); // for like animation
-   let [t,i18n]= useTranslation();   
+  let [t, i18n] = useTranslation();
 
   const likeHandler = async () => {
     let flaglike;
     await axios
       .patch(
-        `http://localhost:7400/likes/${post._id}`,
+        `${process.env.REACT_APP_API_URL}/likes/${post._id}`,
         { userId },
         { withCredentials: true }
       )
@@ -65,11 +65,11 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
         sendNewPost(data);
         setIsLiked(!isLiked);
         //like notification section
-        
+
         axios
           .get(
-            `http://localhost:7400/likeCheck/${post._id}/${ userId }`
-            
+            `${process.env.REACT_APP_API_URL}/likeCheck/${post._id}/${userId}`
+
           )
           .then((res) => {
             flaglike = res.data.likeFlag;
@@ -95,11 +95,11 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
         }
 
         axios
-          .post("http://localhost:7400/notification", { ...msg, flaglike })
+          .post(`${process.env.REACT_APP_API_URL}/notification`, { ...msg, flaglike })
           .then((res) => {
             console.log("notify added succefully");
           });
-          
+
         //end of comment notification section
       })
       .catch((err) => {
@@ -115,7 +115,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
       formData.append("image1", image);
       formData.append("postId", post._id);
       axios
-        .post(`http://localhost:7400/comments/${userId}`, formData, {
+        .post(`${process.env.REACT_APP_API_URL}/comments/${userId}`, formData, {
           withCredentials: true,
         })
         .then((response) => {
@@ -126,45 +126,45 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
           console.log(comments);
           setComments([data, ...comments]);
           console.log(comments);
-//add comment notification
-        //get recipient list
-        let recip = comments.map((e) => {
-          return { id: e.userId, isRead: false };
-        });
-
-        //add the post owner id ONLY when he not the comment maker
-        if (!(user._id == post.userId))
-          recip.push({ id: post.userId, isRead: false });
-        console.log("test comments recipents ");
-        console.log(recip);
-
-        //create comment notification object
-        
-        let msg = {
-          id: post._id,
-          text: "Added a Comment on Post",
-          content: post.description,
-          // recipients:user.followers,
-          recipients: recip,
-          url: `/post/${post._id}`,
-          user: {
-            id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            profilePicture: user.profilePicture,
-          },
-        };
-        socket.emit("notify", msg);
-
-        console.log("before calling create Comment notification ");
-        //send notifcation to database
-        axios
-          .post("http://localhost:7400/notification", { ...msg })
-          .then((res) => {
-            console.log("notify added succefully");
+          //add comment notification
+          //get recipient list
+          let recip = comments.map((e) => {
+            return { id: e.userId, isRead: false };
           });
-          
-        //end of comment notfication
+
+          //add the post owner id ONLY when he not the comment maker
+          if (!(user._id == post.userId))
+            recip.push({ id: post.userId, isRead: false });
+          console.log("test comments recipents ");
+          console.log(recip);
+
+          //create comment notification object
+
+          let msg = {
+            id: post._id,
+            text: "Added a Comment on Post",
+            content: post.description,
+            // recipients:user.followers,
+            recipients: recip,
+            url: `/post/${post._id}`,
+            user: {
+              id: user._id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              profilePicture: user.profilePicture,
+            },
+          };
+          socket.emit("notify", msg);
+
+          console.log("before calling create Comment notification ");
+          //send notifcation to database
+          axios
+            .post(`${process.env.REACT_APP_API_URL}/notification`, { ...msg })
+            .then((res) => {
+              console.log("notify added succefully");
+            });
+
+          //end of comment notfication
 
         })
 
@@ -184,7 +184,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
   const commentGet = () => {
     const postId = post._id;
     axios
-      .get(`http://localhost:7400/posts/comments/${postId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/posts/comments/${postId}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -193,7 +193,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
       .then(({ data }) => {
         setComments(data);
         console.log(data);
-         })
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -202,7 +202,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
   const DeleteMyPost = () => {
     const id = post._id;
     axios
-      .delete(`http://localhost:7400/posts/${id}`, { withCredentials: true })
+      .delete(`${process.env.REACT_APP_API_URL}/posts/${id}`, { withCredentials: true })
       .then((response) => {
         return response;
       })
@@ -218,7 +218,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
   useEffect(() => {
     const id = post.userId;
     axios
-      .get(`http://localhost:7400/user/${id}`, { withCredentials: true })
+      .get(`${process.env.REACT_APP_API_URL}/user/${id}`, { withCredentials: true })
       .then((response) => {
         return response;
       })
@@ -239,7 +239,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
               <NavLink to={`/profile`} state={{ user: otherUser }}>
                 <img
                   className="postProfileImg"
-                  src={`http://localhost:7400/images/${post.userPicturePath}`}
+                  src={`${process.env.REACT_APP_API_URL}/images/${post.userPicturePath}`}
                   alt=""
                 />
               </NavLink>
@@ -293,7 +293,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
             {post.picturePath && (
               <img
                 className="postImg"
-                src={`http://localhost:7400/images/${post.picturePath}`}
+                src={`${process.env.REACT_APP_API_URL}/images/${post.picturePath}`}
                 alt=""
               />
             )}
@@ -346,7 +346,7 @@ const Post = ({ post, userId, sendNewPost, refreshPosts, socket }) => {
             <TextField
               id="commentInput"
               required
-              placeholder={t("Write your comment...")} 
+              placeholder={t("Write your comment...")}
               size="small"
               style={{ width: "93%" }}
               value={comment}

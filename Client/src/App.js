@@ -39,6 +39,12 @@ import ComponentSearch from "./Pages/10Community/components/ComponentSearch";
 import UpdateProfile from "./Pages/5Profile/Components/UpdateProfile/UpdateProfile";
 import "./Localization/i18n";
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+(function ()
+{console.log(process.env)
+  })()
 
 import { io } from "socket.io-client";
 
@@ -47,7 +53,7 @@ function App() {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    setSocket(io.connect("http://localhost:7400"));
+    setSocket(io.connect(`${process.env.REACT_APP_API_URL}`));
     console.log(socket);
   }, []);
 

@@ -14,7 +14,7 @@
 //     const filterTag = (event) => {
 //         const tag = event.target.innerText.replace(/\s/g, '');
 //         console.log(tag)
-//         axios.get(`http://localhost:7400/posts/tags/${tag}`)
+//         axios.get(`${process.env.REACT_APP_API_URL}/posts/tags/${tag}`)
 //             .then((response) => { return response })
 //             .then(({ data }) => {
 //                 getTagPosts(data)
@@ -35,7 +35,7 @@
 //     }, [])
 
 //     useEffect(() => {
-//         axios.get(`http://localhost:7400/user/top/likes`)
+//         axios.get(`${process.env.REACT_APP_API_URL}/user/top/likes`)
 //             .then((response) => { return response })
 //             .then(({ data }) => {
 //                 setTopUsers(data)
@@ -45,7 +45,7 @@
 //     return (
 //         <div className='sidebar'>
 //             <div className="sidebarWrapper">
-//                 {/* 
+//                 {/*
 //                     <ul className="sidebarList">
 //                     <li className="sidebarListItem">
 //                         <RssFeed className='sidebarIcon' />
@@ -79,7 +79,7 @@
 //                         <CodeIcon className='sidebarIcon' />
 //                         <span className="sidebarListItemText">Git</span>
 //                     </li>
-//                 </ul> 
+//                 </ul>
 //                 <Button variant="contained" style={{ backgroundColor: 'purple' }} >See More</Button>
 //                 <hr className='sidebarHr' />*/}
 //                 <ul className="sidebarFriendList">

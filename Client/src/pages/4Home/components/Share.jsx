@@ -27,7 +27,7 @@ const Tags = ['JavaScript', 'TypeScript', 'React', 'CSS', 'HTML', 'Angular', 'No
 
 const Share = ({ user, sendNewPost, personalCheck }) => {
 
-  let [t,i18n]= useTranslation();
+  let [t, i18n] = useTranslation();
   const [description, setDescription] = useState()
   const [image, setImage] = useState()
   const [error, setError] = useState()
@@ -47,14 +47,14 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
       // formData.append('communityId',communityId)
       formData.append('personalCheck', personalCheck)
       //console.log(formData)
-      axios.post(`http://localhost:7400/posts/`, formData, { withCredentials: true, })
+      axios.post(`${process.env.REACT_APP_API_URL}/posts/`, formData, { withCredentials: true, })
         .then((response) => {
           console.log(response)
           return response
         })
         .then(({ data }) => {
-          sendNewPost(data) 
-          if(image) setImage(null);
+          sendNewPost(data)
+          if (image) setImage(null);
         })
         .catch((err) => { console.log(err) })
     }
@@ -77,9 +77,9 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
     <div className='share'>
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className='shareProfileImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
+          <img className='shareProfileImg' src={`${process.env.REACT_APP_API_URL}/images/${user.profilePicture}`} alt="" />
           {error && <div style={{ color: 'red', fontWeight: 'bolder' }}> {error}</div>}
-          <input placeholder={  t("What's on your mind", {placeholder})} required id="shareTextbox" className='shareInput' onChange={(e) => { setDescription(e.target.value) }} />
+          <input placeholder={t("What's on your mind", { placeholder })} required id="shareTextbox" className='shareInput' onChange={(e) => { setDescription(e.target.value) }} />
         </div>
         <hr className='shareHr' />
         <div className="shareBottom">
@@ -90,7 +90,7 @@ const Share = ({ user, sendNewPost, personalCheck }) => {
                 <input hidden type="file" name="image1" accept="image/png, image/jpeg" onChange={(e) => { setImage(e.target.files[0]) }} />
               </IconButton>
               <span className='shareOptionText'>{t("Photo")} </span>
-              { image && <span className='PhotoUploadDN' >{t("Uploaded")}</span>}
+              {image && <span className='PhotoUploadDN' >{t("Uploaded")}</span>}
             </div>
           </div>
 

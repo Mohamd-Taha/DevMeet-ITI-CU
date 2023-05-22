@@ -20,7 +20,7 @@ const Comments = ({ id, message, firstName, lastName, userPicturePath, sendComme
     Object.freeze(user)
     const DeleteMyComment = () => {
         console.log(id)
-        axios.delete(`http://localhost:7400/comments/${id}`, { withCredentials: true })
+        axios.delete(`${process.env.REACT_APP_API_URL}/comments/${id}`, { withCredentials: true })
             .then((response) => { return response })
             .then(({ data }) => {
                 console.log(data)
@@ -35,7 +35,7 @@ const Comments = ({ id, message, firstName, lastName, userPicturePath, sendComme
             <List sx={{ width: '100%', maxWidth: '97%', }}>
                 <ListItem alignItems="flex-start">
                     <ListItemAvatar>
-                        <Avatar src={`http://localhost:7400/images/${userPicturePath}`}//de img al user ale by3ml comment bnfso  ex.(user.img)  
+                        <Avatar src={`${process.env.REACT_APP_API_URL}/images/${userPicturePath}`}//de img al user ale by3ml comment bnfso  ex.(user.img)  
                         />
                     </ListItemAvatar>
                     <ListItemText primary={firstName + " " + lastName}   // al asm da mn l user ale by3ml comment bnfso ex.(user.name)

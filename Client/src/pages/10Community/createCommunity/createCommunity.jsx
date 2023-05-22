@@ -49,7 +49,7 @@ const CreateCommunity = () => {
 
   const sendSearchTxt = (searchdata) => {
     let arr = searchdata.split(" ");
-    axios.post("http://localhost:7400/search", {
+    axios.post(`${process.env.REACT_APP_API_URL}/search`, {
       firstName: arr[0],
       lastName: arr[1]
     }).then((res) => {
@@ -105,7 +105,7 @@ const CreateCommunity = () => {
     formData.append("communityAdmin", communityAdmin)
 
 
-    axios.post(`http://localhost:7400/communities/create`, formData, { withCredentials: true, })
+    axios.post(`${process.env.REACT_APP_API_URL}/communities/create`, formData, { withCredentials: true, })
 
       .then((response) => {
         if (response)
@@ -128,7 +128,7 @@ const CreateCommunity = () => {
     let promises = [];
     for (let i = 0; i < registeredUsers.length; i++) {
       promises.push(
-        axios.post('/http://localhost:7400/communities/register', {
+        axios.post(`/${process.env.REACT_APP_API_URL}/communities/register`, {
           userId: registeredUsers[i],
           communityId: communityId
         }).then(response => {
@@ -142,7 +142,7 @@ const CreateCommunity = () => {
 
 
     // for (let i = 0; i < registeredUsers.length; i++) {
-    //   axios.post(`http://localhost:7400/communities/register`, {
+    //   axios.post(`${process.env.REACT_APP_API_URL}/communities/register`, {
     //     userId: registeredUsers[i],
     //     communityId: communityId
     //   }).then((res) => {
@@ -153,7 +153,7 @@ const CreateCommunity = () => {
 
     /**
   registeredUsers.map((usr) => {
-    axios.post(`http://localhost:7400/communities/register`, {
+    axios.post(`${process.env.REACT_APP_API_URL}/communities/register`, {
       userId: usr,
       communityId: communityId
     }).then((res) => {

@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next'
 
 
 
-const Post = ({post, userId, sendNewPost, refreshPosts }) => {
+const Post = ({ post, userId, sendNewPost, refreshPosts }) => {
 
   let { user } = useAuthContext()
   user = user.user
@@ -43,14 +43,14 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
   const [isVisible, setIsVisible] = useState(false);            // for comments div visibilty
   const ToggleShowComments = () => { setIsVisible(!isVisible); }; // for comments div visibilty 
   const [isLiked, setIsLiked] = useState(post.likes.get(userId));    // for like animation    
-  let [t,i18n]= useTranslation();
+  let [t, i18n] = useTranslation();
 
 
 
 
   // const [isliked, setIsLiked] = useState(false)
   const likeHandler = async () => {
-    await axios.patch(`http://localhost:7400/likes/${post._id}`, { userId }, { withCredentials: true })
+    await axios.patch(`${process.env.REACT_APP_API_URL}/likes/${post._id}`, { userId }, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
         console.log(data)
@@ -69,7 +69,7 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
       formData.append("description", comment)
       formData.append("image1", image)
       formData.append('postId', post._id)
-      axios.post(`http://localhost:7400/comments/${userId}`, formData, { withCredentials: true })
+      axios.post(`${process.env.REACT_APP_API_URL}/comments/${userId}`, formData, { withCredentials: true })
         .then((response) => { return response })
         .then(({ data }) => {
           console.log(data)
@@ -86,12 +86,12 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
       setError("*")
     }
   }
-  const updateCount = ()=>{
-    setCommentCount(commentCount-1)
+  const updateCount = () => {
+    setCommentCount(commentCount - 1)
   }
   const commentGet = () => {
     const postId = post._id
-    axios.get(`http://localhost:7400/posts/comments/${postId}`, { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_API_URL}/posts/comments/${postId}`, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
         setComments(data)
@@ -102,7 +102,7 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
 
   const DeleteMyPost = () => {
     const id = post._id
-    axios.delete(`http://localhost:7400/posts/${id}`, { withCredentials: true })
+    axios.delete(`${process.env.REACT_APP_API_URL}/posts/${id}`, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
         console.log(data)
@@ -113,7 +113,7 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
 
   useEffect(() => {
     const id = post.userId
-    axios.get(`http://localhost:7400/user/${id}`, { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_API_URL}/user/${id}`, { withCredentials: true })
       .then((response) => { return response })
       .then(({ data }) => {
         setOtherUser(data)
@@ -122,55 +122,55 @@ const Post = ({post, userId, sendNewPost, refreshPosts }) => {
     commentGet()
   }, [])
   if (otherUser) {
-    return (  
+    return (
       <div className='post'>
         <div className="postWrapper">
           <div className="postTop">
-            
+
             <div className="postTopLeft">
-              <NavLink to={`/profile`} state={{ user: otherUser }}> 
-                <img className='postProfileImg'  src={`http://localhost:7400/images/${post.userPicturePath}`} alt="" />
+              <NavLink to={`/profile`} state={{ user: otherUser }}>
+                <img className='postProfileImg' src={`${process.env.REACT_APP_API_URL}/images/${post.userPicturePath}`} alt="" />
               </NavLink>
 
-              <span className="postUsername"> {post.firstName+" "+post.lastName} </span>
-              
-              {(format(post.createdAt)>"3 days ago") ?
-                <span className="postDate">{" ("+date.toLocaleString('en-GB', {  day: 'numeric', month: 'long'  })+") "}</span> 
+              <span className="postUsername"> {post.firstName + " " + post.lastName} </span>
+
+              {(format(post.createdAt) > "3 days ago") ?
+                <span className="postDate">{" (" + date.toLocaleString('en-GB', { day: 'numeric', month: 'long' }) + ") "}</span>
                 :
-                <span className="postDate">{format(post.createdAt)+" "}</span>
+                <span className="postDate">{format(post.createdAt) + " "}</span>
               }
               {/* <span className="postDate">{date.toLocaleString('en-GB', { timeZone: "UTC", day: 'numeric', month: 'long', year: 'numeric', hourCycle: "h23", hour: "2-digit", minute: "2-digit" })}</span> */}
             </div>
 
-            <div className="postTopRight">  
+            <div className="postTopRight">
               {
-                !post.tags[0] ? 
-                <span className="TagsCorner" style={{color:'gray'}}>{t("Not Taged")} </span> :  
-                <span className="TagsCorner"> {"#"+post.tags.join(", #")}</span>
-              } 
+                !post.tags[0] ?
+                  <span className="TagsCorner" style={{ color: 'gray' }}>{t("Not Taged")} </span> :
+                  <span className="TagsCorner"> {"#" + post.tags.join(", #")}</span>
+              }
 
               {
-                (post.userId==user._id) && 
-                  <IconButton color="primary" component="label" onClick={DeleteMyPost} >
-                    <DeleteIcon htmlColor='#F25268' />   
-                  </IconButton> 
+                (post.userId == user._id) &&
+                <IconButton color="primary" component="label" onClick={DeleteMyPost} >
+                  <DeleteIcon htmlColor='#F25268' />
+                </IconButton>
               }
             </div>
 
           </div>
           <div className="postCenter">
             <span className="postText">{post.description}</span>
-            {post.picturePath && <img className='postImg' src={`http://localhost:7400/images/${post.picturePath}`} alt="" />}
+            {post.picturePath && <img className='postImg' src={`${process.env.REACT_APP_API_URL}/images/${post.picturePath}`} alt="" />}
           </div>
           <div className="postBottom">
-            <div className="postBottomLeft"  onClick={likeHandler} > 
-              {isLiked ? <FavoriteIcon htmlColor='#f25268' style={{marginRight:'5px'}} /> : <FavoriteBorderIcon htmlColor='red' style={{marginRight:'5px'}} />}
+            <div className="postBottomLeft" onClick={likeHandler} >
+              {isLiked ? <FavoriteIcon htmlColor='#f25268' style={{ marginRight: '5px' }} /> : <FavoriteBorderIcon htmlColor='red' style={{ marginRight: '5px' }} />}
               <span className="postLikeCounter" style={{ fontWeight: 'bold' }} > {post.likes.size}{t("Likes")} </span>
             </div>
             <div className="postBottomRight">
               <IconButton color="primary" component="label" onClick={ToggleShowComments} >
                 {isVisible ? <VisibilityIcon htmlColor='#5890FF' /> : <VisibilityOffIcon htmlColor='gray' />}
-                <span className="postCommenttext ms-2 " style={{ fontWeight: 'bold' , color:'black' }} onClick={commentGet}> {commentCount} {t("Comments")}</span>
+                <span className="postCommenttext ms-2 " style={{ fontWeight: 'bold', color: 'black' }} onClick={commentGet}> {commentCount} {t("Comments")}</span>
               </IconButton>
             </div>
           </div>

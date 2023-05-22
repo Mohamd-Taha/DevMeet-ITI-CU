@@ -58,7 +58,7 @@ const CommunitySearch = ({ comm }) => {
     }
 
     var requestToJoin = (userId) => {
-        axios.posts('http://localhost:7400/communities/requestToJoin', {
+        axios.posts(`${process.env.REACT_APP_API_URL}/communities/requestToJoin`, {
             userId: userId,
             communityId: comm._id
         })
@@ -85,7 +85,7 @@ const CommunitySearch = ({ comm }) => {
             >
                 <img
                     alt="Sample"
-                    src={`http://localhost:7400/images/${comm.commiunityCover}`}
+                    src={`${process.env.REACT_APP_API_URL}/images/${comm.commiunityCover}`}
                     style={{ height: "200px", width: "auto" }}
                 />
                 <CardBody>
@@ -134,7 +134,7 @@ const CommunitySearch = ({ comm }) => {
         //             <div className='col-2'>
         //                 <img
         //                     alt="Sample"
-        //                     src={`http://localhost:7400/images/${comm.commiunityCover}`}
+        //                     src={`${process.env.REACT_APP_API_URL}/images/${comm.commiunityCover}`}
         //                 />
         //             </div>
         //             <div className='col-8'>

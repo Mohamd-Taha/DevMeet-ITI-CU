@@ -48,6 +48,8 @@
     "tokenize": "^0.0.3",
     "web-vitals": "^2.1.4"
   },
+  
+ 
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -74,6 +76,7 @@
   },
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "dotenv": "^16.0.3",
     "style-loader": "^3.3.1"
   }
 }

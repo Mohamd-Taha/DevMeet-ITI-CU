@@ -20,7 +20,7 @@ const NavBar = ({ sendSearch }) => {
 
     const LogOut = () => {
         //need to use withCredentials to send cookies to server 
-        axios.get('http://localhost:7400/logout', {
+        axios.get(`${process.env.REACT_APP_API_URL}/logout`, {
             withCredentials: true
         }).then((response) => { return response })
             .then(() => {

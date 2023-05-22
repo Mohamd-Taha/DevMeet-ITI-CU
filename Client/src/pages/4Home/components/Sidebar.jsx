@@ -10,12 +10,12 @@ import TagIcon from '@mui/icons-material/Tag';
 import { useTranslation } from 'react-i18next';
 
 export default function Sidebar({ getTagPosts }) {
-    let [t,i18n]= useTranslation();
+    let [t, i18n] = useTranslation();
     const [topUsers, setTopUsers] = useState()
     const filterTag = (event) => {
         const tag = event.target.innerText.replace(/\s/g, '');
         console.log(tag)
-        axios.get(`http://localhost:7400/posts/tags/${tag}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/posts/tags/${tag}`)
             .then((response) => { return response })
             .then(({ data }) => {
                 getTagPosts(data)
@@ -36,7 +36,7 @@ export default function Sidebar({ getTagPosts }) {
     }, [])
 
     useEffect(() => {
-        axios.get(`http://localhost:7400/user/top/likes`)
+        axios.get(`${process.env.REACT_APP_API_URL}/user/top/likes`)
             .then((response) => { return response })
             .then(({ data }) => {
                 setTopUsers(data)
@@ -54,7 +54,7 @@ export default function Sidebar({ getTagPosts }) {
         <div className='sidebar'>
             <div className="sidebarWrapper">
                 <ul className="sidebarList" >
-                    <li > 
+                    <li >
                         <h2 className="sidebarListItemTextMAIN" >{t("Trending Tags")} <RssFeed className='sidebarIcon' /></h2>
                     </li>
                     {Tags.map((tag, index) => (
@@ -68,8 +68,8 @@ export default function Sidebar({ getTagPosts }) {
 
                 <hr className='sidebarHr' />
 
-                <ul className="sidebarFriendList"> 
-                        <h3 className="sidebarListItemTextMAIN" >{t("Top Contributors")} <Group className='sidebarIcon'  /> </h3>
+                <ul className="sidebarFriendList">
+                    <h3 className="sidebarListItemTextMAIN" >{t("Top Contributors")} <Group className='sidebarIcon' /> </h3>
                     {topUsers?.map(u => (
                         <CloseFriend key={u._id} user={u} />
                     ))}

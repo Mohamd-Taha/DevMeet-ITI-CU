@@ -42,7 +42,7 @@
 //   useEffect(() => {
 //     console.log("notification mounting");
 //     axios
-//       .get(`http://localhost:7400/notifications`, {
+//       .get(`${process.env.REACT_APP_API_URL}/notifications`, {
 //         params: { id: userId },
 //       })
 //       .then((res) => {
@@ -58,7 +58,7 @@
 //         <div className="wrapper">
 //           <img
 //             className="UserImage"
-//             src={`http://localhost:7400/images/${e.user.profilePicture}`}
+//             src={`${process.env.REACT_APP_API_URL}/images/${e.user.profilePicture}`}
 //             alt="User image"
 //           />
 //           <div className="NotificationContent">
@@ -70,7 +70,7 @@
 //           <span className="Icon">
 //             <img
 //               className="UserImage"
-//               src={`http://localhost:7400/images/notifyIcon.png`}
+//               src={`${process.env.REACT_APP_API_URL}/images/notifyIcon.png`}
 //             />
 //           </span>
 //         </div>
@@ -131,7 +131,7 @@ const Notification = ({ socket }) => {
   useEffect(() => {
     console.log("notification mounting");
     axios
-      .get(`http://localhost:7400/notifications`, {
+      .get(`${process.env.REACT_APP_API_URL}/notifications`, {
         params: { id: userId },
       })
       .then((res) => {
@@ -165,7 +165,7 @@ const Notification = ({ socket }) => {
             <div key={e._id} className="wrapper">
               <img
                 className="UserImage"
-                src={`http://localhost:7400/images/${e.user.profilePicture}`}
+                src={`${process.env.REACT_APP_API_URL}/images/${e.user.profilePicture}`}
                 alt="User image"
               />
               <div className="NotificationContent">
@@ -177,7 +177,7 @@ const Notification = ({ socket }) => {
               <span className="Icon">
                 <img
                   className="UserImage"
-                  src={`http://localhost:7400/images/${notifyTypeIcon}`}
+                  src={`${process.env.REACT_APP_API_URL}/images/${notifyTypeIcon}`}
                 />
               </span>
             </div>

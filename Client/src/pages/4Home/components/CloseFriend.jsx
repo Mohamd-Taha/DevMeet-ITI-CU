@@ -7,8 +7,8 @@ export default function CloseFriend({ user }) {
   return (
     <li className=" ">
       <NavLink to={`/profile`} state={{ user: user }}>
-        <img className='sidebarFriendImg' src={`http://localhost:7400/images/${user.profilePicture}`} alt="" />
-        <span className='sidearFriendName'>{" "+user.firstName+" "+user.lastName}</span> 
+        <img className='sidebarFriendImg' src={`${process.env.REACT_APP_API_URL}/images/${user.profilePicture}`} alt="" />
+        <span className='sidearFriendName'>{" " + user.firstName + " " + user.lastName}</span>
       </NavLink>
     </li>
   )

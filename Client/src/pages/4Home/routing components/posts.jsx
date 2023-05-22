@@ -24,7 +24,7 @@ const Posts = (socket) => {
     //method related to get many posts
     const getNewPosts = () => {
         axios
-            .get(`http://localhost:7400/posts/${user._id}`)
+            .get(`${process.env.REACT_APP_API_URL}/posts/${user._id}`)
             .then((response) => {
                 return response;
             })
@@ -44,7 +44,7 @@ const Posts = (socket) => {
 
     const getTrendingPosts = () => {
         axios
-            .get(`http://localhost:7400/posts/trending/${user._id}`)
+            .get(`${process.env.REACT_APP_API_URL}/posts/trending/${user._id}`)
             .then((response) => {
                 return response;
             })
@@ -88,7 +88,7 @@ const Posts = (socket) => {
         console.log(msg);
         // socket.emit("notify", msg);
 
-        axios.post("http://localhost:7400/notification", { ...msg })
+        axios.post(`${process.env.REACT_APP_API_URL}/notification`, { ...msg })
             .then((res) => { console.log("notify added succefully"); });
 
 

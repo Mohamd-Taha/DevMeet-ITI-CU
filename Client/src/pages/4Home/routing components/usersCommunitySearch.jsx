@@ -28,7 +28,7 @@ const UserCommunitySearch = () => {
     //get all comunitiy by search name and set it to community State
     const getSearchCommunities = () => {
         let searchWord = searchText;
-        axios.get('http://localhost:7400/communities/searchbyname',
+        axios.get(`${process.env.REACT_APP_API_URL}/communities/searchbyname`,
             { params: { communityName: searchText } }
         ).then((res) => {
 
@@ -59,7 +59,7 @@ const UserCommunitySearch = () => {
         console.log(data);
         try {
             const searchQuery = data.split(" ");
-            axios.post(`http://localhost:7400/search`, { firstName: searchQuery[0], lastName: searchQuery[1] },
+            axios.post(`${process.env.REACT_APP_API_URL}/search`, { firstName: searchQuery[0], lastName: searchQuery[1] },
                 { withCredentials: true }
             )
                 // .then((response) => {

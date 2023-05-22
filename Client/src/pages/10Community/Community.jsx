@@ -43,7 +43,7 @@ const Community = () => {
     useEffect(() => {
         console.log("Community Componen mounting");
         axios
-            .get("http://localhost:7400/communities/getCommunityByid", {
+            .get(`${process.env.REACT_APP_API_URL}/communities/getCommunityByid`, {
                 params: {
                     id: id,
                 },
@@ -67,7 +67,7 @@ const Community = () => {
     /**
           //mounting function
           useEffect(() => {
-                  xios.post('http://localhost:7400/communities/getAcomm', {
+                  xios.post(`${process.env.REACT_APP_API_URL}/communities/getAcomm`, {
                   userId: "6404a978ea4b09ad95f03e70"
               }).then(res => console.log(res))
           }, [])

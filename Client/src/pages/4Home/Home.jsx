@@ -40,7 +40,7 @@ const Homecomponent = ({ socket }) => {
   Object.freeze(user);
   const getNewPosts = () => {
     axios
-      .get(`http://localhost:7400/posts/${user._id}`)
+      .get(`${process.env.REACT_APP_API_URL}/posts/${user._id}`)
       .then((response) => {
         return response;
       })
@@ -59,7 +59,7 @@ const Homecomponent = ({ socket }) => {
   };
   const getTrendingPosts = () => {
     axios
-      .get(`http://localhost:7400/posts/trending/${user._id}`)
+      .get(`${process.env.REACT_APP_API_URL}/posts/trending/${user._id}`)
       .then((response) => {
         return response;
       })
@@ -101,7 +101,7 @@ const Homecomponent = ({ socket }) => {
     console.log(search);
     try {
       const searchQuery = search.split(" ");
-      axios.post(`http://localhost:7400/search`, { firstName: searchQuery[0], lastName: searchQuery[1] },
+      axios.post(`${process.env.REACT_APP_API_URL}/search`, { firstName: searchQuery[0], lastName: searchQuery[1] },
         { withCredentials: true }
       )
         .then((response) => {
@@ -118,7 +118,7 @@ const Homecomponent = ({ socket }) => {
   };
   const searchCommunity = () => {
     let searchWord = search;
-    axios.get('http://localhost:7400/communities/searchbyname',
+    axios.get(`${process.env.REACT_APP_API_URL}/communities/searchbyname`,
       { params: { communityName: searchWord } }
     ).then((res) => {
       console.log(res.data)
@@ -139,7 +139,7 @@ const Homecomponent = ({ socket }) => {
 
   //get all communities from this user
   useEffect(() => {
-    axios.post(`http://localhost:7400/communities/getAcomm`,
+    axios.post(`${process.env.REACT_APP_API_URL}/communities/getAcomm`,
       {
         userId: user._id,
       })
@@ -193,7 +193,7 @@ const Homecomponent = ({ socket }) => {
           ))
         }
         <div>
-          <img style={{ width: "38px", height: "auto" }} src={`http://localhost:7400/images/addcommunity.png`}></img>
+          <img style={{ width: "38px", height: "auto" }} src={`${process.env.REACT_APP_API_URL}/images/addcommunity.png`}></img>
           <Link to="/addnewcommunity">
             <Button style={{ backgroundColor: "#68377f", }}  >
 

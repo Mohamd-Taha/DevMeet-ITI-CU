@@ -18,7 +18,7 @@ import axios from "axios";
 
 const Login = () => {
 
-let [t,i18n]= useTranslation();
+    let [t, i18n] = useTranslation();
 
     let [email, setEmail] = useState('')
     let [password, setPassWord] = useState('')
@@ -30,8 +30,8 @@ let [t,i18n]= useTranslation();
     const LoginServer = async (e) => {
         e.preventDefault()
         console.log("inside login")
-        setError(null) 
-        const res = await fetch('http://localhost:7400/login', {
+        setError(null)
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: { 'Content-Type': 'application/json' },
@@ -40,9 +40,10 @@ let [t,i18n]= useTranslation();
         console.log(res)
         const data = await res.json();
         console.log(data)
-        if (!res.ok) { 
+        if (!res.ok) {
             console.log("inside res isnt")
-            setError(data.error) }
+            setError(data.error)
+        }
         if (res.ok) { // save the user to local storage
             console.log("res is ok")
             localStorage.setItem('user', JSON.stringify(data))
@@ -50,19 +51,19 @@ let [t,i18n]= useTranslation();
         }
     }
 
-    const ForgotPassword= async ()=>{
-         setSuccess(null) 
-         setError(null)
-        axios.post(`http://localhost:7400/forgotpassword/`, {email}, { withCredentials: true, })
-        .then((response) => {
-          console.log(response)
-        })
-        .then(({ data }) => {
-            setSuccess("Link has been sent your email")
-            console.log(success)
-            console.log(data)
-        })
-        .catch((err) => {setError(err)})
+    const ForgotPassword = async () => {
+        setSuccess(null)
+        setError(null)
+        axios.post(`${process.env.REACT_APP_API_URL}/forgotpassword/`, { email }, { withCredentials: true, })
+            .then((response) => {
+                console.log(response)
+            })
+            .then(({ data }) => {
+                setSuccess("Link has been sent your email")
+                console.log(success)
+                console.log(data)
+            })
+            .catch((err) => { setError(err) })
     }
 
 
@@ -71,7 +72,7 @@ let [t,i18n]= useTranslation();
             <PlainNav></PlainNav>
             <Grid container component="main" sx={{ height: '100vh' }} >
                 <Grid item xs={false} sm={2} md={7} sx={{ backgroundImage: `url(${'/assets/PurpleImg.jpg'})`, backgroundSize: 'cover' }}>
-                    <Typography variant="h2" style={{ position: 'absolute', color: 'whitesmoke', top: '30%', left: '40%', transform: 'translate(-70%, -20%)', fontWeight: '900', fontFamily: 'raleway' , width:"50%"  }}>
+                    <Typography variant="h2" style={{ position: 'absolute', color: 'whitesmoke', top: '30%', left: '40%', transform: 'translate(-70%, -20%)', fontWeight: '900', fontFamily: 'raleway', width: "50%" }}>
                         {t("Make the most of your professinal life")}
                     </Typography>
                     <Typography variant="h4" style={{ position: 'absolute', color: 'white', top: '50%', left: '40%', transform: 'translate(-55%, -20%)', fontWeight: '650', fontFamily: 'raleway' }}>
@@ -88,16 +89,16 @@ let [t,i18n]= useTranslation();
                             <TextField margin="normal" required fullWidth id="email" label={t("Email Address")} name="email" autoComplete="email" autoFocus onChange={(e) => { setEmail(e.target.value) }} />
                             <TextField margin="normal" required fullWidth name="password" label={t("Password")} type="password" id="password" onChange={(e) => { setPassWord(e.target.value) }} />
                             <Box textAlign='center'>
-                                <Button type="submit" variant="contained" style={{ backgroundColor: 'purple', width: '60%', fontWeight: 'bold', fontSize: '13pt' }} sx={{ mt: 3, mb: 2 }} onClick={LoginServer} >{ t("Login") } </Button>
-                                {error && <div style={{color:'red'}}>{error}</div>}
-                                {success && <div style={{color:'green'}}>{success}</div>}
+                                <Button type="submit" variant="contained" style={{ backgroundColor: 'purple', width: '60%', fontWeight: 'bold', fontSize: '13pt' }} sx={{ mt: 3, mb: 2 }} onClick={LoginServer} >{t("Login")} </Button>
+                                {error && <div style={{ color: 'red' }}>{error}</div>}
+                                {success && <div style={{ color: 'green' }}>{success}</div>}
                             </Box>
                             <Grid container>
                                 {/* <Grid item xs>
                                     <Link href="#" onClick={ForgotPassword} variant="body2" style={{color:'purple'}} > Forgot password? </Link>
                                 </Grid> */}
                                 <Grid item>
-                                    <NavLink to={"/register"} variant="body2" style={{ color: 'purple' }}> {t("Don't have an account? Register")}  
+                                    <NavLink to={"/register"} variant="body2" style={{ color: 'purple' }}> {t("Don't have an account? Register")}
                                     </NavLink>
                                 </Grid>
                             </Grid>

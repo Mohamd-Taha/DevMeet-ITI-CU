@@ -12,7 +12,7 @@ function Message({ message, own, user, userimage }) {
     useEffect(() => {
         const getReceiver = async () => {
             try {
-                const res = await axios.get("http://localhost:7400/user/" + message.sender)
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/user/` + message.sender)
                 setReceiver(res.data)
             }
             catch (err) {
@@ -31,8 +31,8 @@ function Message({ message, own, user, userimage }) {
     return (
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
-                <img className='messageImg' src={own ? `http://localhost:7400/images/${user?.profilePicture}` : `http://localhost:7400/images/${receiver?.profilePicture}`} alt="you" />
-                {/* <img className='messageImg' src={own ? userimage.url : `http://localhost:7400/images/${receiver?.profilePicture}`} alt="you" /> */}
+                <img className='messageImg' src={own ? `${process.env.REACT_APP_API_URL}/images/${user?.profilePicture}` : `${process.env.REACT_APP_API_URL}/images/${receiver?.profilePicture}`} alt="you" />
+                {/* <img className='messageImg' src={own ? userimage.url : `${process.env.REACT_APP_API_URL}/images/${receiver?.profilePicture}`} alt="you" /> */}
                 <p className='messageText'>{message.text}</p>
             </div>
             <span className="messageBottom"  > {format(message.createdAt)} </span>

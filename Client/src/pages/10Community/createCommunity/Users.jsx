@@ -35,7 +35,7 @@ const Users = (props) => {
         >
           {data.map((std) => <div key={std._id} >
             <Dropdown.Item href="#" onClick={() => onselect(std)} >
-              <img style={{ width: "30px", height: "auto" }} src={`http://localhost:7400/images/${std.profilePicture}`}></img>
+              <img style={{ width: "30px", height: "auto" }} src={`${process.env.REACT_APP_API_URL}/images/${std.profilePicture}`}></img>
               {std.firstName} {std.lastName}
             </Dropdown.Item>
           </div>)}
@@ -47,7 +47,7 @@ const Users = (props) => {
         <h4>Members:</h4>
         {tag.map((e) => (
           <div key={e.firstName + e.lastName} className="border rounded p-1 m-1 border-primary">
-            <img style={{ width: "30px", height: "auto" }} src={`http://localhost:7400/images/${e.pP}`}></img>
+            <img style={{ width: "30px", height: "auto" }} src={`${process.env.REACT_APP_API_URL}/images/${e.pP}`}></img>
             {e.fN} {e.lN}
             <Button color="danger">x</Button>
           </div>

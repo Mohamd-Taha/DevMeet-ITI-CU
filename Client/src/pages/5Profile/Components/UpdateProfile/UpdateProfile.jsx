@@ -27,7 +27,7 @@ function UpdateProfile() {
   const [location, setLocation] = useState(user?.city)
   const [occupation, setOccupation] = useState(user?.career)
   const [success, setSuccess] = useState()
-  let [t,i18n]= useTranslation();
+  let [t, i18n] = useTranslation();
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -40,7 +40,7 @@ function UpdateProfile() {
     formData.append("lastName", lastName)
     formData.append("city", location)
     formData.append("career", occupation)
-    axios.put(`http://localhost:7400/user/${user._id}`, formData, { withCredentials: true, })
+    axios.put(`${process.env.REACT_APP_API_URL}/user/${user._id}`, formData, { withCredentials: true, })
 
       .then((response) => {
         return response
@@ -49,7 +49,7 @@ function UpdateProfile() {
         localStorage.setItem('user', JSON.stringify(data))
         dispatch({ type: "Update", payload: data })
         console.log("done :D")
-        i18n.language==="en"?setSuccess("update success!"):setSuccess("تم التعديل")
+        i18n.language === "en" ? setSuccess("update success!") : setSuccess("تم التعديل")
 
       })
       .catch((err) => { console.log(err) })
@@ -62,8 +62,8 @@ function UpdateProfile() {
           <Card sx={{ boxShadow: 1, maxWidth: 'md' }}>
             <CardContent>
               <Container maxWidth="sm">
-                <Typography variant="h3" color="text.primary" style={{ fontFamily: 'raleway', fontWeight: 'bolder', color: 'purple' , marginBottom:'30px'}} >
-                 {t("Update Profile")}
+                <Typography variant="h3" color="text.primary" style={{ fontFamily: 'raleway', fontWeight: 'bolder', color: 'purple', marginBottom: '30px' }} >
+                  {t("Update Profile")}
                 </Typography>
                 {/* <Alert severity="error" aria-live="assertive"> </Alert> */}
 
@@ -89,18 +89,18 @@ function UpdateProfile() {
                       {/* <InputLabel htmlFor="location" id="email-confirmation-label">Location...</InputLabel> */}
                       <Input id="location" type="text" value={location} placeholder={t("Location...")} onChange={(e) => { setLocation(e.target.value) }} />
                       <FormHelperText id="email-confirmation-helper-text">{t("Update Location...")}</FormHelperText>
-                    </FormControl> 
+                    </FormControl>
 
                     <FormControl fullWidth>
-                        {/* <InputLabel htmlFor="Occupation" id="email-confirmation-label">Title...</InputLabel> */}
-                        <Input id="Occupation" type="text" value={occupation} placeholder={t("Title...")} onChange={(e) => { setOccupation(e.target.value) }} />
-                        <FormHelperText id="Occupation">{t("Update Title...")}</FormHelperText>
+                      {/* <InputLabel htmlFor="Occupation" id="email-confirmation-label">Title...</InputLabel> */}
+                      <Input id="Occupation" type="text" value={occupation} placeholder={t("Title...")} onChange={(e) => { setOccupation(e.target.value) }} />
+                      <FormHelperText id="Occupation">{t("Update Title...")}</FormHelperText>
                       <FormControl fullWidth>
                         {/* <InputLabel htmlFor="Description" id="email-confirmation-label">Bio...</InputLabel> */}
-                        <Input id="Description" type="text" style={{ marginTop: "20px" }} placeholder={t("Bio...")}value={description} onChange={(e) => { setDescription(e.target.value) }} />
+                        <Input id="Description" type="text" style={{ marginTop: "20px" }} placeholder={t("Bio...")} value={description} onChange={(e) => { setDescription(e.target.value) }} />
                         <FormHelperText id="Occupation">{t("Update Bio...")}</FormHelperText>
                       </FormControl>
-                    </FormControl> 
+                    </FormControl>
 
                     <FormControl style={{ paddingLeft: '70px', paddingTop: '25px' }}>
                       <IconButton color="primary" aria-label="upload picture" component="label">
@@ -119,18 +119,18 @@ function UpdateProfile() {
                     <FormControl style={{ paddingLeft: '70px', paddingTop: '25px' }}>
                       <IconButton color="primary" aria-label="upload picture" component="label">
                         <ContactEmergencyIcon htmlColor='#7e3e9c' className='ProfileIcon' />
-                          <input hidden type="file" name="image2" accept="image/png, image/jpeg" onChange={(e) => {
-                            let file = e.target.files[0];
-                            if (file) { setCoverImage(file); }
-                            }} />
+                        <input hidden type="file" name="image2" accept="image/png, image/jpeg" onChange={(e) => {
+                          let file = e.target.files[0];
+                          if (file) { setCoverImage(file); }
+                        }} />
                       </IconButton>
                       <FormHelperText style={{ textAlign: "center" }} id="Occupation">{t("Enter new Cover Picture?")}</FormHelperText>
-                    </FormControl> 
+                    </FormControl>
                   </FormGroup>
-                  
+
                   <FormGroup row={true} id="submit-group" sx={{ marginTop: "1em" }}>
                     <FormControl fullWidth>
-                      <Button  variant="contained" type="submit" style={{ backgroundColor: 'purple' }} id="submit-button">{t("Save Changes")}</Button>
+                      <Button variant="contained" type="submit" style={{ backgroundColor: 'purple' }} id="submit-button">{t("Save Changes")}</Button>
                       {success && <div className='successDiv'>{success}</div>}
                     </FormControl>
                   </FormGroup>

@@ -14,7 +14,7 @@ const Conversation = ({ conversation, currentUser, selectedChat }) => {
     useEffect(() => {
         const friendId = conversation.members.find(m => m !== currentUser._id);
         const getUser = async () => {
-            await axios("http://localhost:7400/user/" + friendId).then(res => {
+            await axios(`${process.env.REACT_APP_API_URL}/user/` + friendId).then(res => {
                 setUser(res.data)
                 counter++;
             }).catch(
@@ -29,7 +29,7 @@ const Conversation = ({ conversation, currentUser, selectedChat }) => {
         //need to add profile picture
         <div className='conversation' style={selectedChat ? { borderRadius: "15px", backgroundColor: "#c7a7e6" } : {}}>
             {
-                user && <img className='conversationImg' src={`http://localhost:7400/images/${user?.profilePicture}`} alt="" />
+                user && <img className='conversationImg' src={`${process.env.REACT_APP_API_URL}/images/${user?.profilePicture}`} alt="" />
             }
             {
                 user && <span className="conversationName">{user?.firstName + " " + user?.lastName}</span>

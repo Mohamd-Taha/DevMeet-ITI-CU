@@ -39,7 +39,7 @@ const Messanger = () => {
 
     useEffect(() => {
         const getUser = async () => {
-            await axios.get("http://localhost:7400/api/messages/" + currentChat?._id).then(res => {
+            await axios.get(`${process.env.REACT_APP_API_URL}/api/messages/` + currentChat?._id).then(res => {
                 setMessages(res.data)
             }).catch(
                 err => {
@@ -61,7 +61,7 @@ const Messanger = () => {
 
     useEffect(() => {
         const getImgUser = async () => {
-            await axios.get("http://localhost:7400/user/" + user?._id).then(res => {
+            await axios.get(`${process.env.REACT_APP_API_URL}/user/` + user?._id).then(res => {
 
                 // setuserImg(res.data)
                 // img =res.data.profilePicture
@@ -112,7 +112,7 @@ const Messanger = () => {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const res = await axios.get("http://localhost:7400/api/conversations/" + user._id)
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/conversations/` + user._id)
                 setConversation(res.data);
                 console.log(res);
             } catch (err) {
@@ -148,7 +148,7 @@ const Messanger = () => {
             receiverId,
             text: newMessage,
         })
-        await axios.post("http://localhost:7400/api/messages/", message).
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/messages/`, message).
             then(res => {
                 setMessages([...messages, res.data])
                 console.log(res.data)
@@ -162,7 +162,7 @@ const Messanger = () => {
 
     const getUserImage = async () => {
         try {
-            const res = await axios.get(`http://localhost:7400/images/${user?.profilePicture}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/images/${user?.profilePicture}`)
             setUserImage(res.data)
             console.log("userImage is downloaded")
         }
@@ -173,7 +173,7 @@ const Messanger = () => {
     useEffect(() => {
         const getUserImage = async () => {
 
-            const res = await axios.get(`http://localhost:7400/images/${user?.profilePicture}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/images/${user?.profilePicture}`)
             console.log(res.data)
             setUserImage(res.data)
             console.log("userImage is downloaded")
