@@ -27,18 +27,18 @@ number of likes that has which is something you can consider as measure of the c
 
 1. Download the repo 
 2. go to ./Socket Directory and use 
-   * npm i , to install dependencies 
-   * nodemon index.js , to run the project
+   * `npm i` , to install dependencies 
+   * `nodemon index.js` , to run the project
 
 3. go to ./Server directory which is the responsible for providing the rest API
-   * npm i , to install dependencies 
-   * nodemon index.js , to run the project
+   * `npm i` , to install dependencies 
+   * `nodemon index.js` , to run the project
    * copy the url we will need this in react
    
 4. go to ./client directory which is the frontend proejct
-   * npm i , to install dependencies 
+   * `npm i` , to install dependencies 
    * open .env file and edit enviroment variables with the resulted url from running the backed servers
-   * run , npm start to run the project
+   * run , `npm start` to run the project
    
 ## Project status and roadmap:
 Future work will include:
